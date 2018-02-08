@@ -1,0 +1,9 @@
+pip install flask_sqlalchemy
+pip install flask_login
+pip install flask_script
+pip install flask_migrate
+pip install sqlalchemy-migrate
+pip install psycopg2
+pip install passlib
+pip install ddt
+pip install Flask-Mail

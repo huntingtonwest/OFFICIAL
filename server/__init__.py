@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from flask_login import LoginManager
-from flask_mail import Mail
+# from flask_mail import Mail
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -13,7 +13,7 @@ migrate = Migrate(app,db)
 manager = Manager(app)
 manager.add_command('db',MigrateCommand)
 
-mail = Mail(app)
+# mail = Mail(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -37,7 +37,9 @@ def error403(error):
 
 
 from server.views import general
+from server.views import administration
 app.register_blueprint(general.mod)
+app.register_blueprint(administration.mod)
 
 from server import models
 from server.models.users import Users
@@ -46,4 +48,8 @@ from server.models.users import Users
 def load_user(id):
     return Users.query.get(int(id))
 
+
+# from server.dbtest_init import properties, users, testdb_init
+
+# testdb_init(properties, users)
 

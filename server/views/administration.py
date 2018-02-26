@@ -16,11 +16,11 @@ def login_get():
 @mod.route('/login', methods=['POST'])
 def login_post():
 
-	username=None
+	email=None
 	password=None
 
-	if 'username' in request.form:
-		username = request.form['username']
+	if 'email' in request.form:
+		email = request.form['email']
 	else:
 		abort(400)
 
@@ -29,7 +29,15 @@ def login_post():
 	else:
 		abort(400)
 
-	return 1
+	try:
+		user = Users.query.filter_by(email=email, password=password).one()
+	except:
+		pass
+	if user:
+		login_user(user)
+		return redirect(url_for('administration.admin_home'))
+	else:
+		return "incorrect username or password"	
 
 @mod.route('/register', methods=['GET'])
 def register_get():
@@ -39,12 +47,12 @@ def register_get():
 def register_post():
 	return 1
 
-@mod.route('/a/create-user', methods=['GET'])
+@mod.route('/create-user', methods=['GET'])
 @login_required
 def create_user_get():
 	return 1
 
-@mod.route('/a/create-user', methods=['POST'])
+@mod.route('/create-user', methods=['POST'])
 @login_required
 def create_user_post():
 
@@ -59,4 +67,39 @@ def create_user_post():
 		abort(400)
 
 
+	return 1
+
+@mod.route('/home', methods=['GET'])
+@login_required
+def admin_home_get():
+	return 1
+
+@mod.route('/edit-property', methods=['GET'])
+@login_required
+def edit_property_get():
+	return 1
+
+@mod.route('/edit-property/<string:action>', methods=['POST'])
+@login_required
+def edit_property_post(action):
+
+	if action == "add":
+		add_property()
+
+	if action == "edit":
+		edit_property()
+
+	if action == "delete":
+		delete_property()
+
+	return 1
+
+
+def add_property():
+	return 1
+
+def edit_property():
+	return 1
+
+def delete_property():
 	return 1

@@ -17,8 +17,6 @@ class Users(UserMixin, db.Model):
     join_date = db.Column(db.DateTime(), default = datetime.utcnow)
 
     def __init__(self, input):
-        print('error')
-        
         columns = Users.__table__.columns
         for c in columns:
             if c.key in input:

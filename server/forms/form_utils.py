@@ -1,6 +1,9 @@
+
+
 #returns message for required field
 def required():
     return 'This field is required.'
+
 
 
 #makes sure that zipcode is 5 digits and is made up of numbers

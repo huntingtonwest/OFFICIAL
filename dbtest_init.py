@@ -1,5 +1,6 @@
 from server.models.users import Users
 from server.models.properties import Properties, PropertyTypes, Cities
+from server.models.associations import Associations
 
 from server.models.roles import Roles
 from passlib.hash import sha256_crypt
@@ -66,14 +67,14 @@ properties = [{
 	'city':'Reno',
 	'state': 'NV',
 	'zipcode': '33333',
-	'type':'house',
+	'type':'duplex',
 	'beds':1,
 	'baths': 0,
 	'price': 1000,
 	'for_sale':False,
 	'for_rent':True,
 	'area':500,
-	'notes':'This is a beautiful house',
+	'notes':'This is a beautiful duplex',
 	'poster_id':1,
 	'images':''
 	},
@@ -95,7 +96,18 @@ properties = [{
 	'poster_id':1,
 	'images':''
 	}]
+associations=[{
+	'acn_name':'acn1',
+	'acn_loc':'acn_loc1'
+	},{
+	'acn_name':'acn2',
+	'acn_loc':'acn_loc2'
+	},{
+	'acn_name':'acn3',
+	'acn_loc':'acn_loc3'
+	}]
 
+	
 
 def testdb_init(properties, users):
 	for u in users:
@@ -105,7 +117,7 @@ def testdb_init(properties, users):
 			user = Users(u)
 			db.session.add(user)
 			db.session.flush()
-			print('user added')
+			# print('user added')
 	
 	print('in props')
 	for p in properties:
@@ -118,7 +130,7 @@ def testdb_init(properties, users):
 			db.session.add(type)
 			db.session.flush()
 			p['type'] = type.type_id
-			print('property type added')
+			# print('property type added')
 	
 		try:
 			city = Cities.query.filter_by(city_name=p['city']).one()
@@ -129,18 +141,19 @@ def testdb_init(properties, users):
 			db.session.add(city)
 			db.session.flush()
 			p['city'] = city.city_id
-			print('city added')
+			# print('city added')
 	
 		try:
 			prop = Properties.query.filter_by(name=p['name']).one()
 		except:
 			new_prop = Properties(p)
 			db.session.add(new_prop)
-			print('property added')
+			# print('property added')
 
+	for a in associations:
+		asn = Associations(a['acn_name'], a['acn_loc'])
+		db.session.add(asn)
 
-	for p in properties:
-		print (p)
 
 	try:
 		db.session.commit()
@@ -148,3 +161,5 @@ def testdb_init(properties, users):
 	except:
 		db.session.rollback()
 		print('db init failed or already done before')
+
+testdb_init(properties, users)

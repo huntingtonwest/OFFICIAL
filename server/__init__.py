@@ -38,8 +38,10 @@ def error403(error):
 
 from server.views import general
 from server.views import administration
+from server.views import forms
 app.register_blueprint(general.mod)
 app.register_blueprint(administration.mod)
+app.register_blueprint(forms.mod)
 
 from server import models
 from server.models.users import Users

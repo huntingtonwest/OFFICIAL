@@ -3,15 +3,16 @@ from server.forms.form_utils import *
 
 
 
-class ConsultationForm(Form):
-    def regarding_validator(field):
-        message='Choose one.'
-        if not field.data in regarding_dropdown():
-            raise ValidationError(message)
+class ConsultationForm(Form):   
 
-    def regarding_dropdown(*args):
+    def regarding_dropdown(self):
         list = ['Association Management', 'Residential Property Management', 'Available Properties', 'Listing Properties', 'Employment Opportunities', 'Other']
         return list
+
+    def regarding_validator(self, field):
+        message='Choose one.'
+        if not field.data in self.regarding_dropdown():
+            raise ValidationError(message)
 
     first_name = StringField('First Name', [validators.DataRequired(message=required()),
                                             validators.Length(min=1, max=30, message=len_error_msg(min=1, max=30))])
@@ -25,7 +26,48 @@ class ConsultationForm(Form):
                                             regarding_validator])
     msg        = StringField('Message', [validators.Length(max=1000, message=len_error_msg(max=1000))])
 
+    def get_names(self):
+        names=[]
+        for x in self:
+            names.append(x.name)
+        return names
 
+
+class ContactForm(Form):
+
+    def subject_validator(self, field):
+        message = 'Choose one.'
+        options = ['Residential Property', 'Association']
+        if field.data not in options:
+            raise ValidationError(message)
+    def association_validator(self, field):
+        message = 'Choose one'
+        if not field.data in get_association():
+            raise ValidationError(message)
+
+
+
+    first_name  = StringField('First Name', [validators.DataRequired(message=required()),
+                                            validators.Length(min=1, max=30, message=len_error_msg(min=1, max=30))])
+    last_name   = StringField('Last Name', [validators.DataRequired(message=required()),
+                                            validators.Length(min=1, max=30, message=len_error_msg(min=1, max=30))])
+    subject     = StringField('Subject', [validators.DataRequired(message=required()),
+                                            subject_validator])
+    association = StringField('Association', [validators.DataRequired(message=required()),
+                                                association_validator])
+    unit        = StringField('Unit', [validators.DataRequired(message=required()),
+                                        validators.Length(min=1, max=20, message=len_error_msg(min=1, max=20))])
+    email       = StringField('Email', [validators.DataRequired(message=required()),
+                                        validators.Length(min=1, max=30, message=len_error_msg(min=1, max=100)),
+                                        validators.Email(message='Please enter a valid email.')])
+    phone_num   = StringField('Phone Number', [validators.Length(min=10,max=11, message='Please enter a valid phone number.')])
+    msg         = StringField('Message', [validators.Length(max=1000, message=len_error_msg(max=1000))])
+
+    def get_names(self):
+        names=[]
+        for x in self:
+            names.append(x.name)
+        return names
 
 
 

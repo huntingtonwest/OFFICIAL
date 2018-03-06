@@ -31,4 +31,3 @@ class Emails(db.Model):
 
     def __init__(self, email):
         self.email = email
-        self.password=password

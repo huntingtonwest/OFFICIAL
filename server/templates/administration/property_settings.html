@@ -1,0 +1,34 @@
+PROPERTY SETTINGS<br>
+<a href='/admin-home'>back to home</a>
+<br><br>
+AVAILABLE PROPERTIES<br>
+{% for p in available_properties %}
+
+name:{{p.name}}<br>
+address:<br>
+{{p.address_l1}}<br>
+{% if p.address_l2 %}
+{{p.address_l2}}<br>
+{% endif %}
+{{p.city_info.city_name}}, {{p.state}} {{p.zipcode}}<br>
+
+property type: {{p.type}}<br>
+beds/baths: {{p.beds}}/{{p.baths}}<br>
+
+price: ${{p.price}}<br>
+
+for sale: {{p.for_sale}}<br>
+for rent: {{p.for_rent}}<br>
+
+area: {{p.area}} sqft<br>
+notes:{{p.notes}}<br>
+
+date posted: {{p.date_posted}}<br>
+<a href="/edit-property/{{p.property_id}}">edit</a>
+<br><br>
+{% endfor %}
+
+
+{% for p in nonavailable_properties %}
+
+{% endfor %}

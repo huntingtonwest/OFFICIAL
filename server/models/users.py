@@ -13,6 +13,7 @@ class Users(UserMixin, db.Model):
     email = db.Column(db.String(200),unique=True)
     password = db.Column(db.String(80))
     is_admin = db.Column(db.Boolean(), default=False)
+    is_verified = db.Column(db.Boolean(), default=False)
 
     join_date = db.Column(db.DateTime(), default = datetime.utcnow)
 

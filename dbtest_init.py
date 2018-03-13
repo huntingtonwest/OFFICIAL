@@ -14,7 +14,8 @@ users = [{
 	"last":'kuriyama',
 	'email':'mirai@gmail.com',
 	'password':'party123',
-	'is_admin':True
+	'is_admin':True,
+	'is_verified':True
 	},
 	{
 	'first': 'rikka',

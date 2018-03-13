@@ -1,0 +1,23 @@
+EDIT PROPERTY<br>
+<a href="/property-settings">back to property settings</a>
+<br><br>
+
+<form action="/edit-property/{{property.property_id}}" method="post">
+name:<input name="name" value="{{property.name}}"><br>
+address line 1:<input name="address_l1" value="{{property.address_l1}}"><br>
+address line 2:<input name="address_l2" value="{{property.address_l2}}"><br>
+city:<input name="city" value="{{property.city_info.city_name}}"><br>
+state:<input name="state" value="{{property.state"}}><br>
+zipcode:<input name="zipcode" value="{{property.zipcode"}}><br>
+
+
+property type: <input {{p.type}}<br>
+beds/baths: {{p.beds}}/{{p.baths}}<br>
+
+price: ${{p.price}}<br>
+
+for sale: {{p.for_sale}}<br>
+for rent: {{p.for_rent}}<br>
+
+area: {{p.area}} sqft<br>
+notes:{{p.notes}}<br>

@@ -2,7 +2,7 @@ from server.models.users import Users
 from server.models.properties import Properties, PropertyTypes, Cities
 from server.models.associations import Associations
 
-from server.models.roles import Roles
+from server.models.roles import Roles, Emails
 from passlib.hash import sha256_crypt
 # from flask_mail import Message
 
@@ -107,7 +107,19 @@ associations=[{
 	'acn_name':'acn3',
 	'acn_loc':'acn_loc3'
 	}]
+roles=[{
+	'role_name':'Consultation Form Sender'
+	}
+	,{
+	'role_name':'Consultation Form Receiver'
+	}]
 
+emails=[{
+	'email':'hwptesting@gmail.com'
+	},
+	{
+	'email':'cooljoshua11@gmail.com'
+	}]
 	
 
 def testdb_init(properties, users):
@@ -154,6 +166,30 @@ def testdb_init(properties, users):
 	for a in associations:
 		asn = Associations(a['acn_name'], a['acn_loc'])
 		db.session.add(asn)
+
+	for e in emails:
+		try:
+			email = Emails.query.filter_by(email = e['email']).one()
+		except:
+			email = Emails(e['email'])
+			db.session.add(email)
+			db.session.flush()
+
+
+	for r in roles:
+		try:
+			role = Roles.query.filter_by(role_name = r['role_name']).one()
+		except:
+			role = Roles(r['role_name'])
+			db.session.add(role)
+			db.session.flush()
+			if r['role_name'] == 'Consultation Form Sender':
+				email = Emails.query.filter_by(email=emails[0]['email']).one()
+				role.add_email(email)
+			elif r['role_name'] == 'Consultation Form Receiver':
+				email = Emails.query.filter_by(email=emails[1]['email']).one()
+				role.add_email(email)
+
 
 
 	try:

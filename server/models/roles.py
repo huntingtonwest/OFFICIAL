@@ -21,13 +21,25 @@ class Roles(db.Model):
     def __init__(self, role_name):
         self.role_name=role_name
 
+    def add_email(self, email):
+        if not self.has_email(email):
+            self.emails.append(email)
+
+    def remove_email(self, email):
+        if self.has_email(email):
+            self.emails.remove(email)
+
+    def has_email(self, email):
+        return self.emails.filter(Emails.email_id == email.email_id).count() > 0
+
+   
+
 class Emails(db.Model):
     __tablename__ = 'Emails'
     email_id = db.Column(db.Integer, primary_key = True)
     email = db.Column(db.String(200), unique=True)
     # role_id = db.Column(db.Integer, db.ForeignKey())
 
-    db.UniqueConstraint('role_id', 'email')
 
     def __init__(self, email):
         self.email = email

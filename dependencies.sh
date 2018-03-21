@@ -9,3 +9,4 @@ pip install ddt
 pip install Flask-Mail
 pip install Flask-WTF
 pip install gunicorn
+pip install itsdangerous

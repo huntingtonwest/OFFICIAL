@@ -29,7 +29,7 @@ def init():
 #HOME
 @mod.route('/home', methods=['GET'])
 def home_get():
-	return render_template('general/home.html')
+	return jsonify(None)
 
 #PROPERTY MANAGEMENT
 #form_name = all the "names" of required fields of the consultation form
@@ -44,9 +44,9 @@ def property_management_get():
 
 	# print(form_names.data)
 	# print(regarding_dropdown.data)
-
+	print()
 	return render_template('general/property_management.html', form_names=form_names, regarding_dropdown=regarding_dropdown)
-
+	# return
 
 #AVAILABLE PROPERTIES
 #form_names = all the required fields of the consultation form

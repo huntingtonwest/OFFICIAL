@@ -1,14 +1,14 @@
 EDIT USER
 <br><br>
-<form action="/edit-user" method="post">
-	first name:<input name="first" value="{{user.first}}"><br>
-	last name:<input name="last" value="{{user.last}}"><br>
-	email:<input name="email" value="{{user.email}}"><br>
+<form action="/edit-user/{{user.id}}" method="post">
+	first name: {{user.first}}<br>
+	last name: {{user.last}}<br>
+	email: {{user.email}}<br>
 
 	{% if user.is_admin %}
-	status:<input type="checkbox" name="is_admin" checked><br>
+	admin status:<input type="checkbox" name="is_admin" checked><br>
 	{% else %}
-	status:<input type="checkbox" name="is_admin" ><br>
+	admin status:<input type="checkbox" name="is_admin" ><br>
 
 	{% endif %}
 	<input type="submit">

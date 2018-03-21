@@ -4,6 +4,8 @@ from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from flask_login import LoginManager
 from flask_mail import Mail
+from itsdangerous import URLSafeTimedSerializer
+from config import serializer_key
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -15,9 +17,11 @@ manager.add_command('db',MigrateCommand)
 
 mail = Mail(app)
 
+s = URLSafeTimedSerializer(serializer_key)
+
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = 'general.login_get'
+login_manager.login_view = 'administration.login_get'
 
 
 @app.errorhandler(400)

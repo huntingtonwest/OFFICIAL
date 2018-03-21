@@ -4,7 +4,12 @@
 def required():
     return 'This field is required.'
 
+def return_bool(form, field):
+    
 
+
+
+    return False
 
 #makes sure that zipcode is 5 digits and is made up of numbers
 def zipcode_check(form, field):
@@ -21,7 +26,7 @@ def zipcode_check(form, field):
 
 
 #makes sure the number is an integer or is in an increment of 0.5
-def decimal_check(form, field, digits):
+def decimal_check(form, field):
     message = '{} must be an integer or in increments of 0.5'.format(field.name)
 
     s = str(field.data)
@@ -54,3 +59,4 @@ def int_error_msg(**kwargs):
         return 'This field can only be a maximum of {}.'.format(kwargs['max'])
     else:
         return ''
+

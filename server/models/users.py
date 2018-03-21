@@ -12,16 +12,14 @@ class Users(UserMixin, db.Model):
 
     email = db.Column(db.String(200),unique=True)
     password = db.Column(db.String(80))
+    is_master = db.Column(db.Boolean(), default=False)
     is_admin = db.Column(db.Boolean(), default=False)
     is_verified = db.Column(db.Boolean(), default=False)
 
     join_date = db.Column(db.DateTime(), default = datetime.utcnow)
 
-    def __init__(self, input):
-        columns = Users.__table__.columns
-        for c in columns:
-            if c.key in input:
-                setattr(self,c.key, input[c.key])
+    def __init__(self, email):
+        self.email = email
 
     # def __init__(self, first, last, email, password):
     #     self.first = first

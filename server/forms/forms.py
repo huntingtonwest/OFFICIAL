@@ -1,7 +1,15 @@
-from wtforms import Form, BooleanField, IntegerField, StringField, DecimalField, validators
+from wtforms import Form, BooleanField, IntegerField, StringField, DecimalField, validators, ValidationError
 from server.forms.form_utils import *
+from server.models.associations import Associations
 
 
+# class LoginForm(Form):
+
+# class RegisterForm(Form):
+
+# class PropertyForm():
+
+# class AssociationForm():
 
 class ConsultationForm(Form):   
 
@@ -40,11 +48,19 @@ class ContactForm(Form):
         options = ['Residential Property', 'Association']
         if field.data not in options:
             raise ValidationError(message)
-    def association_validator(self, field):
-        message = 'Choose one'
-        if not field.data in get_association():
+    
+    def is_association(self,acn_name):
+        association = Associations.query.all()
+        for a in association:
+            if acn_name == a.acn_name:
+                return True
+        return False
+    
+    def if_association(self, field):
+        subject = self._fields.get('subject')
+        if subject.data == 'Association' and not self.is_association(field.data):
+            message = "You must choose a valid association"
             raise ValidationError(message)
-
 
 
     first_name  = StringField('First Name', [validators.DataRequired(message=required()),
@@ -53,8 +69,7 @@ class ContactForm(Form):
                                             validators.Length(min=1, max=30, message=len_error_msg(min=1, max=30))])
     subject     = StringField('Subject', [validators.DataRequired(message=required()),
                                             subject_validator])
-    association = StringField('Association', [validators.DataRequired(message=required()),
-                                                association_validator])
+    association = StringField('Association', [if_association])
     unit        = StringField('Unit', [validators.DataRequired(message=required()),
                                         validators.Length(min=1, max=20, message=len_error_msg(min=1, max=20))])
     email       = StringField('Email', [validators.DataRequired(message=required()),

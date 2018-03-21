@@ -8,7 +8,7 @@ from passlib.hash import sha256_crypt
 from flask_mail import Message
 
 
-from server.utils.hwp_email_template import html_consultation_form
+from server.utils.hwp_email_template import html_consultation_form, html_contact_form
 # from validate_email import validate_email
 
 from server.forms.forms import ConsultationForm, ContactForm
@@ -41,7 +41,6 @@ def consultation_form_post():
 
 	try:
 		sender = Roles.query.filter_by(role_name='Consultation Form Sender').one()
-		print(sender)
 		receivers = Roles.query.filter_by(role_name='Consultation Form Receiver').one()
 	except:
 		abort(400)
@@ -50,18 +49,48 @@ def consultation_form_post():
 	recipients = [r.email for r in receivers.emails]
 	sender = [s.email for s in sender.emails]
 
-	msg = Message()
+
+	msg = Message('"{}" Consultation Form Submission'.format(name), sender=sender[0], recipients=recipients)
 	msg.html = email_content
-	msg.recipients = recipients
-	msg.sender = sender
-	msg.subject = 'Consultation Form Submission'
+	try:
+		mail.send(msg)
+	except:
+		return 'email was not successfully sent'
 
-	mail.send(msg)
+	return 'consultation success!'
 
-	#send email
-
-	return 1
-
-@mod.route('/consultation-form', methods=['POST'])
+@mod.route('/contact-form', methods=['POST'])
 def contact_form_post():
-	return 1
+
+	form = ContactForm(request.form)
+
+	if not form.validate():
+		abort(400)
+
+	name = form['first_name'].data + " " + form['last_name'].data
+	email_content = html_contact_form(name = name,
+										email = form['email'].data,
+										phone_num =form['phone_num'].data,
+										subject = form['subject'].data,
+										association = form['association'].data,
+										unit=form['unit'].data,
+										msg = form['msg'].data
+										)
+
+	try:
+		sender = Roles.query.filter_by(role_name='Contact Form Sender').one()
+		receivers = Roles.query.filter_by(role_name='Contact Form Receiver').one()
+	except:
+		abort(400)
+
+	# recipients = receivers.emails
+	recipients = [r.email for r in receivers.emails]
+	sender = [s.email for s in sender.emails]
+
+	msg = Message('"{}" Contact Form Submission'.format(name), sender=sender[0], recipients=recipients)
+	msg.html = email_content
+	try:
+		mail.send(msg)
+	except:
+		return 'email was not successfully sent'
+	return 'contact success!'

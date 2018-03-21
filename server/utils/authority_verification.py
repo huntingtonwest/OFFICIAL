@@ -1,6 +1,6 @@
 from functools import wraps
 from flask_login import login_required, current_user
-
+from flask import abort
 
 def is_admin(test):
     @wraps(test)

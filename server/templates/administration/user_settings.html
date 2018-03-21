@@ -16,11 +16,12 @@ status:user
 account creation date: {{u.join_date}}<br>
 <a href="/edit-user/{{u.id}}">edit</a>
 <form action='/delete-user' method="post">
+	<input type="hidden" name="id" value="{{u.id}}">
 	<input type="submit" value="delete">
 </form>
 <br><br>
 {% endfor %}
-
+<a href='/create-user'>create user</a><br><br>
 WAITING FOR USER VERIFICATION<br><br>
 {% for p in not_verified %}
 
@@ -28,7 +29,11 @@ first name:{{p.first}}<br>
 last name:{{p.last}}<br>
 email: {{p.email}}<br>
 invited on: {{p.join_date}}<br>
-
+<form action='/resend-invitation' method="post">
+	<input type="hidden" name="id" value="{{p.id}}">
+	<input type="hidden" name="email" value="{{p.email}}">
+	<input type="submit" value="resend invitation">
+</form>
 <form action='/delete-user/{{p.id}}' method="post">
 	<input type="submit" value="delete">
 </form>

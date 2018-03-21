@@ -69,13 +69,17 @@ def available_properties_get():
 
 	properties = []
 	for x in p:
-		properties = serialize(x, Properties)
+		prop = serialize(x, Properties)
 
-		properties['city'] = x.city_info.city_name
-		properties['type'] = x.type_info.type_name
+		prop['city'] = x.city_info.city_name
+		prop['type'] = x.type_info.type_name
+
+		properties.append(prop)
 
 	#get list of viable filters
 	filters=jsonify(filter_categories)
+
+	print(properties)
 
 	# page = request.args.get('page', 1, type=int)
 	# property_list = properties.paginate(page, app.config['PROPERTIES_PER_PAGE'], False)

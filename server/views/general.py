@@ -23,7 +23,8 @@ mod = Blueprint('general', __name__)
 
 @mod.route('/', methods = ['GET'])
 def init():
-	return jsonify({'status':'success'})
+	return "hwp home"
+	# return jsonify({'status':'success'})
 
 #returns list of all properties that are for sale or for rent
 @mod.route('/get-properties', methods=['GET'])

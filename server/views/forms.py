@@ -30,7 +30,6 @@ def consultation_form_post():
 	if not form.validate():
 		abort(400)
 
-
 	name = form['first_name'].data + " " + form['last_name'].data
 	email_content = html_consultation_form(name = name,
 										email = form['email'].data,
@@ -55,9 +54,10 @@ def consultation_form_post():
 	try:
 		mail.send(msg)
 	except:
-		return 'email was not successfully sent'
+		return jsonify({'status':'error', 'msg': 'Form failed to send. Please try again.'})
 
-	return 'consultation success!'
+	return jsonify({'status':'success', 'msg': 'Consultation form was successfully sent! Someone will contact you soon.'})
+
 
 @mod.route('/contact-form', methods=['POST'])
 def contact_form_post():
@@ -92,5 +92,5 @@ def contact_form_post():
 	try:
 		mail.send(msg)
 	except:
-		return 'email was not successfully sent'
-	return 'contact success!'
+		return jsonify({'status':'error', 'msg': 'Form failed to send. Please try again.'})
+	return jsonify({'status':'success', 'msg': 'Contact form was successfully sent! Someone will contact you soon.'})

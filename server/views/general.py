@@ -19,8 +19,6 @@ from server import db
 
 mod = Blueprint('general', __name__)
 
-filter_categories = ['city', 'beds', 'baths', 'price_min','price_max', 'type', 'area_min', 'area_max', 'status']
-
 
 
 @mod.route('/', methods = ['GET'])

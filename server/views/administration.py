@@ -31,7 +31,7 @@ def login_get():
 @mod.route('/login', methods=['POST'])
 def login_post():
 
-
+	if current_user.is_anonymous
 
 	email=""
 	password=""

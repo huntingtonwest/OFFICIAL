@@ -21,6 +21,8 @@ mod = Blueprint('general', __name__)
 
 filter_categories = ['city', 'beds', 'baths', 'price_min','price_max', 'type', 'area_min', 'area_max', 'status']
 
+
+
 @mod.route('/', methods = ['GET'])
 def init():
     return redirect(url_for('general.home_get'))
@@ -42,8 +44,6 @@ def property_management_get():
 	form_names = jsonify(consultation_form.get_names())
 	regarding_dropdown = jsonify(consultation_form.regarding_dropdown())
 
-	# print(form_names.data)
-	# print(regarding_dropdown.data)
 
 	# return render_template('general/property_management.html', form_names=form_names, regarding_dropdown=regarding_dropdown)
 	return jsonify({'form_names':form_names, 'regarding_dropdown':regarding_dropdown})
@@ -88,7 +88,7 @@ def available_properties_get():
 
 	# return render_template('general/available_properties.html', form_names=form_names, regarding_dropdown=regarding_dropdown, \
 	# 	properties=properties, filters=filters)
-	return jsonify({'form_names':form_names, 'regarding_dropdown':regarding_dropdown, 'properties':properties, 'filters':filters})
+	return jsonify({'properties':properties})
 
 #will be done on react. therefore not yet tested
 @mod.route('/available-properties/filter', methods=['POST'])

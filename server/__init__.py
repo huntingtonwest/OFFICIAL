@@ -6,6 +6,7 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from itsdangerous import URLSafeTimedSerializer
 from config import serializer_key
+from flask_cors import CORS
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -16,6 +17,7 @@ manager = Manager(app)
 manager.add_command('db',MigrateCommand)
 
 mail = Mail(app)
+CORS(app)
 
 s = URLSafeTimedSerializer(serializer_key)
 

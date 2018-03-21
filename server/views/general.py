@@ -45,7 +45,9 @@ def property_management_get():
 	# print(form_names.data)
 	# print(regarding_dropdown.data)
 
-	return render_template('general/property_management.html', form_names=form_names, regarding_dropdown=regarding_dropdown)
+	# return render_template('general/property_management.html', form_names=form_names, regarding_dropdown=regarding_dropdown)
+	return jsonify({'form_names':form_names, 'regarding_dropdown':regarding_dropdown})
+
 
 
 #AVAILABLE PROPERTIES
@@ -80,8 +82,9 @@ def available_properties_get():
 
 	# print(properties)
 
-	return render_template('general/available_properties.html', form_names=form_names, regarding_dropdown=regarding_dropdown, \
-		properties=properties, filters=filters)
+	# return render_template('general/available_properties.html', form_names=form_names, regarding_dropdown=regarding_dropdown, \
+	# 	properties=properties, filters=filters)
+	return jsonify({'form_names':form_names, 'regarding_dropdown':regarding_dropdown, 'properties':properties, 'filters':filters})
 
 #will be done on react. therefore not yet tested
 @mod.route('/available-properties/filter', methods=['POST'])
@@ -133,7 +136,8 @@ def available_properties_sort_post():
 #ABOUT
 @mod.route('/about', methods=['GET'])
 def about_get():
-	return render_template('general/about.html')
+	return jsonify({'status':'success'})
+	# return render_template('general/about.html')
 
 #RESOURCES
 #form_names = all the required fields of the specified form
@@ -153,8 +157,11 @@ def resources_get():
 	asn_dropdown = jsonify(get_associations())
 
 
-	return render_template('general/resources.html',  consultation_form_names=consultation_form_names, consultation_regarding_dropdown=consultation_regarding_dropdown,
-		contact_form=contact_form, contact_form_names=contact_form_names, asn_dropdown=asn_dropdown)
+	# return render_template('general/resources.html',  consultation_form_names=consultation_form_names, consultation_regarding_dropdown=consultation_regarding_dropdown,
+	# 	contact_form=contact_form, contact_form_names=contact_form_names, asn_dropdown=asn_dropdown)
+
+	return jsonify({'consultation_form_names':consultation_form_names, 'consultation_regarding_dropdown':consultation_regarding_dropdown,
+		'contact_form_names':contact_form_names, 'asn_dropdown':asn_dropdown})
 
 #CONTACT
 # form_names = all the required fields of the consultation form
@@ -169,6 +176,8 @@ def contact_get():
 
 
 
-	return render_template('general/contact.html', form_names=form_names, regarding_dropdown=regarding_dropdown)
+	# return render_template('general/contact.html', form_names=form_names, regarding_dropdown=regarding_dropdown)
+
+	return jsonify({'form_names':form_names, 'regarding_dropdown':regarding_dropdown})
 
 

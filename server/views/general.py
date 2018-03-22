@@ -23,7 +23,7 @@ mod = Blueprint('general', __name__)
 
 @mod.route('/', methods = ['GET'])
 def init():
-	return "hwp home"
+	return 'hwp home'
 	# return jsonify({'status':'success'})
 
 #returns list of all properties that are for sale or for rent
@@ -50,5 +50,27 @@ def get_associations_get():
 
 	return jsonify({'associations':associations})
 
+@mod.route('/property-test')
+def test():
 
+	p = Properties.query.filter(or_(Properties.for_sale == True, Properties.for_rent == True)).all()
+
+	properties = []
+	for x in p:
+		prop = serialize(x, Properties)
+
+		prop['city'] = x.city_info.city_name
+		prop['type'] = x.type_info.type_name
+
+		properties.append(prop)
+
+
+	return render_template('general/available_properties', properties=properties)
+
+@mod.route('/ass-test')
+def ass_test():
+
+	associations = jsonify(get_associations())
+
+	return render_template('general/resources.html', ass=associations)
 

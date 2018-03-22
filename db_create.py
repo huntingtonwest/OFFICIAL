@@ -178,15 +178,19 @@ try:
 			db.session.add(association)
 
 	#load master user
-	user = Users(email='bestgirlshiina@gmail.com')
-	db.session.add(user)
-	db.session.flush()
-	user.first = 'shiina'
-	user.last = 'mashiiro'
-	user.password = 'sakurasou'
-	user.is_master = True
-	user.is_admin = True
-	user.is_verified = True
+
+	try:
+		user = Users.query.filter_by(email='bestgirlshiina@gmail.com').one()
+	except:
+		user = Users(email='bestgirlshiina@gmail.com')
+		db.session.add(user)
+		db.session.flush()
+		user.first = 'shiina'
+		user.last = 'mashiiro'
+		user.password = 'sakurasou'
+		user.is_master = True
+		user.is_admin = True
+		user.is_verified = True
 
 	db.session.commit()
 	print('success')

@@ -132,7 +132,7 @@ try:
 		except:
 			new_prop = Properties(p)
 			db.session.add(new_prop)
-			# print('property added')
+			print('property added')
 
 
 	for r in roles:

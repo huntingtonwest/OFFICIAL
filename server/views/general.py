@@ -46,12 +46,12 @@ def get_properties_get():
 @mod.route('/get-associations', methods=['GET'])
 def get_associations_get():
 
-	associations = jsonify(get_associations())
+	associations = get_associations()
 
 	return jsonify({'associations':associations})
 
 @mod.route('/property-test')
-def test():
+def prop_test():
 
 	p = Properties.query.filter(or_(Properties.for_sale == True, Properties.for_rent == True)).all()
 
@@ -70,7 +70,7 @@ def test():
 @mod.route('/ass-test')
 def ass_test():
 
-	associations = jsonify(get_associations())
+	associations = get_associations()
 
 	return render_template('general/resources.html', ass=associations)
 

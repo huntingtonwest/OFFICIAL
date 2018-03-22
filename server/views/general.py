@@ -45,9 +45,6 @@ def get_properties_get():
 @mod.route('/get-associations', methods=['GET'])
 def get_associations_get():
 
-	associations = jsonify(get_associations())
+	associations = (get_associations())
 
 	return jsonify({'associations':associations})
-
-
-

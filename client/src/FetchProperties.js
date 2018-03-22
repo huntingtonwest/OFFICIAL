@@ -14,7 +14,7 @@ class FetchProperties extends React.Component {
 
   componentWillMount() {
 
-    fetch('http://127.0.0.1:5000/get-properties')
+    fetch('https://my-hwp.herokuapp.com/get-properties')
     .then(results => {
       return results.json();
     }).then(data => {

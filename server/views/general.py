@@ -65,7 +65,7 @@ def test():
 		properties.append(prop)
 
 
-	return render_template('general/available_properties', properties=properties)
+	return render_template('general/available_properties.html', properties=properties)
 
 @mod.route('/ass-test')
 def ass_test():

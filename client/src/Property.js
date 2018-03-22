@@ -5,7 +5,8 @@ class Property extends React.Component {
 
   render() {
     return (
-      <Col xs={12} md={4} className="property-thumbnail">
+      <Col xs={12} md={6} lg={4} className="property-card" key={this.props.key}>
+      <div className="property-thumbnail">
           <div className="thumbnail">
             <Image src={this.props.img} responsive className="property-pic" />
             </div>
@@ -31,6 +32,7 @@ class Property extends React.Component {
               <Button bsStyle="primary" className="property-details-button">View Details</Button>
               <Button bsStyle="default" className="property-apply-button">Apply Now</Button>
             </p>
+            </div>
             </div>
       </Col>
     );

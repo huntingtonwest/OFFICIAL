@@ -31,10 +31,10 @@ def login_get():
 @mod.route('/login', methods=['POST'])
 def login_post():
 
-	if current_user.is_anonymous
+	if current_user.is_anonymous:
 
-	email=""
-	password=""
+		email=""
+		password=""
 
 	if 'email' in request.form and 'password' in request.form and len(request.form['password'].strip()) > 0:
 		email = request.form['email']
@@ -50,7 +50,7 @@ def login_post():
 		login_user(user)
 		return redirect(url_for('administration.admin_home_get'))
 	else:
-		return "incorrect username or password"	
+		return "incorrect username or password"
 
 @mod.route('/logout', methods=['GET'])
 def logout():
@@ -119,7 +119,7 @@ def admin_home_get():
 
 
 """
-USER SETTINGS - allows admins to control who has access to admin 
+USER SETTINGS - allows admins to control who has access to admin
 """
 @mod.route('/user-settings', methods=['GET'])
 @login_required
@@ -145,7 +145,7 @@ def create_user_post():
 	email = request.form['email']
 
 	user = Users(email=email)
-	
+
 
 	try:
 		role = Roles.query.filter_by(role_name='User Registration').one()
@@ -220,7 +220,7 @@ def delete_user():
 		return 'only the master admin can delete admin accounts'
 	if user.id == current_user.id:
 		return 'you cannot delete your own account'
-		
+
 
 	try:
 		print('here')
@@ -289,7 +289,7 @@ def property_settings_get():
 	available_properties = Properties.query.filter(or_(Properties.for_rent==True, Properties.for_sale==True)).all()
 	nonavailable_properties = Properties.query.filter_by(for_rent=False, for_sale=False).all()
 
-	return render_template('administration/property_settings.html', available_properties=available_properties, 
+	return render_template('administration/property_settings.html', available_properties=available_properties,
 		nonavailable_properties=nonavailable_properties)
 
 @mod.route('/edit-property/<string:property_id>', methods=['GET'])

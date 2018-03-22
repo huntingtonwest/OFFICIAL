@@ -9,6 +9,7 @@ import BannerProperties from './BannerProperties';
 import Areas from './Areas';
 import Property from './Property';
 import MapContainer from './Map'
+import Fetch from './FetchProperties'
 
 
 class AvailableProperties extends Component {
@@ -20,72 +21,7 @@ class AvailableProperties extends Component {
           <div className="search-map">
             <MapContainer />
           </div>
-          <Grid>
-          <Row className="properties-row">
-        <Property
-          img="http://via.placeholder.com/350x250"
-          rent="$3,295"
-          sqrft="1,576"
-          bed="3"
-          bath="3"
-          desc="Gated 2 Bedroom Bath Condo Next to South Coast Plaza In Santa Ana."
-          address="3641 S Bear Sr #E, Santa Ana, CA 92704"
-          availability="Available Now"
-          />
-          <Property
-            img="http://via.placeholder.com/350x250"
-            rent="$3,295"
-            sqrft="1,576"
-            bed="3"
-            bath="3"
-            desc="Gated 2 Bedroom Bath Condo Next to South Coast Plaza In Santa Ana."
-            address="3641 S Bear Sr #E, Santa Ana, CA 92704"
-            availability="Available Now"
-            />
-            <Property
-              img="http://via.placeholder.com/350x250"
-              rent="$3,295"
-              sqrft="1,576"
-              bed="3"
-              bath="3"
-              desc="Gated 2 Bedroom Bath Condo Next to South Coast Plaza In Santa Ana."
-              address="3641 S Bear Sr #E, Santa Ana, CA 92704"
-              availability="Available Now"
-              />
-        </Row>
-        <Row className="properties-row">
-      <Property
-        img="http://via.placeholder.com/350x250"
-        rent="$3,295"
-        sqrft="1,576"
-        bed="3"
-        bath="3"
-        desc="Gated 2 Bedroom Bath Condo Next to South Coast Plaza In Santa Ana."
-        address="3641 S Bear Sr #E, Santa Ana, CA 92704"
-        availability="Available Now"
-        />
-        <Property
-          img="http://via.placeholder.com/350x250"
-          rent="$3,295"
-          sqrft="1,576"
-          bed="3"
-          bath="3"
-          desc="Gated 2 Bedroom Bath Condo Next to South Coast Plaza In Santa Ana."
-          address="3641 S Bear Sr #E, Santa Ana, CA 92704"
-          availability="Available Now"
-          />
-          <Property
-            img="http://via.placeholder.com/350x250"
-            rent="$3,295"
-            sqrft="1,576"
-            bed="3"
-            bath="3"
-            desc="Gated 2 Bedroom Bath Condo Next to South Coast Plaza In Santa Ana."
-            address="3641 S Bear Sr #E, Santa Ana, CA 92704"
-            availability="Available Now"
-            />
-      </Row>
-    </Grid>
+          <Fetch />
         <ConsultationForm />
         </div>
       </div>

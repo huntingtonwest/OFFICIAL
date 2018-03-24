@@ -28,10 +28,10 @@ class Property extends React.Component {
             <p className="property-desc">{this.props.desc}</p>
             <p className="property-address">{this.props.address}</p>
             <p className="property-availability">{this.props.availability}</p>
-            <p className="property-buttons">
+            <div className="property-buttons">
               <Button bsStyle="primary" className="property-details-button">View Details</Button>
               <Button bsStyle="default" className="property-apply-button">Apply Now</Button>
-            </p>
+            </div>
             </div>
             </div>
       </Col>

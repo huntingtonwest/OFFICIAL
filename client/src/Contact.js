@@ -3,12 +3,13 @@ import logo from './logo.svg';
 import './App.css';
 import './index.css';
 import MyNavbar from './Navbar';
-import { ControlLabel, FormGroup, FormControl, Jumbotron, Image , Grid, Row, Col, Tab, Nav, NavItem, Thumbnail} from 'react-bootstrap';
+import { ControlLabel, FormGroup, FormControl, Jumbotron, Image , Grid, Row, Col, Tab, Nav, NavItem, Thumbnail, Glyphicon} from 'react-bootstrap';
 import ConsultationForm from './ScheduleForm';
 import Banner from './Banner';
 import Areas from './Areas';
 import Property from './Property';
 import MapContainer from './Map'
+import Footer from './Footer'
 
 
 function FieldGroup({ id,label, ...props }) {
@@ -24,17 +25,17 @@ class Contact extends Component {
   render() {
     return (
       <div className="Contact">
-        <Banner title="GET IN TOUCH" img="http://via.placeholder.com/2450x800"/>
+        <Banner id="resources-banner" title="GET IN TOUCH" img="https://s3.us-east-2.amazonaws.com/hwp-frontend/static/media/iStock-885426092.jpg"/>
         <Grid>
           <Row className="contact-first-row">
             <Col xs={12} md={6} className="contact-address">
             <Image src="http://via.placeholder.com/500x200" responsive className="contact-pic"/>
-            <p>13812 Goldenwest St. Westminster, CA 92683</p>
-            <p>(714) 891-1522</p>
-            <p>Toll Free: (800) 655-1522</p>
-            <p>(714) 897-9120</p>
+            <p><Glyphicon glyph="map-marker" className="glyph-contact"/> 13812 Goldenwest St. Westminster, CA 92683</p>
+            <p><Glyphicon glyph="phone-alt" className="glyph-contact"/> (714) 891-1522</p>
+            <p><Glyphicon glyph="earphone" className="glyph-contact"/> Toll Free: (800) 655-1522</p>
+            <p><Glyphicon glyph="phone-alt" className="glyph-contact"/> (714) 897-9120</p>
             </Col>
-            <Col xs={12} md={6} className="contact-form">
+            <Col xs={12} md={6} className="contact-form" id="form">
             <form>
             <div className="left">
 
@@ -76,6 +77,7 @@ class Contact extends Component {
             </Col>
           </Row>
         </Grid>
+        <Footer bg="white"/>
         </div>
     );
   }

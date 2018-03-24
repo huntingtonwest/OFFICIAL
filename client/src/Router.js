@@ -9,6 +9,7 @@ import PropertyManagement from './PropertyManagement';
 import About from './About';
 import AvailableProperties from './AvailableProperties';
 import Contact from './Contact';
+import Resources from './Resources';
 
 const Main = () => (
   <Router>
@@ -18,6 +19,7 @@ const Main = () => (
         <Route path="/about" component={About} />
         <Route path="/availableProperties" component={AvailableProperties} />
         <Route path="/contact" component={Contact} />
+        <Route path="/resources" component={Resources} />
       </Switch>
       </div>
   </Router>

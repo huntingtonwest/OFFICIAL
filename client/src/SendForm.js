@@ -3,7 +3,7 @@ import './index.css';
 import Property from './Property'
 import { Grid, Row} from 'react-bootstrap';
 
-class FetchProperties extends React.Component {
+class SendForm extends React.Component {
 
   constructor() {
     super();
@@ -14,7 +14,7 @@ class FetchProperties extends React.Component {
 
   componentWillMount() {
 
-    fetch('https://realhwptest.herokuapp.com/get-properties')
+    fetch('http://127.0.0.1:5000/get-properties')
     .then(results => {
       return results.json();
     }).then(data => {
@@ -27,7 +27,7 @@ class FetchProperties extends React.Component {
         return (
           <Property
             key={property.property_id}
-            img="http://www.eplans.com/house-plans/media/catalog/product/a/m/ama879-fr-re-co.jpg"
+            img="http://via.placeholder.com/400x300"
             rent={property.price}
             sqrft={property.area}
             bed={property.beds}
@@ -57,4 +57,4 @@ class FetchProperties extends React.Component {
 }
 
 
-export default FetchProperties;
+export default SendForm;

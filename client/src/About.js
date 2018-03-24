@@ -7,6 +7,7 @@ import { Jumbotron, Image , Grid, Row, Col, Tab, Nav, NavItem, Thumbnail} from '
 import ConsultationForm from './ScheduleForm';
 import Banner from './Banner';
 import Areas from './Areas';
+import Footer from './Footer';
 
 class TeamMember extends Component {
 
@@ -29,14 +30,14 @@ class About extends Component {
   render() {
     return (
       <div className="About">
-        <Banner title="OUR STORY" img="http://via.placeholder.com/2450x800"/>
+        <Banner title="OUR STORY" img="https://s3.us-east-2.amazonaws.com/hwp-frontend/static/media/iStock-601896892.jpg"/>
         <div className="under-banner">
-        <div className="desc-container tab-desc">
-        <p>Huntington West Properties, Inc. wsa founded in 1979 and has served clients in Orange, Los Angeles and San Diego Counties for more than 30 years. Our firm has experience managing Community Associations, Condominiums, Planned Unit Developments and both residential and commercial rental properties.</p>
+        <div className="desc-container about-desc">
+        <p>Huntington West Properties, Inc. was founded in 1979 and has served clients in Orange, Los Angeles and San Diego Counties for more than 30 years. Our firm has experience managing Community Associations, Condominiums, Planned Unit Developments and both residential and commercial rental properties.</p>
         </div>
         <div className="desc-container">
         <Grid>
-  <Row className="about-row">
+  <Row className="about-row" id="mission">
     <Col xs={12} md={6} className="dark-blue">
       <div className="about-row-info">
         <h1 className="about-row-title">MISSION</h1>
@@ -46,20 +47,18 @@ class About extends Component {
     <Col xs={12} md={6} className="light-blue">
       <div className="about-row-info">
         <h1 className="about-row-title">VALUES</h1>
-        <p>
         <ul>
         <li>Our actions area based on the highest standardof integrity and Chistian ethics.</li>
         <li>We perform our work with dilligence and professionalist.</li>
         <li>We will strive to improve our performance and service wherever possible.</li>
         <li>We are loyal to our customers, our vendors, our company and each other.</li>
         </ul>
-        </p>
-      </div>
+        </div>
     </Col>
   </Row>
   </Grid>
         </div>
-        <div className="desc-container">
+        <div className="desc-container" id="team">
         <h1 className="title-container">OUR TEAM</h1>
         <br/><br/>
           <Grid className="about-grid">
@@ -118,6 +117,7 @@ class About extends Component {
           </Grid>;
         </div>
       </div>
+      <Footer/>
       </div>
     );
   }

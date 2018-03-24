@@ -4,15 +4,25 @@ import { Image } from 'react-bootstrap';
 import './index.css';
 
 class Banner extends React.Component {
+
   render() {
+    const bg = this.props.img;
+
+    const divStyle = {
+      backgroundImage: "url(" + bg + ")",
+      backgroundRepeat:'no-repeat',
+      backgroundPosition: 'center center',
+      backgroundSize:'cover',
+      height: 450,
+      marginTop: -58
+    };
+
     return (
-      <div className="page-inner">
-          <div className="img-section text-center">
-              <Image src={this.props.img} responsive className="img-banner" />
-              <div className="title-container">
-                <h1 className="title-banner">{this.props.title}</h1>
-              </div>
-          </div>
+      <div className="text-center search-banner" style={divStyle}>
+        <div className="search-inner">
+          <h1 className="title-banner title-lower-banner">{this.props.title}</h1>
+          <br />
+        </div>
       </div>
     );
   }

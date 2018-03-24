@@ -5,55 +5,50 @@ import './index.css';
 import MyNavbar from './Navbar';
 import { Jumbotron, Image , Grid, Row, Col, Tab, Nav, NavItem} from 'react-bootstrap';
 import ConsultationForm from './ScheduleForm';
+import CitySearch from './CitySearch';
 import Banner from './Banner';
 import Areas from './Areas';
+import { Tabs } from 'antd';
+import Footer from './Footer'
+
+const TabPane = Tabs.TabPane;
 
 class PropertyManagement extends Component {
   render() {
     return (
       <div className="App">
-        <Banner title="PROPERTY MANAGEMENT" img="http://via.placeholder.com/2450x800"/>
+        <Banner title="PROPERTY MANAGEMENT" img="https://s3.us-east-2.amazonaws.com/hwp-frontend/static/media/iStock-692718260.jpg"/>
         <div className="under-banner">
         <div className="desc-container">
-        <h1 className="title-container">OUR SERVICES</h1>
+        <h1 className="title-container" id="our-services">OUR SERVICES</h1>
         <br/>
-          <Tab.Container defaultActiveKey="first">
-          <Row className="clearfix">
-            <Col sm={12}>
-              <Nav bsStyle="pills" className="nav-tabs">
-                <NavItem className="navitem-tab" eventKey="first">Tab 1</NavItem>
-                <NavItem className="navitem-tab" eventKey="second">Tab 2</NavItem>
-                <NavItem className="navitem-tab" eventKey="third">Tab 3</NavItem>
-                <NavItem className="navitem-tab" eventKey="fourth">Tab 4</NavItem>
-              </Nav>
-            </Col>
-            <Col sm={12}>
-              <Tab.Content animation className="tab-desc">
-                <Tab.Pane eventKey="first">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</Tab.Pane>
-                <Tab.Pane eventKey="second">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</Tab.Pane>
-                <Tab.Pane eventKey="third">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</Tab.Pane>
-                <Tab.Pane eventKey="fourth">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</Tab.Pane>
-              </Tab.Content>
-            </Col>
-          </Row>
-        </Tab.Container>
+        <div className="my-tabs">
+        <Tabs className="my-tabs" defaultActiveKey="2">
+          <TabPane className="tab-desc" tab={<span><Image src="http://via.placeholder.com/250x250" responsive/>Tab 1</span>} key="1">
+            Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem     Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem
+          </TabPane>
+          <TabPane className="tab-desc" tab={<span><Image src="http://via.placeholder.com/250x250" responsive/>Tab 2</span>} key="2">
+            Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem     Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem
+          </TabPane>
+          <TabPane className="tab-desc" tab={<span><Image src="http://via.placeholder.com/250x250" responsive/>Tab 3</span>} key="3">
+            Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem     Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem
+          </TabPane>
+          <TabPane className="tab-desc" tab={<span><Image src="http://via.placeholder.com/250x250" responsive/>Tab 4</span>} key="4">
+            Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem     Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem
+          </TabPane>
+        </Tabs>
+        </div>
         </div>
         <div className="desc-container grey">
-        <h1 className="title-container">AREAS WE SERVE</h1>
+        <h1 className="title-container" id="areas">AREAS WE SERVE</h1>
         <Grid>
-  <Row className="dropdown-row" id="areas">
-    <Col xs={12} md={6}>
-      <Areas title="CITY"/>
-    </Col>
-    <Col xs={12} md={6}>
-      <Areas title="ASSOCIATION NAME"/>
-    </Col>
-  </Row>
+    <CitySearch />
   </Grid>
         <br/>
         </div>
-        <ConsultationForm />
+        <ConsultationForm title="SCHEDULE CONSULTATION"/>
       </div>
+      <Footer bg="white"/>
       </div>
     );
   }

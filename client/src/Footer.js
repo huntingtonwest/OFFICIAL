@@ -13,14 +13,28 @@ import MapContainer from './Map'
 
 class Footer extends Component {
   render() {
+
+    console.log(this.props.bg);
+
     return (
+      <div>
+        <Grid className="logos-grid">
+        <Row className="logos-row" id={this.props.bg}>
+        <div className="footer-logos">
+          <Image src="https://s3.us-east-2.amazonaws.com/hwp-frontend/static/media/CAI-logo.png" responsive className="accr"/>
+          <Image src="https://s3.us-east-2.amazonaws.com/hwp-frontend/static/media/CACM-2016-MEMBER-LOGO-259x300.png" responsive className="accr"/>
+          <Image src="https://s3.us-east-2.amazonaws.com/hwp-frontend/static/media/BBBLogo01.png" responsive className="accr"/>
+          <Image src="https://s3.us-east-2.amazonaws.com/hwp-frontend/static/media/ACMB-Logo.png" responsive className="accr"/>
+        </div>
+        </Row>
+      </Grid>
       <Grid className="footer-grid">
       <hr className="footer-hr"/><br />
         <Row>
-          <Col xs={3} md={2}>
-            <Image src="http://via.placeholder.com/100x100" responsive className="logo"/>
+          <Col xs={4} md={3}>
+            <Image style={{width: 200}} src="https://s3.us-east-2.amazonaws.com/hwp-frontend/static/media/HWP+LOGO+BLUE+WINDOWS.png" responsive className="logo"/>
           </Col>
-          <Col xs={9} md={4}>
+          <Col xs={8} md={3}>
           <div className="footer-emphasize footer-address">
             <p>13812 Goldenwest Street Ste. 100,</p>
             <p>Westminster, CA 92683</p>
@@ -46,6 +60,7 @@ class Footer extends Component {
           </Col>
         </Row>
       </Grid>
+    </div>
 
 
     );

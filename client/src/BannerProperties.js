@@ -2,45 +2,22 @@ import * as React from 'react';
 import { Image, Tabs, Tab, FormGroup, ControlLabel, FormControl, HelpBlock, Grid, Row, Col } from 'react-bootstrap';
 // import PropTypes from 'prop-types';
 import './index.css';
-import Slider from 'react-rangeslider'
+import { AutoComplete, Select, Button, Slider } from 'antd';
+const { Option, OptGroup } = Select;
+
+const marks = {
+  0: '$0',
+  1000000: '$1,000,000'
+};
 
 class MySlider extends React.Component {
-  constructor (props, context) {
-    super(props, context)
-    this.state = {
-      horizontal: 1000000
-    }
-  }
 
-  handleChangeHorizontal = value => {
-    this.setState({
-      horizontal: value
-    })
-  };
-
-  render () {
-    const { horizontal } = this.state
-    const horizontalLabels = {
-      0: '$0',
-      1000000: '$1,000,000'
-    }
-
-    const formatkg = value => '$' + value
-
+  render() {
     return (
-      <div className='slider custom-labels'>
-        <Slider
-          min={0}
-          max={1000000}
-          step={100}
-          value={horizontal}
-          labels={horizontalLabels}
-          format={formatkg}
-          onChange={this.handleChangeHorizontal}
-        />
-        <div className='value'>{formatkg(horizontal)}</div>
+      <div>
+        <Slider range marks={marks} max={1000000} step={100} defaultValue={[0, 1000000]} />
       </div>
-    )
+    );
   }
 }
 
@@ -52,7 +29,12 @@ function FieldGroup({ id, ...props }) {
   );
 }
 
+const dataSource = ['Los Angeles, CA', 'Orange County, CA', 'San Diego, CA'];
+
+
 class SearchForm extends React.Component {
+
+
 
     render() {
       return (
@@ -60,33 +42,65 @@ class SearchForm extends React.Component {
         <Row className="search-row">
           <form className="search-form">
             <Col xs={12} md={5}>
-              <FieldGroup
-                id="formControlsLocation"
-                type="text"
-                placeholder="LOS ANGELES, CA"
-              />
+            <AutoComplete
+              className="location-form"
+              style={{ borderRadius: 0 }}
+              dataSource={dataSource}
+              placeholder="Location"
+              filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
+            />
               </Col>
               <Col xs={3} md={2}>
-              <FormGroup controlId="formControlsBed">
-                <FormControl componentClass="select" placeholder="BED">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                </FormControl>
-              </FormGroup>
+              <Select
+                className="dropdown-form"
+                showSearch
+                style={{ }}
+                optionFilterProp="children"
+                filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+                placeholder="BED"
+              >
+              <OptGroup label="BED">
+                <Option value="1">1</Option>
+                <Option value="2">2</Option>
+                <Option value="3">3</Option>
+                <Option value="4">4</Option>
+                <Option value="5">5</Option>
+                <Option value="6">6</Option>
+                <Option value="7">7</Option>
+                <Option value="8">8</Option>
+                <Option value="9">9</Option>
+                <Option value="10">10</Option>
+              </OptGroup>
+              </Select>
               </Col>
 
               <Col xs={3} md={2}>
 
-              <FormGroup controlId="formControlsBath">
-                <FormControl componentClass="select" placeholder="BATH">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                </FormControl>
-              </FormGroup>
+              <Select
+                className="dropdown-form"
+                showSearch
+                style={{ }}
+                optionFilterProp="children"
+                filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+                placeholder="BATH"
+              >
+              <OptGroup label="BATH">
+              <Option value="1">1</Option>
+              <Option value="2">2</Option>
+              <Option value="3">3</Option>
+              <Option value="4">4</Option>
+              <Option value="5">5</Option>
+              <Option value="6">6</Option>
+              <Option value="7">7</Option>
+              <Option value="8">8</Option>
+              <Option value="9">9</Option>
+              <Option value="10">10</Option>
+              </OptGroup>
+              </Select>
               </Col>
 
               <Col xs={6} md={3}>
-              <button className="button-form search-button" type="submit">Search</button>
+              <Button type="primary" className="button-form search-button " icon="search" size="large">Search</Button>
               </Col>
           </form>
         </Row>

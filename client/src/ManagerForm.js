@@ -10,7 +10,7 @@ function FieldGroup({ id, ...props }) {
   );
 }
 
-class ConsultationForm extends React.Component {
+class ManagerForm extends React.Component {
 
   render() {
     return (
@@ -34,32 +34,22 @@ class ConsultationForm extends React.Component {
                 placeholder="Last Name*"
               />
             </Col>
-            <Col xs={12} md={6}>
+            <Col xs={12} md={12}>
               <FieldGroup id="formControlsEmail" placeholder="Email*" type="email" />
-            </Col>
-            <Col xs={12} md={6}>
               <FieldGroup
                 id="formControlsCompany"
                 type="text"
-                placeholder="Company Name*"
+                placeholder="Phone Number*"
               />
-            </Col>
-            <Col xs={12} md={12}>
-              <FieldGroup id="formControlsNumber" placeholder="Phone Number*" type="number" />
+
+              <FieldGroup id="formControlsNumber" placeholder="Unit Number*" type="number" />
               <br />
               <FormGroup controlId="formControlsRepresentation">
-                <FormControl componentClass="select" placeholder="Tenant/Buyer Representation">
-                  <option value="select">Tenant/Buyer Representation</option>
-                  <option value="other">...</option>
+                <FormControl componentClass="select">
+                  <option value="select">Residential Property</option>
+                  <option value="other">Association</option>
                 </FormControl>
               </FormGroup>
-              <FormGroup controlId="formControlsCity">
-                <FormControl componentClass="select" placeholder="Los Angeles">
-                  <option value="select">Los Angeles</option>
-                  <option value="other">...</option>
-                </FormControl>
-              </FormGroup>
-              <FieldGroup id="formControlsCitiesOfInterest" placeholder="Cities of Interest*" type="text" />
               <FieldGroup id="formControlsMessage" placeholder="Message" type="text" />
               <button className="button-form" type="submit">SUBMIT</button>
             </Col>
@@ -115,4 +105,4 @@ class ConsultationForm extends React.Component {
   // }
 }
 
-export default ConsultationForm;
+export default ManagerForm;

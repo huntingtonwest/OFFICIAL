@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import { Thumbnail, Grid, Row, Col } from 'react-bootstrap';
-import Banner from './Banner';
-import Footer from './Footer';
+import Banner from '../../components/Banner';
+import Footer from '../../components/Footer';
 
 class TeamMember extends Component {
 

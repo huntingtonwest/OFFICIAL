@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import { ControlLabel, FormGroup, FormControl, Image , Grid, Row, Col, Glyphicon} from 'react-bootstrap';
-import Banner from './Banner';
-import MapContainer from './Map'
-import Footer from './Footer'
+import Banner from '../../components/Banner';
+import MapContainer from '../../components/Map'
+import Footer from '../../components/Footer';
 
 
 function FieldGroup({ id, label, ...props }) {

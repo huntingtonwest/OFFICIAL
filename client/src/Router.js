@@ -5,11 +5,11 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-import PropertyManagement from './PropertyManagement';
-import About from './About';
-import AvailableProperties from './AvailableProperties';
-import Contact from './Contact';
-import Resources from './Resources';
+import PropertyManagement from './views/property-management/PropertyManagement';
+import About from './views/about/About';
+import AvailableProperties from './views/available-properties/AvailableProperties';
+import Contact from './views/contact/Contact';
+import Resources from './views/resources/Resources';
 
 const Main = () => (
   <Router>

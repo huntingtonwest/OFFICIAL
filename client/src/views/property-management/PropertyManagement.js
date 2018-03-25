@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import { Grid, Image } from "react-bootstrap";
-import ConsultationForm from "./ScheduleForm";
+import ConsultationForm from "../../components/ScheduleForm";
 import CitySearch from "./CitySearch";
-import Banner from "./Banner";
-import Areas from "./Areas";
+import Banner from '../../components/Banner';
 import { Tabs } from "antd";
-import Footer from "./Footer";
+import Footer from '../../components/Footer';
 
 const TabPane = Tabs.TabPane;
 

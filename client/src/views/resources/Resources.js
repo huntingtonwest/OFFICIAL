@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import {
   Button,
   ListGroup,
@@ -10,8 +9,8 @@ import {
   Glyphicon
 } from "react-bootstrap";
 import ManagerForm from "./ManagerForm";
-import Banner from "./Banner";
-import Footer from "./Footer";
+import Banner from '../../components/Banner';
+import Footer from '../../components/Footer';
 
 class Resources extends Component {
   render() {

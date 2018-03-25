@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
-import ConsultationForm from './ScheduleForm';
+import ConsultationForm from '../../components/ScheduleForm';
 import BannerProperties from './BannerProperties';
-import MapContainer from './Map'
+import MapContainer from '../../components/Map'
 import FetchProperties from './FetchProperties'
-import Footer from './Footer'
+import Footer from '../../components/Footer';
 
 class AvailableProperties extends Component {
   render() {

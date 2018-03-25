@@ -172,4 +172,14 @@ class MyNavbar extends React.Component {
   }
 }
 
-export default MyNavbar;
+const MyNav = (props) => {
+  const opacity = (props.opacity) ? Math.max(props.opacity, 0.2) : 0;
+
+  return (
+    <div className="navbar navbar-default navbar-static-top" role="navigation" style={{ opacity }}>
+      <MyNavbar />
+    </div>
+  );
+};
+
+export default MyNav;

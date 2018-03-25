@@ -1,43 +1,10 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './index.css';
-import MyNavbar from './Navbar';
 import Main from './Router'
 import 'antd/dist/antd.css';
-import { Image, Grid, Row, Col } from 'react-bootstrap';
-import { Menu, Dropdown, Icon, Button } from 'antd';
-import OverlayVisible from './Overlay';
-
-
-const MyNav = (props) => {
-  const opacity = (props.opacity) ? Math.max(props.opacity, 0.2) : 0;
-
-  return (
-    <div className="navbar navbar-default navbar-static-top" role="navigation" style={{ opacity }}>
-      <MyNavbar />
-    </div>
-  );
-};
-
-const Header = (props) => (
-  <div className="header" style={{ height: props.height }}>
-    <Row className="header-row">
-      <Col md={6}>
-        <a href="/"><Image style={{width: 200}} src="https://s3.us-east-2.amazonaws.com/hwp-frontend/static/media/Hwp+Logo+Approved.png" responsive className="head-logo"/>
-        </a>
-      </Col>
-      <Col md={6} className="right-col">
-        <Button className="login-button " icon="user">Admin Login</Button>
-        <Button className="login-button " icon="user">Resident Login</Button>
-      </Col>
-    </Row>
-    <Row>
-      <div className="links">
-        <OverlayVisible />
-      </div>
-    </Row>
-  </div>
-);
+import Header from './components/Navigation/Header';
+import MyNav from './components/Navigation/Navbar';
 
 
 class App extends React.Component {

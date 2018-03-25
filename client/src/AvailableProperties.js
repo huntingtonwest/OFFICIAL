@@ -8,19 +8,21 @@ import Footer from './Footer'
 
 class AvailableProperties extends Component {
   render() {
-    return (<div className="AvailableProperties" id="search">
-      <BannerProperties title="AVAILABLE PROPERTIES"/>
-      <div className="under-banner">
-        <div className="search-map" id="map">
-          <MapContainer/>
+    return (
+      <div className="AvailableProperties" id="search">
+        <BannerProperties title="AVAILABLE PROPERTIES"/>
+        <div className="under-banner">
+          <div className="search-map" id="map">
+            <MapContainer/>
+          </div>
+          <FetchProperties/>
+          <div id="consultation">
+            <ConsultationForm title="SCHEDULE CONSULTATION"/>
+          </div>
         </div>
-        <FetchProperties/>
-        <div id="consultation">
-          <ConsultationForm title="SCHEDULE CONSULTATION"/>
-        </div>
+        <Footer bg="white"/>
       </div>
-      <Footer bg="white"/>
-    </div>);
+    );
   }
 }
 

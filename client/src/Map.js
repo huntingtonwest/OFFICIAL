@@ -6,8 +6,8 @@ export class MapContainer extends Component {
 render() {
     return (
       <Row>
-      <Map className="map" google={this.props.google} zoom={14}>
-      </Map>
+        <Map className="map" google={this.props.google} zoom={14}>
+        </Map>
       </Row>
     );
   }

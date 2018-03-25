@@ -1,5 +1,4 @@
 import * as React from 'react';
-import './index.css';
 import Property from './Property'
 import { Grid, Row} from 'react-bootstrap';
 
@@ -35,7 +34,7 @@ class FetchProperties extends React.Component {
             desc={property.notes}
             address={addr}
             availability="Available Now"
-            />
+          />
         )
       })
 

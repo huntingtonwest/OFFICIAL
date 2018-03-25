@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { Image, Tabs, Tab, FormGroup, ControlLabel, FormControl, HelpBlock, Grid, Row, Col } from 'react-bootstrap';
-// import PropTypes from 'prop-types';
-import './index.css';
+import { Tabs, Tab, FormGroup, FormControl, Row, Col } from 'react-bootstrap';
 import { AutoComplete, Select, Button, Slider } from 'antd';
 const { Option, OptGroup } = Select;
 
@@ -42,15 +40,15 @@ class SearchForm extends React.Component {
         <Row className="search-row">
           <form className="search-form">
             <Col xs={12} md={5}>
-            <AutoComplete
-              className="location-form"
-              style={{ borderRadius: 0 }}
-              dataSource={dataSource}
-              placeholder="Location"
-              filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
-            />
-              </Col>
-              <Col xs={3} md={2}>
+              <AutoComplete
+                className="location-form"
+                style={{ borderRadius: 0 }}
+                dataSource={dataSource}
+                placeholder="Location"
+                filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
+              />
+            </Col>
+            <Col xs={3} md={2}>
               <Select
                 className="dropdown-form"
                 showSearch
@@ -59,7 +57,30 @@ class SearchForm extends React.Component {
                 filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                 placeholder="BED"
               >
-              <OptGroup label="BED">
+                <OptGroup label="BED">
+                  <Option value="1">1</Option>
+                  <Option value="2">2</Option>
+                  <Option value="3">3</Option>
+                  <Option value="4">4</Option>
+                  <Option value="5">5</Option>
+                  <Option value="6">6</Option>
+                  <Option value="7">7</Option>
+                  <Option value="8">8</Option>
+                  <Option value="9">9</Option>
+                  <Option value="10">10</Option>
+                </OptGroup>
+              </Select>
+            </Col>
+            <Col xs={3} md={2}>
+              <Select
+                className="dropdown-form"
+                showSearch
+                style={{ }}
+                optionFilterProp="children"
+                filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+                placeholder="BATH"
+              >
+                <OptGroup label="BATH">
                 <Option value="1">1</Option>
                 <Option value="2">2</Option>
                 <Option value="3">3</Option>
@@ -70,38 +91,12 @@ class SearchForm extends React.Component {
                 <Option value="8">8</Option>
                 <Option value="9">9</Option>
                 <Option value="10">10</Option>
-              </OptGroup>
+                </OptGroup>
               </Select>
-              </Col>
-
-              <Col xs={3} md={2}>
-
-              <Select
-                className="dropdown-form"
-                showSearch
-                style={{ }}
-                optionFilterProp="children"
-                filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
-                placeholder="BATH"
-              >
-              <OptGroup label="BATH">
-              <Option value="1">1</Option>
-              <Option value="2">2</Option>
-              <Option value="3">3</Option>
-              <Option value="4">4</Option>
-              <Option value="5">5</Option>
-              <Option value="6">6</Option>
-              <Option value="7">7</Option>
-              <Option value="8">8</Option>
-              <Option value="9">9</Option>
-              <Option value="10">10</Option>
-              </OptGroup>
-              </Select>
-              </Col>
-
-              <Col xs={6} md={3}>
+            </Col>
+            <Col xs={6} md={3}>
               <Button type="primary" className="button-form search-button " icon="search" size="large">Search</Button>
-              </Col>
+            </Col>
           </form>
         </Row>
         <Row className="search-row">
@@ -109,19 +104,16 @@ class SearchForm extends React.Component {
             <MySlider />
           </Col>
         </Row>
-        </div>
+      </div>
     );
-    }
-
+  }
 }
 
 
 class ControlledTabs extends React.Component {
   constructor(props, context) {
     super(props, context);
-
     this.handleSelect = this.handleSelect.bind(this);
-
     this.state = {
       key: 1
     };

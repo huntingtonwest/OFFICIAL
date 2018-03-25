@@ -13,7 +13,7 @@ import Resources from './Resources';
 
 const Main = () => (
   <Router>
-  <div>
+    <div>
       <Switch>
         <Route exact path="/" component={PropertyManagement} />
         <Route path="/about" component={About} />
@@ -21,7 +21,7 @@ const Main = () => (
         <Route path="/contact" component={Contact} />
         <Route path="/resources" component={Resources} />
       </Switch>
-      </div>
+    </div>
   </Router>
 );
 

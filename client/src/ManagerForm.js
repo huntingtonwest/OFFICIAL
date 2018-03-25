@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FormGroup, ControlLabel, FormControl, HelpBlock, Grid, Row, Col} from 'react-bootstrap';
+import { FormGroup, ControlLabel, FormControl, Grid, Row, Col} from 'react-bootstrap';
 
 
 function FieldGroup({ id, ...props }) {
@@ -15,47 +15,46 @@ class ManagerForm extends React.Component {
   render() {
     return (
       <div className="desc-container" id="consultation">
-      <h1 className="title-container">{this.props.title}</h1>
-      <br/>
-      <Grid>
-        <Row className="form-row">
-          <form>
-            <Col xs={12} md={6}>
-              <FieldGroup
-                id="formControlsFirstName"
-                type="text"
-                placeholder="First Name*"
-              />
-            </Col>
-            <Col xs={12} md={6}>
-              <FieldGroup
-                id="formControlsLastName"
-                type="text"
-                placeholder="Last Name*"
-              />
-            </Col>
-            <Col xs={12} md={12}>
-              <FieldGroup id="formControlsEmail" placeholder="Email*" type="email" />
-              <FieldGroup
-                id="formControlsCompany"
-                type="text"
-                placeholder="Phone Number*"
-              />
-
-              <FieldGroup id="formControlsNumber" placeholder="Unit Number*" type="number" />
-              <br />
-              <FormGroup controlId="formControlsRepresentation">
-                <FormControl componentClass="select">
-                  <option value="select">Residential Property</option>
-                  <option value="other">Association</option>
-                </FormControl>
-              </FormGroup>
-              <FieldGroup id="formControlsMessage" placeholder="Message" type="text" />
-              <button className="button-form" type="submit">SUBMIT</button>
-            </Col>
-          </form>
-        </Row>
-      </Grid>
+        <h1 className="title-container">{this.props.title}</h1>
+        <br/>
+        <Grid>
+          <Row className="form-row">
+            <form>
+              <Col xs={12} md={6}>
+                <FieldGroup
+                  id="formControlsFirstName"
+                  type="text"
+                  placeholder="First Name*"
+                />
+              </Col>
+              <Col xs={12} md={6}>
+                <FieldGroup
+                  id="formControlsLastName"
+                  type="text"
+                  placeholder="Last Name*"
+                />
+              </Col>
+              <Col xs={12} md={12}>
+                <FieldGroup id="formControlsEmail" placeholder="Email*" type="email" />
+                <FieldGroup
+                  id="formControlsCompany"
+                  type="text"
+                  placeholder="Phone Number*"
+                />
+                <FieldGroup id="formControlsNumber" placeholder="Unit Number*" type="number" />
+                <br />
+                <FormGroup controlId="formControlsRepresentation">
+                  <FormControl componentClass="select">
+                    <option value="select">Residential Property</option>
+                    <option value="other">Association</option>
+                  </FormControl>
+                </FormGroup>
+                <FieldGroup id="formControlsMessage" placeholder="Message" type="text" />
+                <button className="button-form" type="submit">SUBMIT</button>
+              </Col>
+            </form>
+          </Row>
+        </Grid>
       </div>
     );
   }

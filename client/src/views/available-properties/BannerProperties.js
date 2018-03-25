@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Tabs, Tab, FormGroup, FormControl, Row, Col } from 'react-bootstrap';
+import { Tabs, Tab, Row, Col } from 'react-bootstrap';
 import { AutoComplete, Select, Button, Slider } from 'antd';
 const { Option, OptGroup } = Select;
 
@@ -19,13 +19,6 @@ class MySlider extends React.Component {
   }
 }
 
-function FieldGroup({ id, ...props }) {
-  return (
-    <FormGroup controlId={id}>
-      <FormControl {...props} className="schedule-form"/>
-    </FormGroup>
-  );
-}
 
 const dataSource = ['Los Angeles, CA', 'Orange County, CA', 'San Diego, CA'];
 

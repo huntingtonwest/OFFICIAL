@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Menu, Dropdown, Icon } from "antd";
+import { Menu, Dropdown } from "antd";
 import { Anchor } from "antd";
 const { Link } = Anchor;
 
@@ -96,7 +96,7 @@ const menu5 = (
   </Anchor>
 );
 
-class Overlay extends React.Component {
+class LinkDropdown extends React.Component {
   state = {
     visible: false
   };
@@ -121,26 +121,26 @@ class Overlay extends React.Component {
   }
 }
 
-class OverlayVisible extends React.Component {
+class HeaderLinks extends React.Component {
   render() {
     return (
       <div>
-        <Overlay menu={menu1} title="Property Management" href="/" />
-        <Overlay
+        <LinkDropdown menu={menu1} title="Property Management" href="/" />
+        <LinkDropdown
           menu={menu2}
           title="Available Properties"
           href="/availableProperties"
         />
-        <Overlay menu={menu3} title="About" href="/about" />
-        <Overlay
+        <LinkDropdown menu={menu3} title="About" href="/about" />
+        <LinkDropdown
           menu={menu4}
           title="Tenant / Owner Resources"
           href="/resources"
         />
-        <Overlay menu={menu5} title="Contact" href="/contact" />
+        <LinkDropdown menu={menu5} title="Contact" href="/contact" />
       </div>
     );
   }
 }
 
-export default OverlayVisible;
+export default HeaderLinks;

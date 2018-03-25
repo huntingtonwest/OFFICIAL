@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
+// import logo from './logo.svg';
 import './index.css';
 import Main from './Router'
 import 'antd/dist/antd.css';

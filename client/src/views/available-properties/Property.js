@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Image, Row, Col, Thumbnail, Button } from "react-bootstrap";
+import { Image, Row, Col, Button } from "react-bootstrap";
 
 class Property extends React.Component {
   render() {

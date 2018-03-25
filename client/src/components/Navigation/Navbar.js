@@ -3,15 +3,13 @@ import {
   Image,
   Navbar,
   NavDropdown,
-  MenuItem,
   NavItem,
   Nav
 } from "react-bootstrap";
-import OverlayVisible from "./Overlay";
-import { Menu, Dropdown, Icon } from "antd";
-import { Anchor } from "antd";
+import { Anchor, Menu } from "antd";
 const { Link } = Anchor;
 
+// Collapsible sticky navbar shown on scroll
 class MyNavbar extends React.Component {
   render() {
     return (

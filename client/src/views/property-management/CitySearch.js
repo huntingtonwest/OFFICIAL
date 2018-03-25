@@ -27,12 +27,13 @@ class CitySearch extends React.Component {
       })
       .then(data => {
         let associations = data.associations.map(association => {
-          if (association.acn_loc == value)
+          if (association.acn_loc === value)
             return (
               <Option value={association.acn_name} key={association.acn_name}>
                 {association.acn_name}
               </Option>
             );
+          return (<div></div>)
         });
         this.setState({ associations: associations, val: value });
       });

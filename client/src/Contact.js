@@ -1,13 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import './App.css';
-import './index.css';
-import MyNavbar from './Navbar';
-import { ControlLabel, FormGroup, FormControl, Jumbotron, Image , Grid, Row, Col, Tab, Nav, NavItem, Thumbnail, Glyphicon} from 'react-bootstrap';
-import ConsultationForm from './ScheduleForm';
+import { ControlLabel, FormGroup, FormControl, Image , Grid, Row, Col, Glyphicon} from 'react-bootstrap';
 import Banner from './Banner';
-import Areas from './Areas';
-import Property from './Property';
 import MapContainer from './Map'
 import Footer from './Footer'
 

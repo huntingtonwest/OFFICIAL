@@ -13,17 +13,16 @@ import OverlayVisible from './Overlay';
 
 const MyNav = (props) => {
   const opacity = (props.opacity) ? Math.max(props.opacity, 0.2) : 0;
-  const borderBottomWidth = (props.opacity === 1) ? props.borderBottomWidth : 0;
 
   return (
-    <div className="navbar navbar-default navbar-static-top" role="navigation" style={{ opacity, borderBottomWidth }}>
+    <div className="navbar navbar-default navbar-static-top" role="navigation" style={{ opacity }}>
       <MyNavbar />
     </div>
   );
 };
 
 const Header = (props) => (
-  <div className="header" style={{ height: props.height, borderBottomWidth: props.borderBottomWidth }}>
+  <div className="header" style={{ height: props.height }}>
       <Row className="header-row">
         <Col md={6}>
       <a href="/"><Image style={{width: 200}} src="https://s3.us-east-2.amazonaws.com/hwp-frontend/static/media/Hwp+Logo+Approved.png" responsive className="head-logo"/>
@@ -34,18 +33,17 @@ const Header = (props) => (
       <Button className="login-button " icon="user">Resident Login</Button>
       </Col>
       </Row>
-    <Row>
-    <div className="links">
-      <OverlayVisible />
-    </div>
-    </Row>
+      <Row>
+        <div className="links">
+          <OverlayVisible />
+        </div>
+      </Row>
   </div>
 );
 
 
 class App extends React.Component {
   static defaultProps = {
-    bottomBorderWidth: 2,
     headerHeight: 200,
     fadeInDistance: 40
   };
@@ -65,9 +63,9 @@ class App extends React.Component {
   }
 
   updateNavOpacity() {
-    const navbarHeight = 50; // Bootstrap default
-    const { bottomBorderWidth, headerHeight, fadeInDistance } = this.props;
-    const endFade = headerHeight - navbarHeight - bottomBorderWidth;
+    const navbarHeight = 70; // Bootstrap default
+    const { headerHeight, fadeInDistance } = this.props;
+    const endFade = headerHeight - navbarHeight;
     const startFade = endFade - fadeInDistance;
     const scrolly = window.scrollY;
 
@@ -91,8 +89,8 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <MyNav opacity={ this.state.navOpacity } borderBottomWidth={ this.props.bottomBorderWidth } />
-        <Header height={ this.props.headerHeight } borderBottomWidth={ this.props.bottomBorderWidth } />
+        <MyNav opacity={ this.state.navOpacity } />
+        <Header height={ this.props.headerHeight } />
         <Main />
       </div>
     );

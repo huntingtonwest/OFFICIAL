@@ -1,14 +1,8 @@
 import React, { Component,  } from 'react';
 import logo from './logo.svg';
-import './App.css';
-import './index.css';
-import MyNavbar from './Navbar';
-import { Button, ListGroup, ListGroupItem, ControlLabel, FormGroup, FormControl, Jumbotron, Image , Grid, Row, Col, Tab, Nav, NavItem, Thumbnail, Glyphicon} from 'react-bootstrap';
+import { Button, ListGroup, ListGroupItem, Grid, Row, Col, Glyphicon} from 'react-bootstrap';
 import ManagerForm from './ManagerForm';
 import Banner from './Banner';
-import Areas from './Areas';
-import Property from './Property';
-import MapContainer from './Map'
 import Footer from './Footer'
 
 class Resources extends Component {

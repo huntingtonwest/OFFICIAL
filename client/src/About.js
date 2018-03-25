@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import './App.css';
-import './index.css';
-import MyNavbar from './Navbar';
-import { Jumbotron, Image , Grid, Row, Col, Tab, Nav, NavItem, Thumbnail} from 'react-bootstrap';
-import ConsultationForm from './ScheduleForm';
+import { Thumbnail, Grid, Row, Col } from 'react-bootstrap';
 import Banner from './Banner';
-import Areas from './Areas';
 import Footer from './Footer';
 
 class TeamMember extends Component {

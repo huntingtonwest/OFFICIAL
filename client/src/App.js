@@ -1,59 +1,65 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+// import logo from './logo.svg';
 import './index.css';
-import MyNavbar from './Navbar';
-import { Jumbotron, Image , Grid, Row, Col, Tab, Nav, NavItem} from 'react-bootstrap';
-import ConsultationForm from './ScheduleForm';
-import Banner from './Banner';
-import Areas from './Areas';
 import Main from './Router'
-import Footer from './Footer'
+import 'antd/dist/antd.css';
+import Header from './components/Navigation/Header';
+import MyNav from './components/Navigation/Navbar';
 
-const App = () => (
-  <div>
-    <MyNavbar />
-    <Main />
-    <Footer />
-  </div>
-)
+
+class App extends React.Component {
+  static defaultProps = {
+    headerHeight: 200,
+    fadeInDistance: 40
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = { navOpacity: 0 };
+    this.updateNavOpacity = this.updateNavOpacity.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.updateNavOpacity);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.updateNavOpacity);
+  }
+
+  updateNavOpacity() {
+    const navbarHeight = 70; // Bootstrap default
+    const { headerHeight, fadeInDistance } = this.props;
+    const endFade = headerHeight - navbarHeight;
+    const startFade = endFade - fadeInDistance;
+    const scrolly = window.scrollY;
+
+    if (scrolly < startFade) {
+      if (this.state.opacity === 0) return;
+      this.setState({ navOpacity: 0 });
+      return;
+    }
+
+    if (scrolly > endFade) {
+      if (this.state.opacity === 1) return;
+      this.setState({ navOpacity: 1 });
+      return;
+    }
+
+    const pxPastStartFade = scrolly - startFade;
+    const navOpacity = pxPastStartFade / (endFade - startFade);
+    this.setState({ navOpacity });
+  }
+
+  render() {
+    return (
+      <div>
+        <MyNav opacity={ this.state.navOpacity } />
+        <Header height={ this.props.headerHeight } />
+        <Main />
+      </div>
+    );
+  }
+}
 
 export default App;
-
-
-// import {
-//   BrowserRouter as Router,
-//   Link,
-//   Route,
-//   Switch,
-// } from 'react-router-dom';
-//
-// const Home = () => <h1>Home</h1>;
-// const About = () => <h1>About</h1>;
-//
-// // We give each route either a target `component`, or we can send functions in `render` or `children`
-// // that return valid nodes. `children` always returns the given node whether there is a match or not.
-// const App = () => (
-//   <Router>
-//     <div>
-//       <Link to="/">Home</Link>
-//       <Link to='/about'>About</Link>
-//       <Link to="/contact">Contact</Link>
-//
-//       <Switch>
-//         <Route exact path="/" component={Home} />
-//         <Route path="/about" component={About} />
-//         <Route
-//           path="/contact"
-//           render={() => <h1>Contact Us</h1>} />
-//         <Route path="/blog" children={({match}) => (
-//           <li className={match ? 'active' : ''}>
-//             <Link to="/blog">Blog</Link>
-//           </li>)} />
-//         <Route render={() => <h1>Page not found</h1>} />
-//       </Switch>
-//     </div>
-//   </Router>
-// );
-//
-// export default App;

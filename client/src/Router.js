@@ -1,25 +1,26 @@
 import React from 'react';
 import {
   BrowserRouter as Router,
-  Link,
   Route,
   Switch,
 } from 'react-router-dom';
-import PropertyManagement from './PropertyManagement';
-import About from './About';
-import AvailableProperties from './AvailableProperties';
-import Contact from './Contact';
+import PropertyManagement from './views/property-management/PropertyManagement';
+import About from './views/about/About';
+import AvailableProperties from './views/available-properties/AvailableProperties';
+import Contact from './views/contact/Contact';
+import Resources from './views/resources/Resources';
 
 const Main = () => (
   <Router>
-  <div>
+    <div>
       <Switch>
         <Route exact path="/" component={PropertyManagement} />
         <Route path="/about" component={About} />
         <Route path="/availableProperties" component={AvailableProperties} />
         <Route path="/contact" component={Contact} />
+        <Route path="/resources" component={Resources} />
       </Switch>
-      </div>
+    </div>
   </Router>
 );
 

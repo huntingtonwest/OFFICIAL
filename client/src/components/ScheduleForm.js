@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FormGroup, ControlLabel, FormControl, HelpBlock, Grid, Row, Col} from 'react-bootstrap';
+import { FormGroup, FormControl, Grid, Row, Col} from 'react-bootstrap';
 
 
 function FieldGroup({ id, ...props }) {
@@ -14,8 +14,8 @@ class ConsultationForm extends React.Component {
 
   render() {
     return (
-      <div className="desc-container">
-      <h1 className="title-container">SCHEDULE CONSULTATION</h1>
+      <div className="desc-container" id="consultation">
+      <h1 className="title-container">{this.props.title}</h1>
       <br/>
       <Grid>
         <Row className="form-row">

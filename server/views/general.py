@@ -46,7 +46,6 @@ def get_properties_get():
 @mod.route('/get-associations', methods=['GET'])
 def get_associations_get():
 
-<<<<<<< HEAD
 	associations = get_associations()
 
 	return jsonify({'associations':associations})
@@ -74,9 +73,3 @@ def ass_test():
 	associations = get_associations()
 
 	return render_template('general/resources.html', ass=associations)
-
-=======
-	associations = (get_associations())
-
-	return jsonify({'associations':associations})
->>>>>>> 3ddbc6b5222dd9cf501be2479189c622a9bda0c5

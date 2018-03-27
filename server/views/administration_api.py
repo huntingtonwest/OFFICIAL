@@ -20,27 +20,14 @@ mod = Blueprint('administration', __name__)
 """
 LOGIN
 """
-@mod.route('/login', methods=['GET'])
-def login_get():
+@mod.route('/login', methods=['POST'])
+def login():
 
 	if not current_user.is_anonymous:
-		return redirect(url_for('administration.admin_home_get'))
+		return jsonify({'status':'success'})
 
-	return render_template('administration/login.html')
-
-@mod.route('/login', methods=['POST'])
-def login_post():
-
-	if current_user.is_anonymous:
-
-		email=""
-		password=""
-
-	if 'email' in request.form and 'password' in request.form and len(request.form['password'].strip()) > 0:
-		email = request.form['email']
-		password = request.form['password']
-	else:
-		abort(400)
+	email = request.form['email']
+	password = request.form['password']
 
 	try:
 		user = Users.query.filter_by(email=email, password=password, is_verified=True).one()
@@ -48,46 +35,32 @@ def login_post():
 		user = None
 	if user:
 		login_user(user)
-		return redirect(url_for('administration.admin_home_get'))
+		return jsonify({'status':'success'})
 	else:
-		return "incorrect username or password"
+		return jsonify({'status':'error', 'msg':"Incorrect username or password"})
 
 @mod.route('/logout', methods=['GET'])
 def logout():
 	logout_user()
-	return redirect(url_for('administration.login_get'))
+	return jsonify({'status':'success'})
 
 
 """
 REGISTRATION - after a user is created by admin, user can set password and start using acct
 """
-@mod.route('/register/<string:token>', methods=['GET'])
-def register_get(token):
-	try:
-		email = s.loads(token, salt='email_confirm', max_age=60*60)
-	except SignatureExpired:
-		return 'The token has expired. Ask an administrator to resend the invitation'
-	except:
-		abort(403)
-
-	return render_template('administration/registration.html')
-
 @mod.route('/register/<string:token>', methods=['POST'])
-def register_post(token):
+def register(token):
 
 	try:
 		email = s.loads(token, salt='email_confirm', max_age=60*60)
 	except SignatureExpired:
-		return 'The token has expired. Ask an administrator to resend the invitation'
+		return jsonify({'status':'error','msg':'The token has expired. Ask an administrator to resend the invitation'})
 	except:
 		abort(403)
 
-	if 'password' in request.form and 'first' in request.form and 'last' in request.form:
-		password=request.form['password']
-		first = request.form['first']
-		last = request.form['last']
-	else:
-		return 'try refreshing the page and trying again'
+	password=request.form['password']
+	first = request.form['first']
+	last = request.form['last']
 
 	try:
 		user = Users.query.filter_by(email=email).one()
@@ -106,53 +79,41 @@ def register_post(token):
 		db.session.flush()
 		abort(400)
 
-	return redirect(url_for('administration.login_get'))
-
-
-"""
-ADMIN HOME
-"""
-@mod.route('/admin-home', methods=['GET'])
-@login_required
-def admin_home_get():
-	return render_template('administration/home.html')
+	return jsonify({'status':'success', 'msg':'You have been registered!'})
 
 
 """
 USER SETTINGS - allows admins to control who has access to admin
 """
-@mod.route('/user-settings', methods=['GET'])
+
+#TODO: update personal settings
+#TODO: get personal settings
+
+@mod.route('/get-users', methods=['GET'])
 @login_required
 @is_admin
-def user_settings_get():
+def get_users():
 
 	users = Users.query.filter_by(is_verified=True).all()
 	not_verified = Users.query.filter_by(is_verified=False).all()
 
-	return render_template('administration/user_settings.html', users=users, not_verified=not_verified)
+	return jsonify({'users':users, 'not_verified':not_verified})
 
-@mod.route('/create-user', methods=['GET'])
-@login_required
-@is_admin
-def create_user_get():
-	return render_template('administration/create_user.html')
 
 @mod.route('/create-user', methods=['POST'])
 @login_required
 @is_admin
-def create_user_post():
+def create_user():
 
 	email = request.form['email']
 
 	user = Users(email=email)
-
 
 	try:
 		role = Roles.query.filter_by(role_name='User Registration').one()
 	except:
 		abort(400)
 
-	print('here')
 
 	sender = [s.email for s in role.emails]
 
@@ -174,9 +135,7 @@ def create_user_post():
 	except:
 		abort(400)
 
-	#send email to create password
-
-	return 'user invitation sent successfully'
+	return jsonify({'status':'success', 'msg': 'The invitation has been successfully sent!'})
 
 @mod.route('/resend-invitation', methods=['POST'])
 @login_required
@@ -187,7 +146,6 @@ def resend_invitation():
 	email = request.form['email']
 
 	try:
-		print('here')
 		user = Users.query.filter_by(id = user_id, email=email, is_verified=False).one()
 		role = Roles.query.filter_by(role_name='User Registration').one()
 	except:
@@ -205,7 +163,7 @@ def resend_invitation():
 	except:
 		abort(400)
 
-	return 'invitation re-sent!'
+	return jsonify({'status':'success', 'msg': 'The invitation has been successfully sent!'})
 
 @mod.route('/delete-user', methods=['POST'])
 @login_required
@@ -215,32 +173,20 @@ def delete_user():
 	user_id = request.form['id']
 
 	user = Users.query.get(user_id)
-	print(user.is_admin)
 	if user.is_admin and not current_user.is_master:
-		return 'only the master admin can delete admin accounts'
+		return jsonify({'status':'error','msg':'Only the master admin can delete admin accounts'})
 	if user.id == current_user.id:
-		return 'you cannot delete your own account'
-
+		return jsonify({'status':'error','msg':'you cannot delete your own account'})
 
 	try:
-		print('here')
 		db.session.delete(user)
 		db.session.commit()
 	except:
 		abort(400)
 
 
-	return redirect(url_for('administration.user_settings_get'))
+	return jsonify({'status':'success', 'msg': 'The user has been successfully removed!'})
 
-
-@mod.route('/edit-user/<string:user_id>', methods=['GET'])
-@login_required
-@is_admin
-def edit_user_get(user_id):
-
-	user = Users.query.get(user_id)
-
-	return render_template('administration/edit_user.html', user=user)
 
 #TODO: needs testing
 @mod.route('/edit-user/<string:user_id>', methods=['POST'])
@@ -282,23 +228,36 @@ def edit_user_post(user_id):
 PROPERTIES
 """
 
-@mod.route('/property-settings', methods=['GET'])
+@mod.route('/all-properties-get', methods=['GET'])
 @login_required
 def property_settings_get():
 
-	available_properties = Properties.query.filter(or_(Properties.for_rent==True, Properties.for_sale==True)).all()
-	nonavailable_properties = Properties.query.filter_by(for_rent=False, for_sale=False).all()
+	p = Properties.query.all()
+	
+	properties = []
+	for x in p:
+		prop = serialize(x, Properties)
 
-	return render_template('administration/property_settings.html', available_properties=available_properties,
-		nonavailable_properties=nonavailable_properties)
+		prop['city'] = x.city_info.city_name
+		prop['type'] = x.type_info.type_name
 
-@mod.route('/edit-property/<string:property_id>', methods=['GET'])
+		properties.append(prop)
+
+	return jsonify({'properties':properties})
+
+
+#WIP
+@mod.route('/get-property/<string:property_id>', methods=['GET'])
 @login_required
-def edit_property_get(property_id):
+def get_property(property_id):
 
-	property = Properties.query.get(property_id)
+	p = Properties.query.get(property_id)
+	prop = serialize(p, Properties)
+	prop['city'] = x.city_info.city_name
+	prop['type'] = x.type_info.type_name
 
-	return render_template('administration/edit_property.html', property=property)
+	return jsonify({'property':prop})
+
 
 @mod.route('/edit-property/<string:action>/<string:property_id>', methods=['POST'])
 @login_required
@@ -307,9 +266,6 @@ def edit_property_post(action):
 
 	return 1
 
-@mod.route('/add-property', methods=['GET'])
-def add_property_get():
-	return render_template('administration/add_property.html')
 
 @mod.route('/add-property', methods=['POST'])
 def add_property_post():

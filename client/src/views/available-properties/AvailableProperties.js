@@ -12,8 +12,10 @@ class AvailableProperties extends Component {
     super(props);
     this.state = {
       city: 'all',
-      bed: -1,
-      bath: -1,
+      minBed: -1,
+      maxBed: Number.MAX_SAFE_INTEGER,
+      minBath: -1,
+      maxBath: Number.MAX_SAFE_INTEGER,
       properties: [],
       type: 'rent',
       minRent: -1,
@@ -32,25 +34,35 @@ class AvailableProperties extends Component {
     });
   }
 
+  removeCommas(str) {
+    return(str.toString().replace(/,/g,''));
+  }
+
   fetchData = () => {
     fetch('https://realhwptest.herokuapp.com/get-properties')
     .then(results => {
       return results.json();
     }).then(data => {
+      console.log("Filtering ", this.state);
+
       let properties = data.properties.filter((property) => {
-        if (this.state.minRent > property.price ||
-            this.state.maxRent < property.price)
+        if (this.removeCommas(this.state.minRent) > property.price ||
+            this.removeCommas(this.state.maxRent) < property.price)
             return false;
         if (this.state.type == 'rent' && !property.for_rent ||
             this.state.type == 'sale' && !property.for_sale)
             return false;
-        console.log("Filtering city ", this.state);
         if (this.state.city != 'all') {
           var citySub = this.state.city.substring(0, this.state.city.length - 4);
           if (citySub != property.city) return false;
         }
-        if (this.state.bed > property.beds) return false;
-        if (this.state.bath > property.baths) return false;
+        if (this.state.minBed > property.beds ||
+            this.state.maxBed < property.beds)
+            return false;
+        if (this.state.minBath > property.baths ||
+            this.state.maxBath < property.baths)
+            return false;
+
         return true;
       }).map((property) => {
         var addr = property.address_l1 + ', ';

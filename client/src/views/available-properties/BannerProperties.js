@@ -1,23 +1,7 @@
 import * as React from 'react';
 import { Tabs, Tab, Row, Col } from 'react-bootstrap';
-import { AutoComplete, Select, Button, Slider } from 'antd';
+import { AutoComplete, Select, Button } from 'antd';
 const { Option, OptGroup } = Select;
-
-const marks = {
-  0: '$0',
-  1000000: '$1,000,000'
-};
-
-class MySlider extends React.Component {
-
-  render() {
-    return (
-      <div>
-        <Slider range marks={marks} max={1000000} step={100} defaultValue={[0, 1000000]} />
-      </div>
-    );
-  }
-}
 
 
 const dataSource = ['Los Angeles, CA', 'Orange County, CA', 'San Diego, CA'];
@@ -25,7 +9,25 @@ const dataSource = ['Los Angeles, CA', 'Orange County, CA', 'San Diego, CA'];
 
 class SearchForm extends React.Component {
 
+  constructor(props) {
+  super(props);
 
+  this.onSelectBed = this.onSelectBed.bind(this);
+  this.onSelectBath = this.onSelectBath.bind(this);
+  this.onSelectCity = this.onSelectCity.bind(this);
+
+}
+
+  onSelectCity(value) {
+    this.props.onSelect('city', value);
+  }
+
+  onSelectBed(value) {
+   this.props.onSelect('bed', value);
+  }
+  onSelectBath(value) {
+   this.props.onSelect('bath', value);
+  }
 
     render() {
       return (
@@ -38,6 +40,7 @@ class SearchForm extends React.Component {
                 style={{ borderRadius: 0 }}
                 dataSource={dataSource}
                 placeholder="Location"
+                onSelect={this.onSelectCity}
                 filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
               />
             </Col>
@@ -49,6 +52,7 @@ class SearchForm extends React.Component {
                 optionFilterProp="children"
                 filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                 placeholder="BED"
+                onSelect={this.onSelectBed}
               >
                 <OptGroup label="BED">
                   <Option value="1">1</Option>
@@ -72,6 +76,7 @@ class SearchForm extends React.Component {
                 optionFilterProp="children"
                 filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                 placeholder="BATH"
+                onSelect={this.onSelectBath}
               >
                 <OptGroup label="BATH">
                 <Option value="1">1</Option>
@@ -88,13 +93,12 @@ class SearchForm extends React.Component {
               </Select>
             </Col>
             <Col xs={6} md={3}>
-              <Button type="primary" className="button-form search-button " icon="search" size="large">Search</Button>
+              <Button onClick={this.props.onClick} type="primary" className="button-form search-button " icon="search" size="large">Search</Button>
             </Col>
           </form>
         </Row>
         <Row className="search-row">
           <Col xs={12} md={12}>
-            <MySlider />
           </Col>
         </Row>
       </div>
@@ -108,12 +112,15 @@ class ControlledTabs extends React.Component {
     super(props, context);
     this.handleSelect = this.handleSelect.bind(this);
     this.state = {
-      key: 1
+      key: 'rent'
     };
   }
 
   handleSelect(key) {
-    this.setState({ key });
+
+    this.setState({ key }, () => {
+      this.props.onSelect('type', key);
+    });
   }
 
   render() {
@@ -125,11 +132,11 @@ class ControlledTabs extends React.Component {
         bsStyle="pills"
         className="search-tabs"
       >
-        <Tab eventKey={1} title="RENT">
-          <SearchForm />
+        <Tab eventKey={'rent'} title="RENT">
+          <SearchForm type='rent' onClick={this.props.onClick} onSelect={this.props.onSelect}/>
         </Tab>
-        <Tab eventKey={2} title="SALE">
-          <SearchForm />
+        <Tab eventKey={'sale'} title="SALE">
+          <SearchForm type='sale'onClick={this.props.onClick} onSelect={this.props.onSelect}/>
         </Tab>
       </Tabs>
     );
@@ -144,7 +151,7 @@ class BannerProperties extends React.Component {
             <div className="search-inner">
               <h1 className="search-title-banner">{this.props.title}</h1>
               <br />
-              <ControlledTabs/>
+              <ControlledTabs onClick={this.props.onClick} onSelect={this.props.onSelect}/>
             </div>
           </div>
     );

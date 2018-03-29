@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ControlLabel, FormGroup, FormControl, Image , Grid, Row, Col, Glyphicon} from 'react-bootstrap';
 import Banner from '../../components/Banner';
-import MapContainer from '../../components/Map'
+import MapContainer from './ContactMap'
 import Footer from '../../components/Footer';
 
 

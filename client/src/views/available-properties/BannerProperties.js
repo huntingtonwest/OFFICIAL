@@ -59,8 +59,7 @@ class SearchForm extends React.Component {
     render() {
       return (
         <div className="search-cont">
-        <Row className="search-row">
-          <form className="search-form">
+        <Row className="search-row location-row">
             <Col xs={12} md={12}>
               <AutoComplete
                 className="location-form"
@@ -71,8 +70,6 @@ class SearchForm extends React.Component {
                 filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
               />
             </Col>
-
-          </form>
         </Row>
         <Row className="search-row">
           <Col xs={12} md={3}>
@@ -102,8 +99,8 @@ class SearchForm extends React.Component {
           onSelectMin={this.onSelectBathMin}
           onSelectMax={this.onSelectBathMax}/>
           </Col>
-          <Col xs={12} md={3}>
-            <Button onClick={this.props.onClick} type="primary" className="button-form search-button " icon="search" size="large">Search</Button>
+          <Col xs={12} md={3} className="search-col">
+            <Button onClick={this.props.onClick} className="button-form search-button " icon="search">Search</Button>
           </Col>
         </Row>
       </div>
@@ -152,7 +149,7 @@ class ControlledTabs extends React.Component {
 class BannerProperties extends React.Component {
   render() {
     return (
-          <div className="text-center search-banner">
+          <div className="text-center search-banner-2">
             <div className="search-inner">
               <h1 className="search-title-banner">{this.props.title}</h1>
               <br />

@@ -5,6 +5,7 @@ import MapContainer from '../../components/Map'
 import Footer from '../../components/Footer';
 import Property from './Property'
 import { Grid, Row} from 'react-bootstrap';
+import {Marker} from 'google-maps-react';
 
 class AvailableProperties extends Component {
 
@@ -19,9 +20,12 @@ class AvailableProperties extends Component {
       properties: [],
       type: 'rent',
       minRent: -1,
-      maxRent: Number.MAX_SAFE_INTEGER
+      maxRent: Number.MAX_SAFE_INTEGER,
+      markers: []
     };
     this.handleFieldChange = this.handleFieldChange.bind(this);
+    this.fetchData = this.fetchData.bind(this);
+    this.fetchMarkers = this.fetchMarkers.bind(this);
 
   }
 
@@ -84,11 +88,42 @@ class AvailableProperties extends Component {
             availability="Available Now"
           />
         )
-      })
+      });
 
       this.setState({properties: properties});
+      this.fetchMarkers(properties);
       console.log("state", this.state.properties);
-    })
+    });
+  }
+
+  fetchMarkers = (properties) => {
+    console.log("marker func");
+    let markers =properties.map((property) => {
+      var addr = property.props.address.replace(/ /g,"+");
+      var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + addr + '&key=AIzaSyBY0npOTJOTWaOwMcxIJcbcEnlR3CLeDs8';
+      fetch(url)
+      .then(results => {
+        return results.json();
+      }).then(data => {
+        if (data && data.results) {
+          console.log("yo data: ", data);
+          var property = data.results[0];
+          var loc = data.results[0].geometry.location;
+          return (
+            <Marker
+              title={property.formatted_address}
+              key={property.formatted_address}
+              name={property.formatted_address}
+              position={{lat: property.geometry.location.lat, lng: property.geometry.location.lng}}
+              onClick={this.onMarkerClick}
+              />
+          );
+        }
+      })
+      this.setState({markers: markers});
+      console.log("markers", this.state.markers);
+    });
+    return 'success';
   }
 
 
@@ -102,7 +137,7 @@ class AvailableProperties extends Component {
         <BannerProperties onClick={this.fetchData} onSelect={this.handleFieldChange} title="AVAILABLE PROPERTIES"/>
         <div className="under-banner">
           <div className="search-map" id="map">
-            <MapContainer/>
+            <MapContainer lat='33.750081' lng='-116.997621' markers={this.state.markers}/>
           </div>
           <Grid>
             <Row className="properties-row">

@@ -45,9 +45,7 @@ class AvailableProperties extends Component {
           var citySub = this.state.city.substring(0, this.state.city.length - 4);
           if (citySub != property.city) return false;
         }
-        if (this.state.bed > property.beds) {
-          return false;
-        }
+        if (this.state.bed > property.beds) return false;
         if (this.state.bath > property.baths) return false;
         return true;
       }).map((property) => {

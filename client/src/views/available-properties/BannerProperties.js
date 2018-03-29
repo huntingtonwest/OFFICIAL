@@ -10,13 +10,13 @@ const dataSource = ['Los Angeles, CA', 'Orange County, CA', 'San Diego, CA'];
 class SearchForm extends React.Component {
 
   constructor(props) {
-  super(props);
+    super(props);
 
-  this.onSelectBed = this.onSelectBed.bind(this);
-  this.onSelectBath = this.onSelectBath.bind(this);
-  this.onSelectCity = this.onSelectCity.bind(this);
+    this.onSelectBed = this.onSelectBed.bind(this);
+    this.onSelectBath = this.onSelectBath.bind(this);
+    this.onSelectCity = this.onSelectCity.bind(this);
 
-}
+  }
 
   onSelectCity(value) {
     this.props.onSelect('city', value);

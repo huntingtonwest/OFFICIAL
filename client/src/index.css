@@ -771,6 +771,6 @@ input[type=text].input-right  {
 
 @media only screen and (min-width: 1249px) {
   .footer-grid {
-    padding: 0.7em 20em;
+    padding: 0.7em 16em;
   }
 }

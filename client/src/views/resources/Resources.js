@@ -86,6 +86,7 @@ class Resources extends Component {
                 id="condocerts"
                 bsStyle="default"
                 className="resource-button"
+                href="https://secure.condocerts.com/resale/"
               >
                 Condocerts
               </Button>

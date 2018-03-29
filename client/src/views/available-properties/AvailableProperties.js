@@ -15,7 +15,9 @@ class AvailableProperties extends Component {
       bed: -1,
       bath: -1,
       properties: [],
-      type: 'rent'
+      type: 'rent',
+      minRent: -1,
+      maxRent: Number.MAX_SAFE_INTEGER
     };
     this.handleFieldChange = this.handleFieldChange.bind(this);
 
@@ -36,10 +38,12 @@ class AvailableProperties extends Component {
       return results.json();
     }).then(data => {
       let properties = data.properties.filter((property) => {
+        if (this.state.minRent > property.price ||
+            this.state.maxRent < property.price)
+            return false;
         if (this.state.type == 'rent' && !property.for_rent ||
             this.state.type == 'sale' && !property.for_sale)
             return false;
-
         console.log("Filtering city ", this.state);
         if (this.state.city != 'all') {
           var citySub = this.state.city.substring(0, this.state.city.length - 4);

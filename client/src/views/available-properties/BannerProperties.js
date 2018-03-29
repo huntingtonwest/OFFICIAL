@@ -4,6 +4,107 @@ import { AutoComplete, Select, Button } from 'antd';
 const { Option, OptGroup } = Select;
 
 
+class DoubleSelect extends React.Component {
+
+  state = {
+    activeMenu: 'min',
+    open: false,
+    min: 'No Min',
+    max: 'No Max',
+    title: this.props.title
+  };
+
+  toggleMenu = e => {
+    this.setState({
+      activeMenu: e.target.name
+    });
+  };
+
+  toggleOpen = () => {
+    this.setState( prevState => {
+      return { open: !prevState.open }
+    });
+  };
+
+  getMenuOptions = () => {
+    let options = [];
+    switch(this.state.activeMenu){
+      case 'min': {
+        options = ['No Min','$1000','$2000','$3000','$4000'];
+        break;
+      }
+      case 'max': {
+        options = ['$1000','$2000','$3000','$4000','No Max'];
+        break;
+      }
+    }
+    return options.map( (option, i) => {
+      return (
+        <li key={i} onClick={this.handleSelect.bind(this, this.state.activeMenu, option)}>
+          {option}
+        </li>
+      )
+    });
+  };
+
+  handleSelect = (menu, value) => {
+    this.setState({
+      [menu]: value
+    }, () => {
+      var title = 'Price';
+      if (this.state.min != 'No Min' || this.state.max != 'No Max') {
+        if (this.state.max == 'No Max')
+          title += ': ' + this.state.min + '+';
+        else if (this.state.min == 'No Min')
+          title += ': < ' + this.state.max;
+        else title += ': ' + this.state.min + ' - ' + this.state.max;
+      }
+      this.setState({
+        title: title
+      });
+    });
+
+    if(this.state.activeMenu == 'min') {
+      this.setState({
+        activeMenu: 'max'
+      });
+      this.props.onSelectMin(value);
+    }
+    else {
+      this.setState({
+        activeMenu: 'min'
+      });
+      this.toggleOpen();
+      this.props.onSelectMax(value);
+    }
+  };
+
+  render() {
+    const { open, min, max, activeMenu, title } = this.state;
+    const menuOptions = this.getMenuOptions();
+    return(
+      <div className="search-select">
+        <span onClick={this.toggleOpen} >{title}</span>
+        {open && (
+          <div className="search-content">
+            <div className="search-content-inputs">
+              <input className="search-content-input input-left" type="text" name="min" value={min} onFocus={this.toggleMenu} autoFocus />
+              —
+              <input className="search-content-input input-right" type="text" name="max" value={max} onFocus={this.toggleMenu} />
+            </div>
+            <div>
+              <ul className={activeMenu}>
+                {menuOptions}
+              </ul>
+            </div>
+          </div>
+        )}
+      </div>
+    )
+  }
+}
+
+
 const dataSource = ['Los Angeles, CA', 'Orange County, CA', 'San Diego, CA'];
 
 
@@ -15,6 +116,8 @@ class SearchForm extends React.Component {
     this.onSelectBed = this.onSelectBed.bind(this);
     this.onSelectBath = this.onSelectBath.bind(this);
     this.onSelectCity = this.onSelectCity.bind(this);
+    this.onSelectRentMax = this.onSelectRentMax.bind(this);
+    this.onSelectRentMin = this.onSelectRentMin.bind(this);
 
   }
 
@@ -28,10 +131,20 @@ class SearchForm extends React.Component {
   onSelectBath(value) {
    this.props.onSelect('bath', value);
   }
+  onSelectRentMin(value) {
+    var rent = (value == 'No Min') ? '-1' : value.substring(1);
+    console.log("rent is", rent);
+   this.props.onSelect('minRent', rent);
+  }
+  onSelectRentMax(value) {
+    var rent = (value == 'No Max') ? Number.MAX_SAFE_INTEGER : value.substring(1);
+    console.log("rent is", rent);
+   this.props.onSelect('maxRent', rent);
+  }
 
     render() {
       return (
-        <div>
+        <div className="search-cont">
         <Row className="search-row">
           <form className="search-form">
             <Col xs={12} md={5}>
@@ -99,6 +212,7 @@ class SearchForm extends React.Component {
         </Row>
         <Row className="search-row">
           <Col xs={12} md={12}>
+          <DoubleSelect title='Price' onSelectMin={this.onSelectRentMin} onSelectMax={this.onSelectRentMax}/>
           </Col>
         </Row>
       </div>
@@ -151,7 +265,7 @@ class BannerProperties extends React.Component {
             <div className="search-inner">
               <h1 className="search-title-banner">{this.props.title}</h1>
               <br />
-              <ControlledTabs onClick={this.props.onClick} onSelect={this.props.onSelect}/>
+              <ControlledTabs className="search-tab-container"onClick={this.props.onClick} onSelect={this.props.onSelect}/>
             </div>
           </div>
     );

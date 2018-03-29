@@ -274,6 +274,81 @@ html, body {
 
 /* AVAILABLE PROPERTIES -- SEARCH */
 
+.search-select span {
+  display: block;
+  cursor: pointer;
+  text-align: left;
+  margin-left: 1em;
+}
+.search-select ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+.search-select li {
+  padding: 0.8em 1em;
+
+}
+.search-select li:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: white;
+}
+ul.max {
+  text-align: right;
+}
+ul.min {
+  text-align: left;
+}
+.search-select {
+  width: 300px;
+  /* border: 1px solid #222; */
+  line-height: 50px;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.3);
+  font-size: 18px;
+  overflow: visible!important;
+}
+
+.search-content {
+  padding-top: 0.3em;
+  position: absolute!important;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  line-height: 20px;
+  border-top: 1px solid lightgrey;
+  width: 300px;
+  font-size: 15px;
+  overflow: scroll!important;
+  z-index: 100!important;
+
+}
+.search-content-inputs {
+  border-bottom: 1px solid lightgrey;
+}
+.search-content-inputs input[type=text]{
+  width: 40%;
+  margin: 1em 0.2em;
+  border: 1px solid lightgrey;
+  line-height: 25px;
+  padding-left: 0.4em;
+}
+input[type=text].input-left  {
+  margin-right: 0.7em;
+}
+input[type=text].input-right  {
+  margin-left: 0.7em;
+}
+
+.search-cont {
+  margin-top: 0.1em;
+  background-color: rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding-bottom: 1em;
+}
+
+
 .search-button {
   background-color: darkred !important;
   border-radius: 0 !important;

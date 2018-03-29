@@ -24,6 +24,8 @@ render() {
           lng: -118.0068536
         }}
         gestureHandling= 'greedy'
+        scrollwheel={false}
+        zoomControl= {true}
         >
         <Marker
           title='Huntington West Properties'

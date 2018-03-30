@@ -29,7 +29,7 @@ class MyNavbar extends React.Component {
                  </a>
           <div className="my-dropdown">
           <button className="dropbtn">
-          <a href="/">Property Management</a>
+          <a href="/" className="hover-1">Property Management</a>
           </button>
           <div className="dropdown-content">
             <a href="#">Link 1</a>
@@ -39,7 +39,7 @@ class MyNavbar extends React.Component {
         </div>
         <div className="my-dropdown">
         <button className="dropbtn">
-        <a href="/availableProperties">Available Properties</a>
+        <a href="/availableProperties" className="hover-1">Available Properties</a>
         </button>
           <div className="dropdown-content">
             <a href="#">Link 1</a>
@@ -49,7 +49,7 @@ class MyNavbar extends React.Component {
         </div>
         <div className="my-dropdown">
         <button className="dropbtn">
-        <a href="/about">About</a>
+        <a href="/about" className="hover-1">About</a>
         </button>
           <div className="dropdown-content">
             <a href="#">Link 1</a>
@@ -59,7 +59,7 @@ class MyNavbar extends React.Component {
         </div>
         <div className="my-dropdown">
         <button className="dropbtn">
-        <a href="/resources">Tenant & Owner Resources</a>
+        <a href="/resources" className="hover-1">Tenant & Owner Resources</a>
         </button>
           <div className="dropdown-content">
             <a href="#">Link 1</a>
@@ -69,14 +69,15 @@ class MyNavbar extends React.Component {
         </div>
         <div className="my-dropdown">
         <button className="dropbtn">
-        <a href="/contact">Contact</a>
+        <a href="/contact" className="hover-1">Contact</a>
         </button>
           <div className="dropdown-content">
             <a href="#">Link 1</a>
             <a href="#">Link 2</a>
             <a href="#">Link 3</a>
           </div>
-        </div>        <a href="javascript:void(0);" className="icon" onClick={this.responsive}>&#9776;</a>
+        </div>
+        <a href="javascript:void(0);" className="icon" onClick={this.responsive}>&#9776;</a>
       </div>
     );
   }
@@ -85,7 +86,7 @@ class MyNavbar extends React.Component {
 const MyNav = (props) => {
 
   return (
-    <div className="navbar navbar-default navbar-static-top" role="navigation">
+    <div className="navbar navbar-static-top" role="navigation">
       <MyNavbar />
     </div>
   );

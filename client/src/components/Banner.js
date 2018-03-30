@@ -12,7 +12,7 @@ class Banner extends React.Component {
       backgroundPosition: 'center center',
       backgroundSize:'cover',
       height: 450,
-      marginTop: -58
+      marginTop: -100
     };
 
     return (

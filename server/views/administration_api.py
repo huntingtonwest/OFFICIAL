@@ -87,7 +87,23 @@ USER SETTINGS - allows admins to control who has access to admin
 """
 
 #TODO: update personal settings
+
+
+
+
+
 #TODO: get personal settings
+@mod.route('/get-user/<string:email>', methods=['GET'])
+@login_required
+@is_admin
+def get_user(email):
+	try:
+		user = Users.query.filter_by(email=email, is_verified=True).one()
+	except:
+		abort(400)
+	return jsonify({'user':user})
+
+
 
 @mod.route('/get-users', methods=['GET'])
 @login_required

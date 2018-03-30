@@ -1,6 +1,7 @@
 import * as React from "react";
 import {
   Image
+  // Navbar, Nav, NavDropdown, MenuItem
 } from "react-bootstrap";
 
 // Collapsible sticky navbar shown on scroll

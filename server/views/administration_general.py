@@ -15,7 +15,7 @@ from sqlalchemy import exc
 from server.forms.forms import LoginForm, RegisterForm, PersonalSettings, PasswordForm, EmailForm
 from server import db, s, mail
 
-mod = Blueprint('administration_misc', __name__)
+mod = Blueprint('administration_general', __name__)
 
 """
 LOGIN

@@ -17,7 +17,7 @@ from sqlalchemy import exc
 from server.forms.forms import EmailForm
 from server import db, mail
 
-mod = Blueprint('administration_general', __name__)
+mod = Blueprint('administration_misc', __name__)
 
 @mod.route('/email-settings', methods=['GET'])
 @login_required

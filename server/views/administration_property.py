@@ -64,7 +64,7 @@ def edit_property_get(property_id):
 
 
 		flash('Property was successfully edited!', 'success')
-		return redirect(url_for('administration_property.edit_property_get'))
+		return redirect(url_for('administration_property.edit_property_get', property_id))
 
 	return render_template('administration/edit_property.html', property=property, form=form)
 

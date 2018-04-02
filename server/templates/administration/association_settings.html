@@ -1,0 +1,21 @@
+{% extends 'index.html' %}
+
+{% block body %}
+<br><h1>Association Settings</h1><br><br>
+
+<table class="table">
+  <thead>
+    <th scope="col">Association Name</th>
+    <th scope="col">Association Location</th>
+  </thead>
+  <tbody>
+    {% for a in associations %}
+    <tr>
+      <td>{{ a.acn_name }}</td>
+      <td>{{ a.acn_loc }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

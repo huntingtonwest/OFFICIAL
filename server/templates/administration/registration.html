@@ -1,8 +1,17 @@
-REGISTER<br><br>
+{% extends 'index.html' %}
+
+{% block body %}
+{% from "includes/_formhelpers.html" import render_field %}
+
+<h1>REGISTER</h1><br><br>
 
 <form method="post">
-	first name:<input name="first"><br>
-	last name:<input name="last"><br>
-	password:<input name="password"><br>
-	<input type="submit">
+	{{ render_field(form.first_name, class_="form-control") }}
+	{{ render_field(form.last_name, class_="form-control") }}
+	{{ render_field(form.password, class_="form-control") }}
+	{{ render_field(form.confirm, class_="form-control") }}
+
+	<input class="btn btn-info" type="submit">
 </form>
+
+{% endblock %}

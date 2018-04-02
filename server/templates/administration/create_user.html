@@ -1,5 +1,14 @@
-ADD NEW USER <br><br>
-<form action='/create-user' method="post">
-	email:<input name="email"><br>
-	<input type="submit">
+{% extends 'index.html' %}
+
+{% block body %}
+{% from "includes/_formhelpers.html" import render_field %}
+
+
+<h1>Invite New User</h1> <br><br>
+<form class="form" action='/add-user' method="post">
+	{{ render_field(form.email, class_="form-control", placeholder="Email") }}
+	{{ render_field(form.confirm, class="form-control", placeholder="Confirm Email") }}
+	<input class="btn btn-info" type="submit">
 </form>
+
+{% endblock %}

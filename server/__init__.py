@@ -43,10 +43,15 @@ def error403(error):
 
 
 from server.views import general
-from server.views import administration
+from server.views import administration_general, administration_property, administration_users, administration_misc
 from server.views import forms
 app.register_blueprint(general.mod)
-app.register_blueprint(administration.mod)
+app.register_blueprint(administration_general.mod)
+app.register_blueprint(administration_property.mod)
+app.register_blueprint(administration_misc.mod)
+
+app.register_blueprint(administration_users.mod)
+
 app.register_blueprint(forms.mod)
 
 from server import models
@@ -60,4 +65,3 @@ def load_user(id):
 # from server.dbtest_init import properties, users, testdb_init
 
 # testdb_init(properties, users)
-

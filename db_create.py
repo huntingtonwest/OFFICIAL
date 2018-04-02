@@ -7,28 +7,20 @@ from server import db
 from server.models.associations import Associations
 from server.models.users import Users
 from server.models.roles import Roles, Emails
-from server.models.properties import Properties, PropertyTypes, Cities
-
+from server.models.properties import Properties
+from passlib.hash import sha256_crypt
 import os.path
 db.create_all()
 
 try:
 	#load roles
 	roles = [{
-		'role_name':'Consultation Form Sender',
-		'email':'hwptesting@gmail.com'
-		},{
-		'role_name':'Consultation Form Receiver',
+
+		'role_name':'Consultation Form',
 		'email':'bestgirlshiina@gmail.com'
 		},{
-		'role_name':'Contact Form Sender',
-		'email':'hwptesting@gmail.com'
-		},{
-		'role_name':'Contact Form Receiver',
+		'role_name':'Contact Form',
 		'email':'bestgirlshiina@gmail.com'
-		},{
-		'role_name':'User Registration',
-		'email':'hwptesting@gmail.com'
 		}]
 
 	properties = [{
@@ -105,28 +97,6 @@ try:
 	}]
 
 	for p in properties:
-	
-		try:
-			type = PropertyTypes.query.filter_by(type_name=p['type']).one()
-			p['type'] = type.type_id
-		except:
-			type = PropertyTypes(type_name=p['type'])
-			db.session.add(type)
-			db.session.flush()
-			p['type'] = type.type_id
-			# print('property type added')
-	
-		try:
-			city = Cities.query.filter_by(city_name=p['city']).one()
-			p['city'] = city.city_id
-
-		except:
-			city = Cities(city_name=p['city'])
-			db.session.add(city)
-			db.session.flush()
-			p['city'] = city.city_id
-			# print('city added')
-	
 		try:
 			prop = Properties.query.filter_by(name=p['name']).one()
 		except:
@@ -134,7 +104,7 @@ try:
 			db.session.add(new_prop)
 			print('property added')
 
-
+	print('properties done')
 	for r in roles:
 		try:
 			role = Roles.query.filter_by(role_name=r['role_name']).one()
@@ -151,22 +121,22 @@ try:
 			email = Emails(email=r['email'])
 			db.session.add(email)
 			db.session.flush()
-			
+
 			role.add_email(email)
 
 	print('roles and emails done')
 	#load associations
 	associations = [{
-		'acn_name':'Ash Street Community Association', 
+		'acn_name':'Ash Street Community Association',
 		'acn_loc':'Huntington Beach'
 		},{
 		'acn_name':'B.P. Homeowners Association',
 		'acn_loc':'Newport Beach'
 		},{
-		'acn_name':'Birchview Brea Homeowners Association', 
+		'acn_name':'Birchview Brea Homeowners Association',
 		'acn_loc':'Brea'
 		},{
-		'acn_name': 'Casa Gaviota Homeoners Association, Inc.', 
+		'acn_name': 'Casa Gaviota Homeoners Association, Inc.',
 		'acn_loc':'Signal Hill'
 		}]
 
@@ -187,7 +157,7 @@ try:
 		db.session.flush()
 		user.first = 'shiina'
 		user.last = 'mashiiro'
-		user.password = 'sakurasou'
+		user.password = sha256_crypt.encrypt('sakurasou')
 		user.is_master = True
 		user.is_admin = True
 		user.is_verified = True

@@ -10,7 +10,7 @@ class Users(UserMixin, db.Model):
     first = db.Column(db.String(200))
     last = db.Column(db.String(200))
 
-    email = db.Column(db.String(200),unique=True)
+    email = db.Column(db.String(100),unique=True)
     password = db.Column(db.String(80))
     is_master = db.Column(db.Boolean(), default=False)
     is_admin = db.Column(db.Boolean(), default=False)

@@ -1,23 +1,46 @@
-EDIT PROPERTY<br>
-<a href="/property-settings">back to property settings</a>
-<br><br>
+{% extends 'index.html' %}
+
+{% block body %}
+{% from "includes/_formhelpers.html" import render_field %}
+
+<br><h1>Edit Property</h1><br><br>
 
 <form action="/edit-property/{{property.property_id}}" method="post">
-name:<input name="name" value="{{property.name}}"><br>
-address line 1:<input name="address_l1" value="{{property.address_l1}}"><br>
-address line 2:<input name="address_l2" value="{{property.address_l2}}"><br>
-city:<input name="city" value="{{property.city_info.city_name}}"><br>
-state:<input name="state" value="{{property.state"}}><br>
-zipcode:<input name="zipcode" value="{{property.zipcode"}}><br>
 
+  {{ render_field(form.name, class="form-control", value=property.name) }}
+  {{ render_field(form.address_l1, class="form-control", value=property.address_l1) }}
+  {{ render_field(form.address_l2, class="form-control", value=property.address_l2) }}
+  {{ render_field(form.city, class="form-control", value=property.city) }}
+  {{ render_field(form.state, class="form-control", value=property.state) }}
+  {{ render_field(form.zipcode, class="form-control", value=property.zipcode) }}
+  {{ render_field(form.type, class="form-control", value=property.type) }}
+  {{ render_field(form.beds, class="form-control", value=property.beds) }}
+  {{ render_field(form.baths, class="form-control", value=property.baths) }}
+  {{ render_field(form.price, class="form-control", value=property.price) }}
 
-property type: <input {{p.type}}<br>
-beds/baths: {{p.beds}}/{{p.baths}}<br>
+  <dt><label for="for_sale">For Sale</label>
+  {% if property.for_sale %}
+  <dd><input id="for_sale" type="checkbox" name="for_sale" checked>
+  {% else %}
+  <dd><input id="for_sale" type="checkbox" name="for_sale">
+  {% endif %}
 
-price: ${{p.price}}<br>
+  <dt><label for="for_rent">For Rent</label>
+  {% if property.for_rent %}
+  <dd><input id="for_rent" name="for_rent" type="checkbox" checked>
+  {% else %}
+  <dd><input id="for_rent" name="for_rent" type="checkbox">
+  {% endif %}
 
-for sale: {{p.for_sale}}<br>
-for rent: {{p.for_rent}}<br>
+  {{ render_field(form.area, class="form-control", value=property.area) }}
+  {{ render_field(form.notes, class="form-control", value=property.notes) }}
+  <input type="submit" class="btn-info btn">
+</form>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
 
-area: {{p.area}} sqft<br>
-notes:{{p.notes}}<br>
+{% endblock %}

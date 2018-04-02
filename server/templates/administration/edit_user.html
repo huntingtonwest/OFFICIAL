@@ -1,17 +1,42 @@
-EDIT USER
-<br><br>
+{% extends 'index.html' %}
+
+{% block body %}
+
+{% from "includes/_formhelpers.html" import render_field %}
+
+<br><h1>Edit User</h1><br><br>
 <form action="/edit-user/{{user.id}}" method="post">
-	first name: {{user.first}}<br>
-	last name: {{user.last}}<br>
-	email: {{user.email}}<br>
+<table class="table">
 
-	{% if user.is_admin %}
-	admin status:<input type="checkbox" name="is_admin" checked><br>
-	{% else %}
-	admin status:<input type="checkbox" name="is_admin" ><br>
+	<tbody>
+		<tr>
+			<th scope="col">First Name: </th>
+			<td>{{user.first}}</td>
+		</tr>
+		<tr>
+			<th scope="col">Last Name: </td>
+			<td>{{user.last}}</td>
+		</tr>
+		<tr>
+			<th scope="col">Email: </th>
+			<td>{{user.email}}</td>
+		</tr>
+		<tr>
+			<th scope="col">Is Admin: </th>
+			<td>
+					{% if user.is_admin %}
+					<input type="checkbox" name="is_admin" checked><br>
+					{% else %}
+					<input type="checkbox" name="is_admin" ><br>
+					{% endif %}
 
-	{% endif %}
-	<input type="submit">
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<input class="btn btn-info" type="submit">
 </form>
-<br>
-<a href="/user-settings">back to user settings</a>
+
+
+{% endblock %}

@@ -35,10 +35,6 @@ def get_properties_get():
 	properties = []
 	for x in p:
 		prop = serialize(x, Properties)
-
-		prop['city'] = x.city_info.city_name
-		prop['type'] = x.type_info.type_name
-
 		properties.append(prop)
 
 	return jsonify({'properties':properties})

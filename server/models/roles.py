@@ -15,7 +15,7 @@ class Roles(db.Model):
 
     edit_date = db.Column(db.DateTime(), onupdate = datetime.utcnow, default = datetime.utcnow)
 
-    emails = db.relationship('Emails', secondary=role_email, backref=db.backref('emails',lazy='dynamic'), lazy='dynamic')
+    emails = db.relationship('Emails', secondary=role_email, backref=db.backref('roles',lazy='dynamic'), lazy='dynamic')
 
 
     def __init__(self, role_name):
@@ -32,7 +32,7 @@ class Roles(db.Model):
     def has_email(self, email):
         return self.emails.filter(Emails.email_id == email.email_id).count() > 0
 
-   
+
 
 class Emails(db.Model):
     __tablename__ = 'Emails'

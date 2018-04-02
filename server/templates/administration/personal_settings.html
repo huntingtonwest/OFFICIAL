@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+
+{% block body %}
+
+{% from "includes/_formhelpers.html" import render_field %}
+<br><h1>Personal Settings</h1><br><br>
+
+
+<form action="/personal-settings" method="post">
+  {{ render_field(form.first_name, class_="form-control", value=current_user.first) }}
+  {{ render_field(form.last_name, class_="form-control", value=current_user.last) }}
+  <dt><label>Email:</label>
+  <dd>{{current_user.email}}<br><br>
+  <input class="btn btn-info" type="submit">
+</form>
+<br><br>
+<a class="btn btn-info" href='/password-settings'>Change Password</a>
+
+{% endblock %}

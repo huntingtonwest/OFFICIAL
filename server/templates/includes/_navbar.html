@@ -1,0 +1,68 @@
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+<div class="navbar-collapse">
+<ul class="navbar-nav mr-auto">
+  <!-- <li><a id="forum-btn">F</a></li> -->
+  <li class="nav-item"><a class="nav-link" href="/">Website Home</a></li>
+</ul>
+<ul class="navbar-nav mx-auto">
+  {% if current_user.is_authenticated %}
+
+  <li class="nav-item"><a class="nav-link" href="/admin-home">Admin Home</a></li>
+  <li class="nav-item"><a class="nav-link" href="/user-settings">User Settings</a></li>
+  <li class="nav-item"><a class="nav-link" href="/property-settings">Property Settings</a></li>
+  <li class="nav-item"><a class="nav-link" href="/email-settings">Email Settings</a></li>
+  <li class="nav-item"><a class="nav-link" href="/association-settings">Association Settings</a></li>
+  {% endif %}
+
+</ul>
+<ul class="navbar-nav ml-auto">
+  {% if current_user.is_authenticated %}
+  <li class="nav-item"><a class="nav-link" href="/personal-settings">{{current_user.first}} {{current_user.last}}</a></li>
+  <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+  {% else %}
+  <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+  {% endif %}
+</ul>
+
+</div>
+
+</nav>
+
+
+
+
+<!-- <nav class="navbar navbar-inverse navbar-fixed-top">
+   <div class="container-fluid">
+     <div class="navbar-header">
+       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+         <span class="sr-only">Toggle navigation</span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+       </button>
+       <a class="navbar-brand" href="/home">Eimeer</a>
+     </div>
+
+     <div id="navbar" class="navbar-collapse collapse">
+       <ul class="nav navbar-nav navbar-right">
+         {# if current_user.is_authenticated #}
+         <li><a href="/notifications">Notifications</a></li>
+         <li><a href="/profile/{{current_user.username}}">{{current_user.username}}</a></li>
+         <li><a href="/logout">Logout</a></li>
+         {# else #}
+         <li><a href="/login">Login</a></li>
+         <li><a href="/register">Register</a></li>
+         {# endif #}
+       </ul>
+       <form class="navbar-form navbar-right" method = "POST">
+         <input id = "searchtext" class="form-control" name = "search" placeholder="Search" >
+         <button  class="btn btn-default" id = "searchBtn" name = "submit">Go</button>
+       </form>
+
+     </div>
+   </div>
+   <script type="text/javascript" src="/static/js/search.js"></script>
+
+</nav> -->

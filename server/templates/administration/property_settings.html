@@ -1,35 +1,108 @@
-PROPERTY SETTINGS<br>
-<a href='/admin-home'>back to home</a><br>
-<a href='/add-property'>add property</a>
+{% extends 'index.html' %}
+
+{% block body %}
+<br><h1>Property Settings</h1><br>
+<a class="btn btn-info" href='/add-property'>add property</a>
 <br><br>
-AVAILABLE PROPERTIES<br>
-{% for p in available_properties %}
 
-name:{{p.name}}<br>
-address:<br>
-{{p.address_l1}}<br>
-{% if p.address_l2 %}
-{{p.address_l2}}<br>
-{% endif %}
-{{p.city_info.city_name}}, {{p.state}} {{p.zipcode}}<br>
+<table class="table table-sm">
+  <thead>
+    <tr>
+      <th scope="col">Property Info</th>
+      <th scope="col">Pictures</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in properties %}
+    <tr>
+      <td>
+        <div class="container">
 
-property type: {{p.type}}<br>
-beds/baths: {{p.beds}}/{{p.baths}}<br>
+          <div class="row">
+            <div class="col-md-2">Name:</div>
+            <div class="col-md-9">{{p.name}}</div>
+          </div>
 
-price: ${{p.price}}<br>
+          <div class="row">
+            <div class="col-md-2">Address:</div>
+            <div class="col-md-9">
+              <div class="container">
+              <div class="row">
+                {{p.address_l1}}
+              </div>
+              {% if p.address_l2 %}
+              <div class="row">
+                {{p.address_l2}}
+              </div>
+              {% endif %}
+              <div class="row">
+                {{p.city}}, {{p.state}} {{p.zipcode}}
+              </div>
+            </div>
+            </div>
+          </div>
 
-for sale: {{p.for_sale}}<br>
-for rent: {{p.for_rent}}<br>
+          <div class="row">
+            <div class="col-md-2">Property type: </div>
+            <div class="col-md-9">{{p.type}}</div>
+          </div>
 
-area: {{p.area}} sqft<br>
-notes:{{p.notes}}<br>
+          <div class="row">
+            <div class="col-md-2">Beds/Baths: </div>
+            <div class="col-md-9">{{p.beds}}/{{p.baths}}</div>
+          </div>
 
-date posted: {{p.date_posted}}<br>
-<a href="/edit-property/{{p.property_id}}">edit</a>
-<br><br>
-{% endfor %}
+          <div class="row">
+            <div class="col-md-2">Price: </div>
+            <div class="col-md-9">${{p.price}}</div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2">Area: </div>
+            <div class="col-md-9">{{p.area}} sqft</div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2">For sale: </div>
+            <div class="col-md-9">{{p.for_sale}}</div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2">For rent: </div>
+            <div class="col-md-9">{{p.for_rent}}</div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2">Date updated: </div>
+            <div class="col-md-9">{{p.date_posted}}</div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2">Notes: </div>
+            <div class="col-md-9">{{p.notes}}</div>
+          </div>
 
 
-{% for p in nonavailable_properties %}
 
-{% endfor %}
+        </div>
+      </td>
+      <td>PICTURES</td>
+      <td>
+        <a class="btn btn-info" href="/edit-property/{{p.property_id}}">edit</a>
+      </td>
+      <td>
+          <form action="/delete-property" method='post'>
+            <input type="hidden" name="id" value="{{p.property_id}}">
+            <input class="btn btn-info" type="submit" value="delete">
+          </form>
+      </td>
+    </tr>
+
+    {% endfor %}
+  </tbody>
+</table>
+
+
+{% endblock %}

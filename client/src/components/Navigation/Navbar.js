@@ -19,7 +19,9 @@ class MyNavbar extends React.Component {
 
   render() {
     return (
+
       <div className="topnav" id="myTopnav">
+
       <a href="/" className="active">
                    <Image
                      style={{ width: 150 }}

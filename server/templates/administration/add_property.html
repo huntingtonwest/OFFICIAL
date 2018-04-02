@@ -1,27 +1,28 @@
-ADD PROPERTY<br>
-<a href="/property-settings">back to property settings</a>
-<br><br>
+{% extends 'index.html' %}
+
+{% block body %}
+{% from "includes/_formhelpers.html" import render_field %}
+
+<br><h1>Add Property</h1><br><br>
 
 <form action="/add-property" method="post">
-name:<input name="name"><br>
-address line 1:<input name="address_l1"><br>
-address line 2:<input name="address_l2"><br>
-city:<input name="city"><br>
-state:<input name="state"><br>
-zipcode:<input name="zipcode"><br>
 
-
-property type: <input name="type"><br>
-beds:<input name="beds"><br>
-baths: <input name="baths"><br>
-
-price: $<input name="price"><br>
-
-for sale: <input type="checkbox" name="for_sale"><br>
-for rent: <input type="checkbox" name="for_rent"><br>
-
-area: <input name="area">sqft<br>
-notes:<input name="notes"><br>
-
-<input type="submit">
+  {{ render_field(form.name, class="form-control") }}
+  {{ render_field(form.address_l1, class="form-control") }}
+  {{ render_field(form.address_l2, class="form-control") }}
+  {{ render_field(form.city, class="form-control") }}
+  {{ render_field(form.state, class="form-control") }}
+  {{ render_field(form.zipcode, class="form-control") }}
+  {{ render_field(form.type, class="form-control") }}
+  {{ render_field(form.beds, class="form-control") }}
+  {{ render_field(form.baths, class="form-control") }}
+  {{ render_field(form.price, class="form-control") }}
+  {{ render_field(form.for_sale) }}
+  {{ render_field(form.for_rent) }}
+  
+  {{ render_field(form.area, class="form-control") }}
+  {{ render_field(form.notes, class="form-control") }}
+  <input type="submit" class="btn-info btn">
 </form>
+
+{% endblock %}

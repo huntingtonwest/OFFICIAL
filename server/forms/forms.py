@@ -47,7 +47,7 @@ class PasswordForm(Form):
                                             validators.Length(min=1, max=100, message=len_error_msg(min=1, max=100))])
     new_password = PasswordField('New Password', [validators.DataRequired(message=required()),
                                             validators.Length(min=1, max=100, message=len_error_msg(min=1, max=100))])
-    confirm = PasswordField('Confirm New Password', [validators.InputRequired(), validators.EqualTo('confirm', message='Passwords must match')])
+    confirm = PasswordField('Confirm New Password', [validators.InputRequired(), validators.EqualTo('new_password', message='Passwords must match')])
 
 class EmailForm(Form):
     role = StringField('Role')

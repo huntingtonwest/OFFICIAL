@@ -125,7 +125,12 @@ def password_settings():
 	form = PasswordForm(request.form)
 
 	if request.method=='POST' and form.validate():
+		old_password = form.password.data
 		password = form.new_password.data
+
+		if not sha256_crypt.verify(old_password, current_user.password):
+			form.password.errors.append('Your original password is incorrect!')
+			return render_template('administration/password_settings.html', form=form)
 
 		try:
 			current_user.password = sha256_crypt.encrypt(password)

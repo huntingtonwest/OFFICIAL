@@ -9,12 +9,15 @@ import About from './views/about/About';
 import AvailableProperties from './views/available-properties/AvailableProperties';
 import Contact from './views/contact/Contact';
 import Resources from './views/resources/Resources';
+import Home from './views/home/Home';
+
 
 const Main = () => (
   <Router>
     <div>
       <Switch>
-        <Route exact path="/" component={PropertyManagement} />
+        <Route exact path="/" component={Home} />
+        <Route exact path="/propertyManagement" component={PropertyManagement} />
         <Route path="/about" component={About} />
         <Route path="/availableProperties" component={AvailableProperties} />
         <Route path="/contact" component={Contact} />

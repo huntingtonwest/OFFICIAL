@@ -32,7 +32,7 @@ class MyNavbar extends React.Component {
                  </a>
           <div className="my-dropdown">
           <button className="dropbtn">
-          <a href="/" className="hover-1">Property Management</a>
+          <a href="/propertyManagement" className="hover-1">Property Management</a>
           </button>
           <div className="dropdown-content">
             <a href="#">Link 1</a>

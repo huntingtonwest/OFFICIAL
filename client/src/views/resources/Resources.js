@@ -102,25 +102,6 @@ class Resources extends Component {
           </Card>
         </Col>
       </Row>
-      <Row className="forms-row">
-              <ListGroup className="form-list">
-                <ListGroupItem
-                  className="form-item"
-                  href="http://www.huntingtonwest.com/pdf/131_Enter-Exit_Checklist.pdf"
-                >
-                    Enter-exit
-                    Checklist
-                </ListGroupItem>
-                <ListGroupItem
-                  className="form-item"
-                  href="http://www.huntingtonwest.com/pdf/30DayNotice.pdf"
-                >
-                  <span>
-                    <Glyphicon className="glyph" glyph="plus" />30-Day Notice
-                  </span>
-                </ListGroupItem>
-              </ListGroup>
-      </Row>
     </Grid>
     <Modal
   title="RENTAL FORMS"

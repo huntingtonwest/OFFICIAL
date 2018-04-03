@@ -5,29 +5,36 @@ import { Row, Col } from 'react-bootstrap';
 import { Cascader } from 'antd';
 
 const options = [{
-  value: 'zhejiang',
-  label: 'Zhejiang',
+  value: 'Los Angeles',
+  label: 'Los Angeles',
   children: [{
-    value: 'hangzhou',
-    label: 'Hangzhou'
+    value: 'Assc 1',
+    label: 'Assc 1'
   },
   {
-    value: 'los angeles',
-    label: 'Los Angeles'
+    value: 'Assc 2',
+    label: 'Assc 2'
   }
 
 ],
 }, {
-  value: 'jiangsu',
-  label: 'Jiangsu',
+  value: 'Garden Grove',
+  label: 'Garden Grove',
   children: [{
-    value: 'nanjing',
-    label: 'Nanjing'
+    value: 'assc 3',
+    label: 'assc 3'
   }],
 }];
 
 
 
+function onChange(value, selectedOptions) {
+  console.log(value, selectedOptions);
+}
+
+function filter(inputValue, path) {
+  return (path.some(option => (option.label).toLowerCase().indexOf(inputValue.toLowerCase()) > -1));
+}
 
 const Option = Select.Option;
 class CitySearch extends React.Component {
@@ -41,18 +48,18 @@ class CitySearch extends React.Component {
     };
   }
 
-
-  onChange(value, selectedOptions) {
-    console.log(value, selectedOptions);
-  }
-
-  filter(inputValue, path) {
-    console.log("filtering");
-
-    var capitalize = inputValue.capitalize();
-    console.log("cap ", capitalize);
-    return (path.some(option => (option.label).indexOf(capitalize) > -1));
-  }
+  //
+  // onChange(value, selectedOptions) {
+  //   console.log(value, selectedOptions);
+  // }
+  //
+  // filter(inputValue, path) {
+  //   console.log("filtering");
+  //
+  //   var capitalize = inputValue.capitalize();
+  //   console.log("cap ", capitalize);
+  //   return (path.some(option => (option.value).toLowerCase().indexOf(inputValue.toLowerCase()) > -1));
+  // }
 
   // handleClick(value) {
   //   console.log("association selected");
@@ -83,18 +90,14 @@ class CitySearch extends React.Component {
     return (
       <Row className="dropdown-row" id="areas">
         <Col xs={12} md={12}>
-
         <Cascader
           size="large"
           className="cascader"
           options={options}
-          onChange={this.onChange}
+          onChange={onChange}
           placeholder="Please select city / association"
-          showSearch={ this.filter }
+          showSearch={{ filter }}
         />
-
-
-
         </Col>
       </Row>
     );

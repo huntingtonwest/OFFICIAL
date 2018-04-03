@@ -11,12 +11,12 @@ class Banner extends React.Component {
       backgroundRepeat:'no-repeat',
       backgroundPosition: 'center center',
       backgroundSize:'cover',
-      height: 450,
+      height: 550,
       marginTop: -100
     };
 
     return (
-      <LazyLoad height={450} offsetVertical={1000}>
+      <LazyLoad height={550} offsetVertical={1000}>
       <div className="text-center search-banner" style={divStyle}>
         <div className="search-inner">
           <h1 className="title-banner title-lower-banner">{this.props.title}</h1>

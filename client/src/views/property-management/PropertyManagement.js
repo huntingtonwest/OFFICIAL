@@ -14,7 +14,7 @@ class PropertyManagement extends Component {
       <div className="App">
         <Banner
           title="PROPERTY MANAGEMENT"
-          img="https://s3.us-east-2.amazonaws.com/hwp-frontend/static/media/iStock-692718260.jpg"
+          img="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/management-banner.jpg"
         />
         <div className="under-banner">
           <div className="desc-container">

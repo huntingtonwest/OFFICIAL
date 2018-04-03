@@ -11,7 +11,7 @@ html, body {
 
 .topnav {
   /*overflow: hidden;*/
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.8);
   /*border-color: black;*/
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
   width: 100%;
@@ -74,9 +74,11 @@ html, body {
 }
 
 .rightBtn:hover{
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(255, 255, 255, 0.1);
 }
-
+.rightBtn a:focus {
+  text-decoration: none;
+}
 
 .right-button:hover{
   color: white;
@@ -88,7 +90,7 @@ html, body {
     position: absolute;
     background-color: rgba(0, 0, 0, 0.7);
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.6);
     z-index: 1;
     width: inherit;
 }
@@ -105,7 +107,7 @@ html, body {
 .my-dropdown:hover .dropbtn {
   /* background-color: #555; */
   color: white;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(255, 255, 255, 0.1);
 
 }
 
@@ -114,8 +116,8 @@ html, body {
 }
 
 .dropdown-content a:hover {
-  background-color: rgba(0, 0, 0, 0.7);
-  color: white;
+  background-color: rgba(255, 255, 255, 0.4);
+  color: black;
 }
 
 .my-dropdown:hover .dropdown-content {
@@ -316,16 +318,14 @@ html, body {
 }
 
 .title-banner {
-  position: relative;
-  margin-top: -10%;
+  /* margin-top: 100px!important; */
   font-size: 70px;
   color: white;
-  margin-bottom: 0;
   letter-spacing: 0.1em;
 }
 
 .title-lower-banner {
-  margin-top: 1em !important;
+  margin-top: 150px!important;
 }
 
 .desc-container {
@@ -384,6 +384,45 @@ html, body {
   font-size: 18px !important;
   border-radius: 0 !important;
 }
+
+.cascader {
+  width: 80%!important;
+
+}
+
+.ant-cascader-menus {
+  /* font-size: 20px!important; */
+  /* line-height: 30px!important; */
+  /* background: red!important; */
+  /* position: absolute; */
+  /* z-index: @zindex-dropdown;
+  border-radius: @border-radius-base;
+  box-shadow: @box-shadow-base;
+  white-space: nowrap; */
+
+}
+
+.ant-cascader-menu {
+    display: inline-block;
+    vertical-align: top;
+    /* min-width: 111px; */
+    /* list-style: none; */
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    /* line-height: 50px!important; */
+  }
+
+  .ant-cascader-menu-item {
+    font-size: 18px!important;
+    line-height: 30px!important;
+    min-width: 150px;
+    padding: 0.4em 2em 0.4em 0.8em!important;
+  }
+
+    .ant-cascader-menu-item-active {
+      font-weight: normal!important;
+  }
 
 /* AVAILABLE PROPERTIES -- SEARCH */
 
@@ -549,13 +588,13 @@ input[type=text].input-right  {
 }
 
 .search-banner-2 {
-  background-image: url('https://s3.us-east-2.amazonaws.com/hwp-frontend/static/media/iStock-683418118.jpg');
+  background-image: url('https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/properties-banner.jpg');
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   width: 100%;
-  height: 600px;
-  padding-top: 11em;
+  height: 700px;
+  padding-top: 17em;
   margin-top: -100px!important;
 
 }
@@ -688,12 +727,14 @@ input[type=text].input-right  {
   font-style: italic;
   font-size: 23px;
   line-height: 40px;
+  font-weight: lighter;
 }
 
 .light-blue {
   background-color: #B7CED4;
   display: flex;
   text-align: left;
+  height: 100%;
 }
 
 .about-row-info {
@@ -711,6 +752,7 @@ input[type=text].input-right  {
   text-align: center;
   margin-bottom: 1em;
   font-style: normal;
+  color: white;
 }
 
 .about-grid {
@@ -740,11 +782,11 @@ input[type=text].input-right  {
 
 /* RESOURCES */
 
-.title-left {
+/* .title-left {
   text-align: left !important;
   margin-bottom: 1em;
-}
-
+} */
+/*
 .resource-buttons {
   margin-top: 5em;
 }
@@ -756,22 +798,33 @@ input[type=text].input-right  {
   width: 350px;
   margin-bottom: 1em;
   float: right;
-}
-
+} */
+/*
 .glyph {
   margin-right: 0.7em;
-}
+} */
 
 .resources-second-row, .grey {
   background-color: #F0F0F0;
   width: 100%;
 }
 
+.forms-row {
+  margin-top: 2em;
+  display: none;
+  /* display: block; */
+  text-align: left;
+}
+.forms-button: .forms-row {
+  display: block!important;
+}
+
 .form-list {
   /* box-shadow: none!important; */
-  -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);
+  /* -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1); */
+  filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.2));
 }
 
 .form-item {
@@ -780,8 +833,29 @@ input[type=text].input-right  {
   border-bottom: 1px solid darkgrey !important;
   /* box-shadow: none!important; */
   margin: 0.1em 0;
-  font-size: 20px;
+  font-size: 18px;
 }
+
+.vertical-center-modal {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.vertical-center-modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  width: 0;
+}
+
+.vertical-center-modal .ant-modal {
+  display: inline-block;
+  vertical-align: middle;
+  top: 0;
+  text-align: left;
+}
+
 
 /* CONTACT */
 

@@ -17,7 +17,7 @@ class Home extends Component {
         window.location.assign('/availableProperties');
         break;
       case 'payments':
-        window.location.assign('/resources#payment');
+        window.location.assign('http://www.paylease.com');
         break;
       case 'consultation':
         window.location.assign('/availableProperties#consultation');

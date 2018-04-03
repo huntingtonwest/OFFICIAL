@@ -85,7 +85,7 @@ class MyNavbar extends React.Component {
         <a href="https://realhwptest.herokuapp.com/login" className="right-button">Admin Login</a>
         </button>
         <button className="rightBtn">
-        <a href="https://realhwptest.herokuapp.com/login" className="right-button">Resident Login</a>
+        <a href="#" className="right-button">Resident Login</a>
         </button>
         </div>
         <a href="javascript:void(0);" className="icon" onClick={this.responsive}>&#9776;</a>

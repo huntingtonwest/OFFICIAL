@@ -32,11 +32,17 @@ html, body {
 
 }
 
+
+.active .logo{
+  margin-right: 1em!important;
+}
+
 .logo {
   /* -webkit-transition: 0.5s;
   -moz-transition: 0.5s;
   -o-transition: 0.5s;
   transition: 0.5s; */
+
 }
 
 .topnav .icon {
@@ -148,8 +154,9 @@ html, body {
 }
 
 .my-dropdown:hover .dropdown-content {
-    display: block!important;
+    display: block;
 }
+
 
 /* RED UNDERLINE ON HOVER */
 /* commented out until i figure how to make dropdown-content full width */
@@ -173,7 +180,46 @@ html, body {
 } */
 
 
-@media screen and (max-width: 1401px) {
+@media screen and (max-width: 1550px) {
+  .topnav a {
+    /* padding: 10px 16px; */
+    font-size: 15px;
+  }
+  .my-dropdown .dropbtn {
+    padding: 22px 16px;
+
+  }
+  .logo {
+    padding-top: 4px;
+    width: 180px!important;
+  }
+
+}
+
+@media screen and (max-width: 1411px) {
+  .topnav a {
+    padding: 8px 8px;
+    font-size: 15px;
+  }
+  .my-dropdown .dropbtn {
+    padding: 22px 10px;
+
+  }
+  .logo {
+    padding-top: 7px;
+    width: 160px!important;
+  }
+  .topnav {
+    padding: 0!important;
+  }
+  .dropdown-content a {
+
+      padding: 14px 22px;
+      /* font-size: 16.5px; */
+  }
+}
+
+@media screen and (max-width: 1202px) {
   .topnav a:not(:first-child), .my-dropdown .dropbtn, .right-nav .rightBtn {
     display: none;
   }
@@ -181,9 +227,32 @@ html, body {
     float: right;
     display: block;
   }
+  .topnav {
+    /* background-color: white!important; */
+  }
+  .hover-1, .right-button {
+    color: black!important;
+    /* pointer-events: none; */
+  }
+  .active {
+    /* border-bottom: 1px solid lightgrey; */
+  }
+
+  .right-nav {
+    border-top: 1px solid lightgrey;
+  }
+  .right-button {
+    padding-left: 0!important;
+  }
+  .my-dropdown:hover .dropdown-content {
+      display: none;
+  }
+  .logo {
+    padding-top: 0;
+  }
 }
 
-@media screen and (max-width: 1401px) {
+@media screen and (max-width: 1202px) {
   .topnav.responsive {position: relative;}
   .topnav.responsive .icon {
     position: absolute;
@@ -278,14 +347,12 @@ html, body {
 
 .title-home-banner {
   position: relative;
-  margin-top: 10%;
+  margin: 4.5em 4em 0 4em;
   font-size: 40px;
   color: white;
   margin-bottom: 0;
   letter-spacing: 0.1em;
   text-align: center;
-  margin-left: 10em ;
-  margin-right: 10em ;
   font-family: 'Gill Sans', sans-serif !important;
   font-weight: lighter;
 
@@ -327,14 +394,67 @@ html, body {
   line-height: 40px!important;
 
 }
+
 .home-card {
   filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.2));
-  margin-bottom: 1em!important;
+  margin-bottom: 1em;
 }
 .custom-card p {
   color: black;
   font-size: 20px;
 }
+
+@media only screen and (max-width: 767px) {
+  .card-row {
+    margin: 0.5em 3em;
+  }
+  .home-card {
+    margin-bottom: 4em!important;
+  }
+}
+
+
+@media only screen and (max-width: 991px) {
+  .home-col {
+    padding: 3em 0 0 0;
+  }
+}
+
+@media only screen and (max-width: 930px) {
+
+  .title-home-banner {
+    margin: 4.5em 1em 0 1em;
+    font-size: 35px;
+    line-height: 45px;
+
+  }
+}
+@media only screen and (max-width: 720px) {
+
+  .title-home-banner {
+    font-size: 25px;
+    margin: 7em 1em 0 1em;
+    line-height: 35px;
+  }
+}
+
+@media only screen and (max-width: 426px) {
+
+  .title-home-banner {
+    font-size: 25px;
+    margin: 7.5em 1em 0 1em;
+    line-height: 30px;
+
+  }
+}
+@media only screen and (max-width: 319px) {
+
+  .title-home-banner {
+    font-size: 25px;
+    margin: 7em 0 0 0;
+  }
+}
+
 
 /* PROPERTY MANAGEMENT / GENERAL */
 
@@ -358,6 +478,27 @@ html, body {
 .title-lower-banner {
   margin-top: 150px!important;
 }
+
+@media only screen and (max-width: 575px) {
+  .title-banner {
+    font-size: 55px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .title-banner {
+    font-size: 40px;
+    line-height: 50px;
+  }
+}
+
+@media only screen and (max-width: 300px) {
+  .title-banner {
+    font-size: 20px;
+    line-height: 40px;
+  }
+}
+
 
 .desc-container {
   padding: 3em 0 2em 0;
@@ -956,6 +1097,17 @@ input[type=text].input-right  {
   text-align: left;
 }
 
+@media only screen and (max-width: 1200px) {
+  .about-desc {
+    width: 80%;
+  }
+}
+@media only screen and (max-width: 450px) {
+  .about-desc {
+    font-size: 19px;
+  }
+}
+
 .dark-blue {
   height: 100%;
   display: flex;
@@ -989,30 +1141,59 @@ input[type=text].input-right  {
   margin-bottom: 1em;
   font-style: normal;
   color: white;
+
 }
 
 .about-grid {
   text-align: center;
   width: 75%;
-
 }
 
 .about-name {
   margin-top: 0.6em;
   margin-bottom: 0.4em;
-  font-style: italic;
+  /* font-style: italic; */
   font-size: 20px;
 }
 
 .about-position {
-  font-style: italic;
-  font-size: 14px;
+  /* font-style: italic; */
+  font-size: 17px;
 }
 
 .about-contact {
-  font-weight: 600;
+  /* font-weight: 600; */
   font-size: 17px;
-  line-height: 13px;
+  line-height: 14px;
+  letter-spacing: 0.03em;
+  font-weight: normal;
+}
+
+@media only screen and (max-width: 1300px) {
+  .about-grid {
+    width: 85%;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .about-contact, .about-position {
+    font-size: 16px;
+  }
+
+  .about-grid {
+    width: 95%;
+  }
+}
+@media only screen and (max-width: 450px) {
+  .about-desc {
+    font-size: 19px;
+  }
+  .about-contact, .about-position {
+    font-size: 14px;
+  }
+  .about-name {
+    font-size: 15px;
+  }
 }
 
 .thumbnail img{
@@ -1022,6 +1203,7 @@ input[type=text].input-right  {
   border: none;
   margin: 1em 0.2em;
   box-shadow: none;
+  font-family: 'Gill Sans', sans-serif !important;
 }
 
 /* RESOURCES */
@@ -1155,8 +1337,22 @@ input[type=text].input-right  {
 }
 
 .accr {
-  max-height: 45px !important;
-  margin: 1em 1em;
+  max-height: 25px;
+  margin: 1em 0.3em;
+}
+
+@media only screen and (min-width: 330px) {
+  .accr {
+    max-height: 30px;
+    margin: 1em 0.5em;
+  }
+}
+
+@media only screen and (min-width: 440px) {
+  .accr {
+    max-height: 45px;
+    margin: 1em 1em;
+  }
 }
 
 #grey {

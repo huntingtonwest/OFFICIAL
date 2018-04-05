@@ -42,8 +42,8 @@ class Home extends Component {
       </div>
       <div className="desc-container grey">
         <Grid>
-        <Row>
-        <Col xs={6} md={4} className="card-col">
+        <Row className="card-row">
+        <Col xs={12} sm={4} md={4} lg={4} className="card-col">
           <Card
             className="home-card"
             hoverable
@@ -60,7 +60,7 @@ class Home extends Component {
             </div>
           </Card>
         </Col>
-        <Col xs={6} md={4} className="card-col">
+        <Col xs={12} sm={4} md={4} lg={4} className="card-col">
           <Card
             className="home-card"
             hoverable
@@ -77,7 +77,7 @@ class Home extends Component {
             </div>
           </Card>
         </Col>
-        <Col xs={6} md={4} className="card-col">
+        <Col xs={12} sm={4} md={4} lg={4} className="card-col">
           <Card
             className="home-card"
             hoverable

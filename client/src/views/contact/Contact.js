@@ -16,6 +16,7 @@ function FieldGroup({ id, label, ...props }) {
 }
 
 class Contact extends Component {
+
   render() {
     return (
       <div className="Contact">

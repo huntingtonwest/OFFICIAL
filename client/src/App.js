@@ -17,21 +17,18 @@ class App extends React.Component {
       background: 'white',
       opacity: '0',
       color: 'black',
-      logo: 'https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/Hwp%2BLogo%2BApproved.png',
-      bg: 'rgba(255, 255, 255, 0.7)'
+      logo: 'https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/Hwp%2BLogo%2BApproved.png'
     }
-    // this.handleScroll = this.handleScroll.bind(this);
-    // this.myRef = React.createRef();
     this.listenScrollEvent = this.listenScrollEvent.bind(this)
   }
 
   listenScrollEvent() {
       if (window.scrollY < 100) {
-        this.setState({bg: 'rgba(255, 255, 255, 0.7)', background: 'white', color: 'black', opacity: '0', logo: 'https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/Hwp%2BLogo%2BApproved.png'
+        this.setState({background: 'white', color: 'black', opacity: '0', logo: 'https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/Hwp%2BLogo%2BApproved.png'
 });
       }
       else {
-        this.setState({bg: 'rgba(0, 0, 0, 0.7)', background: 'rgba(0, 0, 0, 0.7)', color: 'white', opacity: '1', logo: 'https://s3.us-east-2.amazonaws.com/hwp-frontend/static/media/HWP+LOGO+BLUE+WINDOWS.png'
+        this.setState({background: 'rgba(0, 0, 0, 0.7)', color: 'white', opacity: '1', logo: 'https://s3.us-east-2.amazonaws.com/hwp-frontend/static/media/HWP+LOGO+BLUE+WINDOWS.png'
 });
       }
   }
@@ -47,7 +44,7 @@ class App extends React.Component {
 
     return (
       <div>
-        <MyNav bg={this.state.bg} background={this.state.background} display={this.state.opacity} color={this.state.color} logo={this.state.logo}/>
+        <MyNav background={this.state.background} display={this.state.opacity} color={this.state.color} logo={this.state.logo}/>
         <Main />
       </div>
     );

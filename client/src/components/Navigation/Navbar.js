@@ -40,10 +40,10 @@ class MyNavbar extends React.Component {
           <button className="dropbtn">
           <a href="/propertyManagement" className="hover-1" style={{color: this.props.color}}>Property Management</a>
           </button>
-          <div className="dropdown-content" style={{ backgroundColor: this.props.bg}}>
-            <a href="/propertyManagement#services" style={{ color: this.props.color}}>Our Services</a>
-            <a href="/propertyManagement#areas" style={{ color: this.props.color}}>Areas We Serve</a>
-            <a href="/propertyManagement#consultation" style={{ color: this.props.color}}>Schedule Consultation</a>
+          <div className="dropdown-content">
+            <a href="/propertyManagement#services">Our Services</a>
+            <a href="/propertyManagement#areas">Areas We Serve</a>
+            <a href="/propertyManagement#consultation">Schedule Consultation</a>
           </div>
         </div>
         <div className="my-dropdown">
@@ -103,7 +103,7 @@ const MyNav = (props) => {
 
   return (
     <div className="navbar navbar-static-top" role="navigation">
-      <MyNavbar background={props.background} display={props.display} color={props.color} logo={props.logo} bg={props.bg}/>
+      <MyNavbar background={props.background} display={props.display} color={props.color} logo={props.logo}/>
     </div>
   );
 };

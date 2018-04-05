@@ -132,7 +132,7 @@ class About extends Component {
                   image="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/test1.jpg"
 
                 />
-              
+
               </Row>
             </Grid>;
           </div>

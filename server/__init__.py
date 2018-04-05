@@ -37,6 +37,7 @@ def error400(error):
 @app.errorhandler(404)
 def error404(error):
 	print('404 error')
+	print(error)
 	return render_template('errors/404.html'), 404
 
 @app.errorhandler(403)

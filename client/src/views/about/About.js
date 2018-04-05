@@ -25,7 +25,7 @@ class About extends Component {
       <div className="About">
         <Banner
           title="OUR STORY"
-          img="https://s3.us-east-2.amazonaws.com/hwp-frontend/static/media/iStock-601896892.jpg"
+          img="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/about-banner.jpg"
         />
         <div className="under-banner">
           <div className="desc-container about-desc">
@@ -37,7 +37,7 @@ class About extends Component {
               residential and commercial rental properties.
             </p>
           </div>
-          <div className="desc-container">
+          <div className="about-container">
             <Grid>
               <Row className="about-row" id="mission">
                 <Col xs={12} md={6} className="dark-blue">
@@ -76,6 +76,7 @@ class About extends Component {
               </Row>
             </Grid>
           </div>
+          <br/>
           <div className="desc-container" id="team">
             <h1 className="title-container">OUR TEAM</h1>
             <br />

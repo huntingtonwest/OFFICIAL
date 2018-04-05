@@ -3,6 +3,7 @@ import { ControlLabel, FormGroup, FormControl, Image , Grid, Row, Col, Glyphicon
 import Banner from '../../components/Banner';
 import MapContainer from './ContactMap'
 import Footer from '../../components/Footer';
+import ConsultationForm from '../../components/ScheduleForm';
 
 
 function FieldGroup({ id, label, ...props }) {
@@ -21,10 +22,12 @@ class Contact extends Component {
         <Banner
           id="resources-banner"
           title="GET IN TOUCH"
-          img="https://s3.us-east-2.amazonaws.com/hwp-frontend/static/media/iStock-885426092.jpg"
+          img="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/contact-banner.jpg"
         />
+      <br/>
+        <br/>
         <Grid>
-          <Row className="contact-first-row">
+          <Row>
             <Col xs={12} md={6} className="contact-address">
               <Image
                 src="http://via.placeholder.com/500x200"
@@ -48,48 +51,15 @@ class Contact extends Component {
                 897-9120
               </p>
             </Col>
-            <Col xs={12} md={6} className="contact-form" id="form">
-              <form>
-                <div className="left">
-                  <FieldGroup
-                    className="group"
-                    id="contactFormName"
-                    type="text"
-                    label="Name"
-                  />
-                  <FieldGroup
-                    id="contactFormPhone"
-                    type="phone"
-                    label="Phone"
-                  />
-                  <FieldGroup
-                    id="contactFormEmail"
-                    type="email"
-                    label="Email Address"
-                  />
-                  <FormGroup controlId="contactFormAssociation">
-                    <ControlLabel>Association (if applicable)</ControlLabel>
-                    <FormControl componentClass="select">
-                      <option value="select">select</option>
-                      <option value="other">...</option>
-                    </FormControl>
-                  </FormGroup>
-                  <FieldGroup id="contactFormMessage" type="text" />
-                </div>
-                <br />
-                <button className="contact-button" type="submit">
-                  SUBMIT
-                </button>
-              </form>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12} className="contact-map">
+            <Col xs={12} md={6} className="contact-map" >
               <MapContainer />
             </Col>
           </Row>
         </Grid>
-        <Footer bg="white" />
+        <div id="form" className="grey">
+          <ConsultationForm title="SCHEDULE CONSULTATION"/>
+        </div>
+        <Footer bg="grey" />
       </div>
     );
   }

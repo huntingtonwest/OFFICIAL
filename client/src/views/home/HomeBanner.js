@@ -1,7 +1,7 @@
 import * as React from 'react';
 import LazyLoad from 'react-lazy-load';
 
-class Banner extends React.Component {
+class HomeBanner extends React.Component {
 
   render() {
     const bg = this.props.img;
@@ -11,15 +11,15 @@ class Banner extends React.Component {
       backgroundRepeat:'no-repeat',
       backgroundPosition: 'center center',
       backgroundSize:'cover',
-      height: 550,
+      height: 700,
       marginTop: -100
     };
 
     return (
-      <LazyLoad height={550} offsetVertical={1000}>
-      <div className="text-center search-banner" style={divStyle}>
-        <div className="search-inner">
-          <h1 className="title-banner title-lower-banner">{this.props.title}</h1>
+      <LazyLoad height={700} offsetVertical={1000}>
+      <div className="text-center" style={divStyle}>
+        <div className="home-inner">
+          <h1 className="title-home-banner">{this.props.title}</h1>
           <br />
         </div>
       </div>
@@ -29,4 +29,4 @@ class Banner extends React.Component {
 }
 
 
-export default Banner;
+export default HomeBanner;

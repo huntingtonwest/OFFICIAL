@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, flash, request, redirect, url_for,
 from flask_login import login_required, logout_user, login_user, current_user
 
 from server.models.users import Users
+from server.models.history import History, HistoryContent
 from passlib.hash import sha256_crypt
 
 from server.utils.authority_verification import is_admin
@@ -9,18 +10,18 @@ from sqlalchemy import or_
 from itsdangerous import SignatureExpired
 from server.forms.forms import PropertyForm
 from passlib.hash import sha256_crypt
+from server.utils.query_utils import serialize, pst_time
 
 from config import MAIL_USERNAME
 from sqlalchemy import exc
-from server.forms.forms import LoginForm, RegisterForm, PersonalSettings, PasswordForm, EmailForm
-from server import db, s, mail
+from server.forms.forms import LoginForm, RegisterForm, PersonalSettings, PasswordForm, EmailForm, DeleteForm
+from server import app, db, s, mail
 
 mod = Blueprint('administration_general', __name__)
 
 """
 LOGIN
 """
-
 @mod.route('/login', methods=['GET','POST'])
 def login():
 
@@ -33,10 +34,10 @@ def login():
 		email = (form.email.data).strip()
 
 		try:
-			user = Users.query.filter_by(email=email, is_verified=True).one()
+			user = Users.query.filter_by(email=email, is_verified=True, is_deleted=False).one()
 		except:
 			form.email.errors.append('Invalid email or password.')
-			return render_template('administration/login.html', form=form)
+			return render_template('administration/general/login.html', form=form)
 
 		if sha256_crypt.verify(form.password.data, user.password):
 			login_user(user)
@@ -44,7 +45,7 @@ def login():
 
 		form.email.errors.append('Invalid email or password.')
 
-	return render_template('administration/login.html', form=form)
+	return render_template('administration/general/login.html', form=form)
 
 
 @mod.route('/logout', methods=['GET'])
@@ -65,28 +66,41 @@ def register(token):
 		email = s.loads(token, salt='email_confirm', max_age=60*60)
 	except SignatureExpired:
 		alert={'status':'danger','msg':'The token has expired. Ask an administrator to resend the invitation.'}
-		return render_template('administration/registration.html',alert=alert,form=form)
+		return render_template('administration/general/registration.html',alert=alert,form=form)
 	except:
 		abort(403)
 
 	if request.method == 'POST' and form.validate():
 		try:
-			user = Users.query.filter_by(email=email).one()
+			user = Users.query.filter_by(email=email, is_deleted=False).one()
 			user.password = sha256_crypt.encrypt(form.password.data)
 			user.first = form.first_name.data
 			user.last = form.last_name.data
 			user.is_verified=True
 
+			print('here')
+			new_history = History('user_join',user.id, tgt_user_id=user.id)
+			db.session.add(new_history)
+			db.session.flush()
+			print('here2')
+
+			new_content = HistoryContent(new_history.history_id, 'Identifier',user.email)
+			db.session.add(new_content)
+			print('here3')
+
 			db.session.commit()
 
 
-		except:
+		except Exception as e:
+			print(e)
 			db.session.rollback()
-			abort(400)
+			flash('Something went wrong. Refresh the page and try again.','danger')
+			return render_template('administration/general/registration.html',form=form)
+
 		flash('Successfully registered!','success')
 		return redirect(url_for('administration_general.login'))
 
-	return render_template('administration/registration.html',form=form)
+	return render_template('administration/general/registration.html',form=form)
 
 """
 ADMIN HOME
@@ -94,7 +108,19 @@ ADMIN HOME
 @mod.route('/admin-home', methods=['GET'])
 @login_required
 def admin_home_get():
-	return render_template('administration/home.html')
+	print('here')
+	page = request.args.get('page', 1, type=int)
+	history_query = History.query.order_by(History.date.desc()).paginate(page, app.config['POSTS_PER_PAGE'], False)
+
+	next_url = url_for('administration_general.admin_home_get', page=history_query.next_num) \
+		if history_query.has_next else None
+	prev_url = url_for('administration_general.admin_home_get', page=history_query.prev_num) \
+		if history_query.has_prev else None
+	# history = []
+	# for x in history_query:
+	# 	x.date =  pst_time(x.date)
+
+	return render_template('administration/general/home.html', history=history_query.items, next_url=next_url, prev_url=prev_url)
 
 @mod.route('/personal-settings', methods=['GET','POST'])
 @login_required
@@ -103,6 +129,11 @@ def personal_settings():
 	form = PersonalSettings(request.form)
 
 	if request.method=='POST' and form.validate():
+
+		if int(form.id.data) != int(current_user.id):
+			flash('Something went wrong. Refresh the page and try again')
+			return redirect(url_for('administration_general.logout'))
+
 		first = form.first_name.data
 		last = form.last_name.data
 
@@ -116,8 +147,12 @@ def personal_settings():
 		flash('Personal settings have been saved','success')
 		return redirect(url_for('administration_general.personal_settings'))
 
-	return render_template('administration/personal_settings.html', form=form)
+	return render_template('administration/general/personal_settings.html', form=form)
 
+
+"""
+Personal Settings
+"""
 @mod.route('/password-settings', methods=['GET','POST'])
 @login_required
 def password_settings():
@@ -125,12 +160,17 @@ def password_settings():
 	form = PasswordForm(request.form)
 
 	if request.method=='POST' and form.validate():
+
+		if int(form.id.data) != int(current_user.id):
+			flash('Something went wrong. Refresh the page and try again')
+			return redirect(url_for('administration_general.logout'))
+
 		old_password = form.password.data
 		password = form.new_password.data
 
 		if not sha256_crypt.verify(old_password, current_user.password):
 			form.password.errors.append('Your original password is incorrect!')
-			return render_template('administration/password_settings.html', form=form)
+			return render_template('administration/general/password_settings.html', form=form)
 
 		try:
 			current_user.password = sha256_crypt.encrypt(password)
@@ -141,4 +181,29 @@ def password_settings():
 		flash('Password was successfully changed.','success')
 		return redirect(url_for('administration_general.password_settings'))
 
-	return render_template('administration/password_settings.html', form=form)
+	return render_template('administration/general/password_settings.html', form=form)
+
+@mod.route('/delete-history', methods=['POST'])
+@login_required
+@is_admin
+def delete_history():
+
+	form = DeleteForm(request.form)
+	if request.method=='POST' and form.validate():
+		history = History.query.get(form.id.data)
+		if not history:
+			abort(404)
+
+		try:
+			db.session.delete(history)
+			db.session.commit()
+		except:
+			db.session.rollback()
+			flash('Something went wrong. Please refresh and try again.','danger')
+			return redirect(url_for('administration_general.admin_home_get'))
+
+		flash('History was successfully deleted.','success')
+		return redirect(url_for('administration_general.admin_home_get'))
+
+	flash('Something went wrong. Please refresh and try again.','danger')
+	return redirect(url_for('administration_general.admin_home_get'))

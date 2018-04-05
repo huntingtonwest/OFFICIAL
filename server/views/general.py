@@ -11,7 +11,7 @@ from server.utils.hwp_email_template import html_consultation_form
 
 from server.forms.forms import ConsultationForm, ContactForm
 from sqlalchemy import or_
-from server.utils.query_utils import serialize, get_associations
+from server.utils.query_utils import serialize, get_associations_by_loc
 
 import json
 
@@ -42,7 +42,7 @@ def get_properties_get():
 @mod.route('/get-associations', methods=['GET'])
 def get_associations_get():
 
-	associations = get_associations()
+	associations = get_associations_by_loc()
 
 	return jsonify({'associations':associations})
 
@@ -66,6 +66,6 @@ def prop_test():
 @mod.route('/ass-test')
 def ass_test():
 
-	associations = get_associations()
+	associations = get_associations_by_loc()
 
 	return render_template('general/resources.html', ass=associations)

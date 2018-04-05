@@ -1,0 +1,36 @@
+{% extends 'index.html' %}
+
+{% block body %}
+{% from "includes/_formhelpers.html" import render_field %}
+
+<br><h1>Add Property</h1><br><br>
+
+<form action="{{ url_for('administration_property.add_property') }}" method="post">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+  {{ render_field(form.name, class="form-control") }}
+  {{ render_field(form.address_l1, class="form-control") }}
+  {{ render_field(form.address_l2, class="form-control") }}
+  {{ render_field(form.city, class="form-control") }}
+  {{ render_field(form.state, class="form-control") }}
+  {{ render_field(form.zipcode, class="form-control") }}
+  {{ render_field(form.type, class="form-control") }}
+  {{ render_field(form.beds, class="form-control") }}
+  {{ render_field(form.baths, class="form-control") }}
+
+
+
+  {{ render_field(form.for_sale) }}
+  {{ render_field(form.sale_price, class="form-control") }}
+  {{ render_field(form.for_rent) }}
+  {{ render_field(form.rent_price, class="form-control") }}
+
+  {{ render_field(form.area, class="form-control") }}
+  {{ render_field(form.notes, class="form-control") }}
+  <input type="submit" class="btn-info btn">
+</form>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'index.html' %}
+
+{% block body %}
+
+{% from "includes/_formhelpers.html" import render_field %}
+{% from "includes/_history.html" import render_history %}
+<br><h1>Edit User</h1><br><br>
+<form action="{{ url_for('administration_users.edit_user', user_id=user.id)}}" method="post">
+	<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+<table class="table">
+
+	<tbody>
+		<tr>
+			<th scope="col">First Name: </th>
+			<td>{{user.first}}</td>
+		</tr>
+		<tr>
+			<th scope="col">Last Name: </th>
+			<td>{{user.last}}</td>
+		</tr>
+		<tr>
+			<th scope="col">Date Joined: </th>
+			<td>{{ pst_time(user.join_date) }}</td>
+		</tr>
+		<tr>
+			<th scope="col">Email: </th>
+			<td>{{user.email}}</td>
+		</tr>
+		<tr>
+			<th scope="col">Is Admin: </th>
+			<td>
+					{% if user.is_admin %}
+					<input type="checkbox" name="is_admin" checked><br>
+					{% else %}
+					<input type="checkbox" name="is_admin" ><br>
+					{% endif %}
+
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<input class="btn btn-info" type="submit">
+</form>
+<br>
+<form class="delete" action="{{ url_for('administration_users.delete_user')}}" method="post">
+	<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+	<input type="hidden" name="id" value="{{user.id}}">
+	<input class="btn btn-info" type="submit" value="delete">
+</form><br>
+
+{{ render_history(user) }}
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+{% endblock %}

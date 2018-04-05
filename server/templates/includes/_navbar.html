@@ -9,20 +9,24 @@
 <ul class="navbar-nav mx-auto">
   {% if current_user.is_authenticated %}
 
-  <li class="nav-item"><a class="nav-link" href="/admin-home">Admin Home</a></li>
-  <li class="nav-item"><a class="nav-link" href="/user-settings">User Settings</a></li>
-  <li class="nav-item"><a class="nav-link" href="/property-settings">Property Settings</a></li>
-  <li class="nav-item"><a class="nav-link" href="/email-settings">Email Settings</a></li>
-  <li class="nav-item"><a class="nav-link" href="/association-settings">Association Settings</a></li>
+  <li class="nav-item"><a class="nav-link" href="{{ url_for('administration_general.admin_home_get') }}">Admin Home</a></li>
+  <li class="nav-item"><a class="nav-link" href="{{ url_for('administration_users.user_settings_get') }}">Users</a></li>
+  <li class="nav-item"><a class="nav-link" href="{{ url_for('administration_property.property_settings') }}">Properties</a></li>
+  <li class="nav-item"><a class="nav-link" href="{{ url_for('administration_emails.email_settings') }}">Forms</a></li>
+  <li class="nav-item"><a class="nav-link" href="{{ url_for('administration_associations.association_settings') }}">Associations</a></li>
+  <li class="nav-item"><a class="nav-link" href="{{ url_for('administration_employees.employee_settings') }}">Employee Info</a></li>
+  <li class="nav-item"><a class="nav-link" href="{{ url_for('administration_files.file_settings') }}">Files</a></li>
+
+
   {% endif %}
 
 </ul>
 <ul class="navbar-nav ml-auto">
   {% if current_user.is_authenticated %}
-  <li class="nav-item"><a class="nav-link" href="/personal-settings">{{current_user.first}} {{current_user.last}}</a></li>
-  <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+  <li class="nav-item"><a class="nav-link" href="{{ url_for('administration_general.personal_settings') }}">{{current_user.first}} {{current_user.last}}</a></li>
+  <li class="nav-item"><a class="nav-link" href="{{ url_for('administration_general.logout') }}">Logout</a></li>
   {% else %}
-  <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+  <li class="nav-item"><a class="nav-link" href="{{ url_for('administration_general.login') }}">Login</a></li>
   {% endif %}
 </ul>
 

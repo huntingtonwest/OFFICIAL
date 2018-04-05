@@ -1,4 +1,3 @@
-$(document).ready(function(){
 
 $('.form').on('submit', function(event){
 	event.preventDefault();
@@ -11,9 +10,13 @@ $('.form').on('submit', function(event){
     success: function(response){
 
       if (response.status == 'success'){
+				if (response.reload && response.reload=='true'){
+						window.location.reload();
+				} else {
         $('#successMsg').html(response.msg);
         $('#successMsg').show();
-        form[0].reset()
+        form[0].reset();
+				}
       } else if (response.status == 'danger'){
         $('#dangerMsg').html(response.msg);
         $('#dangerMsg').show();
@@ -27,7 +30,15 @@ $('.form').on('submit', function(event){
 
 });
 
+$('.delete').on('submit', function(event){
+	var r = confirm("Are you sure you want to proceed?");
+		if (r == false) {
+    	event.preventDefault();
+		}
 });
+
+
+
 
 
 	// post_form = new FormData();

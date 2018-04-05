@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+
+{% block body %}
+{% from "includes/_formhelpers.html" import render_field %}
+
+
+<h1>Invite New User</h1> <br><br>
+<form class="" action="{{ url_for('administration_users.create_user')}}" method="post">
+	<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+	{{ render_field(form.email, class_="form-control", placeholder="Email") }}
+	{{ render_field(form.confirm, class="form-control", placeholder="Confirm Email") }}
+	<input class="btn btn-info" type="submit">
+</form>
+
+{% endblock %}

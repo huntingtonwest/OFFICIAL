@@ -1,0 +1,85 @@
+{% extends 'index.html' %}
+
+{% block body %}
+<h1>User Settings</h1><hr><br>
+<h2>Current Users</h2><br>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th scope="col">First</th>
+			<th scope="col">Last</th>
+			<th scope="col">Email</th>
+			<th scope="col">Status</th>
+			<th scope="col">Date joined</th>
+			<th scope="col">Edit</th>
+			<th scope="col">Delete</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for u in users %}
+
+		<tr>
+			<td>{{u.first}}</td>
+			<td>{{u.last}}</td>
+			<td>{{u.email}}</td>
+
+			{% if u.is_master %}
+			<td>master admin</td>
+			{% elif u.is_admin %}
+			<td>admin</td>
+			{% else %}
+			<td>user</td>
+			{% endif %}
+
+			<td>{{u.join_date}}</td>
+			<td>
+				<a class="btn btn-info" href="{{ url_for('administration_users.edit_user', user_id=u.id) }}">edit</a>
+			</td>
+			<td>
+				<form class="delete" action="{{ url_for('administration_users.delete_user')}}" method="post">
+					<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+					<input type="hidden" name="id" value="{{u.id}}">
+					<input class="btn btn-info" type="submit" value="delete">
+				</form>
+			</td>
+			{% endfor %}
+		</tr>
+	</tbody>
+</table>
+
+
+<a class="btn btn-info" href="{{ url_for('administration_users.create_user')}}">add new user</a><br><br><hr>
+<h2>Waiting for Verification</h2><br><br>
+<table class="table">
+	<thead>
+		<tr>
+			<th scope="col">Email</th>
+			<th scope="col">Date Invited</th>
+			<th scope="col">Resend</th>
+			<th scope="col">Revoke</th>
+		</tr>
+	</thead>
+	{% for p in not_verified %}
+		<td>{{p.email}}</td>
+		<td>{{p.join_date}}</td>
+		<td>
+			<form class="form" action="{{ url_for('administration_users.resend_invitation')}}" method="post">
+				<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+				<input type="hidden" name="id" value="{{p.id}}">
+				<input type="hidden" name="email" value="{{p.email}}">
+				<input class="btn btn-info" type="submit" value="Resend">
+			</form>
+		</td>
+		<td>
+			<form class="delete" action="{{ url_for('administration_users.delete_user')}}" method="post">
+				<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+				<input type="hidden" name="id" value = "{{p.id}}">
+				<input class="btn btn-info" type="submit" value="Revoke">
+			</form>
+		</td>
+
+{% endfor %}
+</table>
+
+{% endblock %}

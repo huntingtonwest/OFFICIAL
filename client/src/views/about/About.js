@@ -8,7 +8,7 @@ class TeamMember extends Component {
   render() {
     return (
       <Col xs={6} md={3}>
-        <Thumbnail src="http://via.placeholder.com/260x359">
+        <Thumbnail src={this.props.image}>
           <p className="about-name">{this.props.name}</p>
           <p className="about-position">{this.props.position}</p>
           <p className="about-contact">{this.props.email}</p>
@@ -88,24 +88,31 @@ class About extends Component {
                   position="Chairman, CEO, and Owner"
                   email="Email@hwp.com"
                   phone="(213)883-9332"
+                  image="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/test1.jpg"
                 />
                 <TeamMember
                   name="Jason Hughes"
                   position="Chairman, CEO, and Owner"
                   email="Email@hwp.com"
                   phone="(213)883-9332"
+                  image="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/test2.jpg"
+
                 />
                 <TeamMember
                   name="Jason Hughes"
                   position="Chairman, CEO, and Owner"
                   email="Email@hwp.com"
                   phone="(213)883-9332"
+                  image="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/test3.jpg"
+
                 />
                 <TeamMember
                   name="Jason Hughes"
                   position="Chairman, CEO, and Owner"
                   email="Email@hwp.com"
                   phone="(213)883-9332"
+                  image="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/test4.jpg"
+
                 />
               </Row>
               <Row>
@@ -114,25 +121,18 @@ class About extends Component {
                   position="Chairman, CEO, and Owner"
                   email="Email@hwp.com"
                   phone="(213)883-9332"
+                  image="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/test5.jpg"
+
                 />
                 <TeamMember
                   name="Jason Hughes"
                   position="Chairman, CEO, and Owner"
                   email="Email@hwp.com"
                   phone="(213)883-9332"
+                  image="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/test1.jpg"
+
                 />
-                <TeamMember
-                  name="Jason Hughes"
-                  position="Chairman, CEO, and Owner"
-                  email="Email@hwp.com"
-                  phone="(213)883-9332"
-                />
-                <TeamMember
-                  name="Jason Hughes"
-                  position="Chairman, CEO, and Owner"
-                  email="Email@hwp.com"
-                  phone="(213)883-9332"
-                />
+              
               </Row>
             </Grid>;
           </div>

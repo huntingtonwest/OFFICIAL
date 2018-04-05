@@ -10,19 +10,7 @@ const { Meta } = Card;
 class Home extends Component {
 
   cardClick(e){
-    console.log("clicked");
-    var loc = '/';
-    switch(e) {
-      case 'properties':
-        window.location.assign('/availableProperties');
-        break;
-      case 'payments':
-        window.location.assign('http://www.paylease.com');
-        break;
-      case 'consultation':
-        window.location.assign('/availableProperties#consultation');
-        break;
-    }
+    window.location.assign(e);
   }
 
   render() {
@@ -60,7 +48,7 @@ class Home extends Component {
             className="home-card"
             hoverable
             bodyStyle={{ padding: 5, paddingBottom: 0 }}
-            onClick={() => this.cardClick('properties')}
+            onClick={() => this.cardClick('/availableProperties')}
             id="properties"
             >
             <div className="custom-image">
@@ -77,7 +65,7 @@ class Home extends Component {
             className="home-card"
             hoverable
             bodyStyle={{ padding: 5, paddingBottom: 0 }}
-            onClick={() => this.cardClick('payments')}
+            onClick={() => this.cardClick('http://www.paylease.com')}
             id="payments"
             >
             <div className="custom-image">
@@ -94,7 +82,7 @@ class Home extends Component {
             className="home-card"
             hoverable
             bodyStyle={{ padding: 5, paddingBottom: 0 }}
-            onClick={() => this.cardClick('consultation')}
+            onClick={() => this.cardClick('/availableProperties#consultation')}
             id="consultation"
             >
             <div className="custom-image">

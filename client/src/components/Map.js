@@ -40,7 +40,7 @@ render() {
 
     return (
       <Row>
-        <Map className="map"
+        <Map className="map" id="google-map"
         google={this.props.google}
         onClick={this.onMapClicked}
         zoom={8}

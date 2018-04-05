@@ -17,6 +17,10 @@ class MyNavbar extends React.Component {
     }
   }
 
+  // submenuClicked(e){
+  //   window.location.assign(e);
+  // }
+
   render() {
     return (
 
@@ -35,9 +39,9 @@ class MyNavbar extends React.Component {
           <a href="/propertyManagement" className="hover-1">Property Management</a>
           </button>
           <div className="dropdown-content">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
+            <a href="/propertyManagement#services">Our Services</a>
+            <a href="/propertyManagement#areas">Areas We Serve</a>
+            <a href="/propertyManagement#consultation">Schedule Consultation</a>
           </div>
         </div>
         <div className="my-dropdown">
@@ -45,9 +49,9 @@ class MyNavbar extends React.Component {
         <a href="/availableProperties" className="hover-1">Available Properties</a>
         </button>
           <div className="dropdown-content">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
+            <a href="/availableProperties#search">Properties For Sale</a>
+            <a href="/availableProperties#search">Properties For Rent</a>
+            <a href="/availableProperties#consultation">Schedule Consultation</a>
           </div>
         </div>
         <div className="my-dropdown">
@@ -55,9 +59,8 @@ class MyNavbar extends React.Component {
         <a href="/about" className="hover-1">About</a>
         </button>
           <div className="dropdown-content">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
+            <a href="/about#mission">Our Mission & Values</a>
+            <a href="/about#team">Our Team</a>
           </div>
         </div>
         <div className="my-dropdown">
@@ -65,9 +68,11 @@ class MyNavbar extends React.Component {
         <a href="/resources" className="hover-1">Tenant & Owner Resources</a>
         </button>
           <div className="dropdown-content">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
+            <a href="/resources#resource-form">Work Order</a>
+            <a href="/resources#resource-form">Contact Your Manager</a>
+            <a href="/resources#tenant-options">Payment</a>
+            <a href="/resources#tenant-options">Rental Forms</a>
+            <a href="/resources#tenant-options">Condocerts</a>
           </div>
         </div>
         <div className="my-dropdown">
@@ -75,9 +80,7 @@ class MyNavbar extends React.Component {
         <a href="/contact" className="hover-1">Contact</a>
         </button>
           <div className="dropdown-content">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
+            <a href="/contact#form">Contact Form</a>
           </div>
         </div>
         <div className="right-nav">

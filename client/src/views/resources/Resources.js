@@ -47,7 +47,7 @@ class Resources extends Component {
           title="RESIDENT / OWNER RESOURCES"
           img="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/resources-banner.jpg"
         />
-        <div className="desc-container">
+      <div className="desc-container" id="tenant-options">
         <Grid>
         <Row>
         <Col xs={6} md={4} className="card-col">

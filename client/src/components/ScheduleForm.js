@@ -1,5 +1,10 @@
 import * as React from 'react';
 import { FormGroup, FormControl, Grid, Row, Col} from 'react-bootstrap';
+import { Input } from 'antd';
+import { Select } from 'antd';
+
+const { TextArea } = Input;
+const Option = Select.Option;
 
 
 function FieldGroup({ id, ...props }) {
@@ -45,22 +50,18 @@ class ConsultationForm extends React.Component {
               />
             </Col>
             <Col xs={12} md={12}>
-              <FieldGroup id="formControlsNumber" placeholder="Phone Number*" type="number" />
+              <FieldGroup id="formControlsNumber" placeholder="Phone Number" type="number" />
+              <h4 className="form-text">*We ensure your privacy. We do not share your information with anyone.</h4>
               <br />
-              <FormGroup controlId="formControlsRepresentation">
-                <FormControl componentClass="select" placeholder="Tenant/Buyer Representation">
-                  <option value="select">Tenant/Buyer Representation</option>
-                  <option value="other">...</option>
-                </FormControl>
-              </FormGroup>
-              <FormGroup controlId="formControlsCity">
-                <FormControl componentClass="select" placeholder="Los Angeles">
-                  <option value="select">Los Angeles</option>
-                  <option value="other">...</option>
-                </FormControl>
-              </FormGroup>
-              <FieldGroup id="formControlsCitiesOfInterest" placeholder="Cities of Interest*" type="text" />
-              <FieldGroup id="formControlsMessage" placeholder="Message" type="text" />
+              <Select  placeholder="Regarding*" className="form-select" >
+                <Option value="Association Management">Association Management</Option>
+                <Option value="Residential Property Management">Residential Property Management</Option>
+                <Option value="Available Properties">Available Properties</Option>
+                <Option value="Listing Properties">Listing Properties</Option>
+                <Option value="Employment Opportunities">Employment Opportunities</Option>
+                <Option value="Other">Other</Option>
+              </Select>
+              <TextArea className="form-message" placeholder="Message"  rows={4} />
               <button className="button-form" type="submit">SUBMIT</button>
             </Col>
           </form>

@@ -1,5 +1,10 @@
 import * as React from 'react';
 import { FormGroup, FormControl, Grid, Row, Col} from 'react-bootstrap';
+import { Input } from 'antd';
+import { Select } from 'antd';
+
+const Option = Select.Option;
+const { TextArea } = Input;
 
 
 function FieldGroup({ id, ...props }) {
@@ -43,13 +48,15 @@ class ManagerForm extends React.Component {
                 />
                 <FieldGroup id="formControlsNumber" placeholder="Unit Number*" type="number" />
                 <br />
-                <FormGroup controlId="formControlsRepresentation">
-                  <FormControl componentClass="select">
-                    <option value="select">Residential Property</option>
-                    <option value="other">Association</option>
-                  </FormControl>
-                </FormGroup>
-                <FieldGroup id="formControlsMessage" placeholder="Message" type="text" />
+                <Select placeholder="Regarding*" className="form-select" >
+                  <Option value="Association Management">Association</Option>
+                  <Option value="Residential Property Management">Residential Property</Option>
+                </Select>
+                <Select placeholder="Associations (will be hidden)" className="form-select" >
+                  <Option value="Association1">Association 1</Option>
+                  <Option value="Assc 2">Association 2</Option>
+                </Select>
+                <TextArea className="form-message" placeholder="Message"  rows={4} />
                 <button className="button-form" type="submit">SUBMIT</button>
               </Col>
             </form>

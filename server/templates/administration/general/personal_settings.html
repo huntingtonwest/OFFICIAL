@@ -7,8 +7,12 @@
 
 
 <form action="/personal-settings" method="post">
+  <input type="hidden" value="{{current_user.id}}" name='id'>
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
   {{ render_field(form.first_name, class_="form-control", value=current_user.first) }}
   {{ render_field(form.last_name, class_="form-control", value=current_user.last) }}
+  <dt>Join Date:
+  <dd>{{ pst_time(current_user.join_date) }}
   <dt><label>Email:</label>
   <dd>{{current_user.email}}<br><br>
   <input class="btn btn-info" type="submit">

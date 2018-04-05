@@ -1,0 +1,14 @@
+{% extends 'index.html' %}
+
+{% block body %}
+
+{% from "includes/_formhelpers.html" import render_field %}
+<br><h1>Add Association</h1><br><br>
+<form action="{{ url_for('administration_associations.add_association') }}" method='post'>
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+  {{ render_field(form.acn_name, class_='form-control') }}
+  {{ render_field(form.acn_loc, class_='form-control') }}
+  <input class="btn btn-info" type="submit">
+</form>
+
+{% endblock %}

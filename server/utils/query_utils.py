@@ -2,9 +2,16 @@ from datetime import datetime
 import json
 import decimal
 from server.models.associations import Associations
+from datetime import datetime
+from pytz import timezone
+import pytz
 
+def pst_time(date):
+    utc_dt = pytz.utc.localize(date)
+    pst_tz = timezone('US/Pacific')
+    pst_dt = pst_tz.normalize(utc_dt.astimezone(pst_tz))
 
-
+    return "{} PST".format(pst_dt.strftime('%m/%d/%Y %H:%M'))
 
 def get_property_types():
         return ['apartment', 'condo', 'duplex']
@@ -20,6 +27,19 @@ def get_associations():
             'acn_name':a.acn_name,
             'acn_loc':a.acn_loc
             })
+
+    return acn_list
+
+def get_associations_by_loc():
+    associations = Associations.query.all()
+
+    acn_list = {}
+    for a in associations:
+        if not a.acn_loc in acn_list:
+            acn_list[a.acn_loc] = [a.acn_name]
+        else:
+            acn_list[a.acn_loc].append(a.acn_name)
+
 
     return acn_list
 
@@ -48,3 +68,7 @@ def serialize(object, classname):
     #     print(c)
         # print(getattr(c, c.key))
     return list
+
+
+def jinjaf_init(app):
+    app.jinja_env.globals.update(pst_time = pst_time)

@@ -11,7 +11,7 @@ role_email = db.Table('role_email',
 class Roles(db.Model):
     __tablename__ = 'Roles'
     role_id = db.Column(db.Integer, primary_key = True)
-    role_name = db.Column(db.String(200), unique=True)
+    role_name = db.Column(db.String(100), unique=True)
 
     edit_date = db.Column(db.DateTime(), onupdate = datetime.utcnow, default = datetime.utcnow)
 
@@ -37,7 +37,7 @@ class Roles(db.Model):
 class Emails(db.Model):
     __tablename__ = 'Emails'
     email_id = db.Column(db.Integer, primary_key = True)
-    email = db.Column(db.String(200), unique=True)
+    email = db.Column(db.String(100), unique=True)
     # role_id = db.Column(db.Integer, db.ForeignKey())
 
 

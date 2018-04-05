@@ -9,11 +9,13 @@ class PropertyImgs(db.Model):
     __tablename__ = 'PropertyImgs'
     img_id =  db.Column(db.Integer, primary_key = True)
     property_id = db.Column(db.Integer, db.ForeignKey('Properties.property_id'))
+    img_url = db.Column(db.String(1000))
     date_added = db.Column(db.DateTime(), default = datetime.utcnow)
 
 
-    def __init__(self, property_id):
+    def __init__(self, property_id, img_url):
         self.property_id=property_id
+        self.img_link = img_url
 
 
 class Properties(db.Model):
@@ -27,13 +29,12 @@ class Properties(db.Model):
     state = db.Column(db.String(2))
     zipcode = db.Column(db.Integer)
 
-    status = db.Column(db.String(30))
-
     type = db.Column(db.String(50))
 
     beds = db.Column(db.Numeric())
     baths = db.Column(db.Numeric())
-    price = db.Column(db.Integer)
+    sale_price = db.Column(db.Integer)
+    rent_price = db.Column(db.Integer)
 
     for_sale = db.Column(db.Boolean())
     for_rent = db.Column(db.Boolean())
@@ -45,7 +46,7 @@ class Properties(db.Model):
     date_posted = db.Column(db.DateTime(), onupdate=datetime.utcnow, default = datetime.utcnow)
 
     images = db.relationship('PropertyImgs', backref='property', lazy='dynamic')
-
+    history = db.relationship('History', backref='property', lazy='dynamic', order_by='History.date.desc()')
     def __init__(self, input):
         columns = Properties.__table__.columns
         for c in columns:

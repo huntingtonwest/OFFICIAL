@@ -65,7 +65,7 @@ class MyNavbar extends React.Component {
         </div>
         <div className="my-dropdown">
         <button className="dropbtn">
-        <a href="/resources" className="hover-1">Tenant & Owner Resources</a>
+        <a href="/resources" className="hover-1">Tenant/Owner Resources</a>
         </button>
           <div className="dropdown-content">
             <a href="/resources#resource-form">Work Order</a>

@@ -23,13 +23,13 @@ class PropertyManagement extends Component {
             </h1>
             <br />
             <div className="my-tabs">
-              <Tabs className="my-tabs" defaultActiveKey="2">
+              <Tabs className="my-tabs" defaultActiveKey="1">
                 <TabPane
                   className="tab-desc"
                   tab={
                     <span>
                       <Image
-                        src="http://via.placeholder.com/250x250"
+                        src="http://via.placeholder.com/200x200"
                         responsive
                       />Tab 1
                     </span>
@@ -49,7 +49,7 @@ class PropertyManagement extends Component {
                   tab={
                     <span>
                       <Image
-                        src="http://via.placeholder.com/250x250"
+                        src="http://via.placeholder.com/200x200"
                         responsive
                       />Tab 2
                     </span>
@@ -69,7 +69,7 @@ class PropertyManagement extends Component {
                   tab={
                     <span>
                       <Image
-                        src="http://via.placeholder.com/250x250"
+                        src="http://via.placeholder.com/200x200"
                         responsive
                       />Tab 3
                     </span>
@@ -89,12 +89,32 @@ class PropertyManagement extends Component {
                   tab={
                     <span>
                       <Image
-                        src="http://via.placeholder.com/250x250"
+                        src="http://via.placeholder.com/200x200"
                         responsive
                       />Tab 4
                     </span>
                   }
                   key="4"
+                >
+                  Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis
+                  et quasi architecto beatae vitae dicta sunt explicabo. Nemo
+                  enim ipsam voluptatem Sed ut perspiciatis unde omnis iste
+                  natus error sit voluptatem accusantium doloremque laudantium,
+                  totam rem aperiam, eaque ipsa quae ab illo inventore veritatis
+                  et quasi architecto beatae vitae dicta sunt explicabo. Nemo
+                  enim ipsam voluptatem
+                </TabPane>
+                <TabPane
+                  className="tab-desc"
+                  tab={
+                    <span>
+                      <Image
+                        src="http://via.placeholder.com/200x200"
+                        responsive
+                      />Tab 5
+                    </span>
+                  }
+                  key="5"
                 >
                   Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis
                   et quasi architecto beatae vitae dicta sunt explicabo. Nemo

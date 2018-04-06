@@ -4,11 +4,11 @@ import { AutoComplete, Select, Button } from 'antd';
 import DoubleSelect from './DoubleSelect'
 const { Option, OptGroup } = Select;
 const rentMinOptions = ['No Min','$500','$750','$1,000','$1,250'];
-const rentMaxOptions = ['$500','$750','$1,000','$1,250', 'No Max'];
+const rentMaxOptions = ['No Max', '$500','$750','$1,000','$1,250'];
 const bedMinOptions = ['No Min', 'Studio','1','2','3', '4', '5', '6', '7', '8', '9', '10'];
-const bedMaxOptions = ['Studio','1','2','3', '4', '5', '6', '7', '8', '9', '10','No Max'];
+const bedMaxOptions = ['No Max', 'Studio','1','2','3', '4', '5', '6', '7', '8', '9', '10'];
 const bathMinOptions = ['No Min', '1','1.5','2','3', '4', '5', '6', '7', '8', '9', '10'];
-const bathMaxOptions = ['1','1.5','2','3', '4', '5', '6', '7', '8', '9', '10','No Max'];
+const bathMaxOptions = ['No Max', '1','1.5','2','3', '4', '5', '6', '7', '8', '9', '10'];
 
 
 const dataSource = ['Los Angeles, CA', 'Orange County, CA', 'San Diego, CA'];
@@ -81,7 +81,7 @@ class SearchForm extends React.Component {
           onSelectMin={this.onSelectRentMin}
           onSelectMax={this.onSelectRentMax}/>
           </Col>
-          <Col xs={6} md={3}>
+          <Col xs={12} md={3}>
           <DoubleSelect
           className="b-select"
           title='BED'
@@ -90,7 +90,7 @@ class SearchForm extends React.Component {
           onSelectMin={this.onSelectBedMin}
           onSelectMax={this.onSelectBedMax}/>
           </Col>
-          <Col xs={6} md={3}>
+          <Col xs={12} md={3}>
           <DoubleSelect
           className="b-select"
           title='BATH'

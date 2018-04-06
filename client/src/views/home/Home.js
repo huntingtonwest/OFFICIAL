@@ -10,19 +10,7 @@ const { Meta } = Card;
 class Home extends Component {
 
   cardClick(e){
-    console.log("clicked");
-    var loc = '/';
-    switch(e) {
-      case 'properties':
-        window.location.assign('/availableProperties');
-        break;
-      case 'payments':
-        window.location.assign('http://www.paylease.com');
-        break;
-      case 'consultation':
-        window.location.assign('/availableProperties#consultation');
-        break;
-    }
+    window.location.assign(e);
   }
 
   render() {
@@ -33,34 +21,15 @@ class Home extends Component {
           img="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/home_banner2.jpg"
           height="1200"
         />
-      <div className="under-banner">
-        <Grid className="home-grid">
-          <Row className="home-row">
-            <Col xs={12} md={7} className="home-col">
-              <h1 className="title-container home-title">
-                What We Do Best
-              </h1>
-              <br/>
-              <br/>
-              <p className="home-p">
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor."
-              </p>
-            </Col>
-            <Col xs={12} md={5} className="home-map home-col">
-              <MapContainer />
-            </Col>
-          </Row>
-        </Grid>
-      </div>
-      <div className="desc-container grey">
+      <div className="desc-container">
         <Grid>
-        <Row>
-        <Col xs={6} md={4} className="card-col">
+        <Row className="card-row">
+        <Col xs={12} sm={4} md={4} lg={4} className="card-col">
           <Card
             className="home-card"
             hoverable
             bodyStyle={{ padding: 5, paddingBottom: 0 }}
-            onClick={() => this.cardClick('properties')}
+            onClick={() => this.cardClick('/availableProperties')}
             id="properties"
             >
             <div className="custom-image">
@@ -72,12 +41,12 @@ class Home extends Component {
             </div>
           </Card>
         </Col>
-        <Col xs={6} md={4} className="card-col">
+        <Col xs={12} sm={4} md={4} lg={4} className="card-col">
           <Card
             className="home-card"
             hoverable
             bodyStyle={{ padding: 5, paddingBottom: 0 }}
-            onClick={() => this.cardClick('payments')}
+            onClick={() => this.cardClick('http://www.paylease.com')}
             id="payments"
             >
             <div className="custom-image">
@@ -89,12 +58,12 @@ class Home extends Component {
             </div>
           </Card>
         </Col>
-        <Col xs={6} md={4} className="card-col">
+        <Col xs={12} sm={4} md={4} lg={4} className="card-col">
           <Card
             className="home-card"
             hoverable
             bodyStyle={{ padding: 5, paddingBottom: 0 }}
-            onClick={() => this.cardClick('consultation')}
+            onClick={() => this.cardClick('/availableProperties#consultation')}
             id="consultation"
             >
             <div className="custom-image">
@@ -110,7 +79,7 @@ class Home extends Component {
     </Grid>
     </div>
 
-        <Footer bg="grey" />
+        <Footer bg="white" />
       </div>
     );
   }

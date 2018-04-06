@@ -16,6 +16,7 @@ function FieldGroup({ id, label, ...props }) {
 }
 
 class Contact extends Component {
+
   render() {
     return (
       <div className="Contact">
@@ -30,7 +31,7 @@ class Contact extends Component {
           <Row>
             <Col xs={12} md={6} className="contact-address">
               <Image
-                src="http://via.placeholder.com/500x200"
+                src="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/hwp+office+building+contact.jpg"
                 responsive
                 className="contact-pic"
               />

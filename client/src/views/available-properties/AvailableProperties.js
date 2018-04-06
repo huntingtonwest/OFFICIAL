@@ -3,9 +3,19 @@ import ConsultationForm from '../../components/ScheduleForm';
 import BannerProperties from './BannerProperties';
 import MapContainer from '../../components/Map'
 import Footer from '../../components/Footer';
-import Property from './Property'
-import { Grid, Row} from 'react-bootstrap';
+import PropertyVertical from './PropertyVertical'
+import { Grid, Row, Panel, Col} from 'react-bootstrap';
 import {Marker} from 'google-maps-react';
+import { Collapse } from 'antd';
+
+const customPanelStyle = {
+  background: 'black',
+  borderRadius: 4,
+  marginBottom: 24,
+  border: 0,
+  overflow: 'hidden',
+};
+
 
 class AvailableProperties extends Component {
 
@@ -73,19 +83,23 @@ class AvailableProperties extends Component {
         if (property.address_l2 !== '')
           addr += property.address_l2 + ', ';
         addr += property.state + ' ' + property.zipcode;
+        var price;
+        if (this.state.type == 'rent') price = property.rent_price;
+        else price = property.sale_price;
 
         return (
-          <Property
+          <PropertyVertical
             key={property.property_id}
             id={property.property_id}
             img="http://www.eplans.com/house-plans/media/catalog/product/a/m/ama879-fr-re-co.jpg"
-            rent={property.price}
+            rent={price}
             sqrft={property.area}
             bed={property.beds}
             bath={property.baths}
             desc={property.notes}
             address={addr}
             availability="Available Now"
+            type={this.state.type}
           />
         )
       });
@@ -105,7 +119,7 @@ class AvailableProperties extends Component {
       .then(results => {
         return results.json();
       }).then(data => {
-        if (data && data.results) {
+        if (data && data.results != null && data.results.length > 0) {
           console.log("yo data: ", data);
           var property = data.results[0];
           var loc = data.results[0].geometry.location;
@@ -131,18 +145,20 @@ class AvailableProperties extends Component {
     this.fetchData();
   }
 
+  // reloadMap() {
+  //   console.log("reload");
+  //   document.getElementById("google-map").forceUpdate();
+  // }
+
   render() {
     return (
       <div className="AvailableProperties" id="search">
         <BannerProperties onClick={this.fetchData} onSelect={this.handleFieldChange} title="AVAILABLE PROPERTIES"/>
         <div className="under-banner">
-          <div className="search-map" id="map">
-            <MapContainer lat='33.750081' lng='-116.997621' markers={this.state.markers}/>
-          </div>
-          <Grid>
-            <Row className="properties-row">
+
+
+          <Grid className="properties-grid">
               {this.state.properties}
-            </Row>
           </Grid>
           <div id="consultation">
             <ConsultationForm title="SCHEDULE CONSULTATION"/>
@@ -150,8 +166,41 @@ class AvailableProperties extends Component {
         </div>
         <Footer bg="white"/>
       </div>
+
     );
   }
 }
 
 export default AvailableProperties;
+
+// VERTICAL LISTINGS AND COLLAPSIBLE MAP
+
+// <div className="AvailableProperties" id="search">
+//   <BannerProperties onClick={this.fetchData} onSelect={this.handleFieldChange} title="AVAILABLE PROPERTIES"/>
+//   <div className="under-banner">
+//
+//     <Panel defaultExpanded={true}>
+//       <Panel.Heading>
+//         <Panel.Title toggle>
+//           VIEW MAP
+//         </Panel.Title>
+//       </Panel.Heading>
+//       <Panel.Collapse>
+//         <Panel.Body>
+//           <div className="search-map">
+//             <MapContainer lat='33.750081' lng='-116.997621' markers={this.state.markers}/>
+//           </div>
+//         </Panel.Body>
+//       </Panel.Collapse>
+//     </Panel>
+//
+//     <Grid className="properties-grid">
+//         {this.state.properties}
+//     </Grid>
+//     <div id="consultation">
+//       <ConsultationForm title="SCHEDULE CONSULTATION"/>
+//     </div>
+//   </div>
+//   <Footer bg="white"/>
+// </div>
+//

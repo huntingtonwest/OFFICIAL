@@ -50,7 +50,7 @@ class Resources extends Component {
       <div className="desc-container" id="tenant-options">
         <Grid>
         <Row className="card-row">
-        <Col xs={12} md={4} lg={4} className="card-col">
+        <Col xs={12} sm={4} md={4} lg={4} className="card-col">
           <Card
             className="home-card forms-button"
             hoverable
@@ -67,7 +67,7 @@ class Resources extends Component {
             </div>
           </Card>
         </Col>
-        <Col xs={12} md={4} lg={4} className="card-col">
+        <Col xs={12} sm={4} md={4} lg={4} className="card-col">
           <Card
             className="home-card"
             hoverable
@@ -84,7 +84,7 @@ class Resources extends Component {
             </div>
           </Card>
         </Col>
-        <Col xs={12} md={4} lg={4} className="card-col">
+        <Col xs={12} sm={4} md={4} lg={4} className="card-col">
           <Card
             className="home-card"
             hoverable

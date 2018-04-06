@@ -7,7 +7,6 @@ import PropertyVertical from './PropertyVertical'
 import { Grid, Row, Panel, Col} from 'react-bootstrap';
 import {Marker} from 'google-maps-react';
 import { Collapse } from 'antd';
-const google = window.google;
 
 const customPanelStyle = {
   background: 'black',
@@ -120,7 +119,7 @@ class AvailableProperties extends Component {
       .then(results => {
         return results.json();
       }).then(data => {
-        if (data && data.results) {
+        if (data && data.results != null && data.results.length > 0) {
           console.log("yo data: ", data);
           var property = data.results[0];
           var loc = data.results[0].geometry.location;

@@ -577,7 +577,7 @@ html, body {
 
 .cascader {
   width: 80%!important;
-  font-family: 'Gill Sans', sans-serif !important;
+  /* font-family: 'Gill Sans', sans-serif !important; */
 
 }
 
@@ -590,7 +590,7 @@ html, body {
   border-radius: @border-radius-base;
   box-shadow: @box-shadow-base;
   white-space: nowrap; */
-  font-family: 'Gill Sans', sans-serif !important;
+  /* font-family: 'Gill Sans', sans-serif !important; */
 
 }
 
@@ -601,18 +601,17 @@ html, body {
     /* list-style: none; */
     margin: 0;
     padding: 0;
-    overflow: auto;
     /* line-height: 50px!important; */
-    font-family: 'Gill Sans', sans-serif !important;
-
+    /* font-family: 'Gill Sans', sans-serif !important; */
+    height: 100%!important;
   }
 
   .ant-cascader-menu-item {
-    font-size: 18px!important;
+    font-size: 16px!important;
     line-height: 30px!important;
     min-width: 150px;
     padding: 0.4em 2em 0.4em 0.8em!important;
-    font-family: 'Gill Sans', sans-serif !important;
+    /* font-family: 'Gill Sans', sans-serif !important; */
 
   }
 
@@ -996,7 +995,7 @@ input[type=text].input-right  {
  }
 
  .property-desc {
-   font-size: 22px;
+   font-size: 18px;
    margin-left: 10px;
    margin-bottom: 2px;
  }
@@ -1278,6 +1277,11 @@ input[type=text].input-right  {
     font-family: 'Gill Sans', sans-serif !important;
   }
 
+  .cascader-form {
+    /* width: 0%!important; */
+    margin-bottom: 1em!important;
+    text-align: left!important;
+  }
 
 
 /* CONTACT */

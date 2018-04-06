@@ -88,7 +88,7 @@ class About extends Component {
                   position="Chairman, CEO, and Owner"
                   email="Email@hwp.com"
                   phone="(213)883-9332"
-                  image="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/test1.jpg"
+                  image="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/HWP_Kij.jpg"
                 />
                 <TeamMember
                   name="Jason Hughes"

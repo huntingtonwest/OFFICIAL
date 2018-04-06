@@ -2,6 +2,7 @@ import * as React from 'react';
 import { FormGroup, FormControl, Grid, Row, Col} from 'react-bootstrap';
 import { Input } from 'antd';
 import { Select } from 'antd';
+import CitySearch from './CitySearch';
 
 const Option = Select.Option;
 const { TextArea } = Input;
@@ -17,6 +18,85 @@ function FieldGroup({ id, ...props }) {
 
 class ManagerForm extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      showAssociations: {
+        display: 'none'
+      },
+      options: [],
+      subject: '',
+      association: ''
+    };
+
+    this.handleSelect = this.handleSelect.bind(this);
+    this.selectAssociation = this.selectAssociation.bind(this);
+
+  }
+
+
+
+  postForm = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    data.set('subject', this.state.subject);
+    if (this.state.subject == 'Association')
+      data.set('association', this.state.association);
+
+    fetch('https://realhwptest.herokuapp.com/contact-form', {
+      method: 'POST',
+      body: data
+    });
+  }
+
+  handleSelect(e) {
+    if (e == 'Association') {
+      this.setState({showAssociations: {
+        display: 'block'
+      }, subject: 'Association'});
+    }
+    else {
+      this.setState({showAssociations: {
+        display: 'none'
+      }, subject: 'Residential Property'});
+    }
+  }
+
+  selectAssociation(association) {
+    this.setState({association: association});
+    console.log(association);
+  }
+
+  fetchData = () => {
+    fetch('https://realhwptest.herokuapp.com/get-associations')
+    .then(results => {
+      return results.json();
+    }).then(data => {
+      var cities = [];
+      var options = [];
+      for(var i in data.associations)
+          cities.push([i, data.associations [i]]);
+
+      cities.map((city) => {
+        var asscs = city[1];
+        var options = [];
+        for (var i = 0; i < asscs.length; i++) {
+          var opt = (<Option key={asscs[i]} value={asscs[i]}>{asscs[i]}</Option>)
+          options.push(opt);
+        }
+        // return options;
+      });
+      //
+      this.setState({options: options});
+
+    });
+  }
+
+  componentWillMount() {
+    this.fetchData();
+  }
+
+
   render() {
     return (
       <div className="desc-container" id="consultation">
@@ -24,12 +104,13 @@ class ManagerForm extends React.Component {
         <br/>
         <Grid>
           <Row className="form-row">
-            <form>
+            <form onSubmit={this.postForm}>
               <Col xs={12} md={6}>
                 <FieldGroup
                   id="formControlsFirstName"
                   type="text"
                   placeholder="First Name*"
+                  name="first_name"
                 />
               </Col>
               <Col xs={12} md={6}>
@@ -37,26 +118,32 @@ class ManagerForm extends React.Component {
                   id="formControlsLastName"
                   type="text"
                   placeholder="Last Name*"
+                  name="last_name"
+
                 />
               </Col>
               <Col xs={12} md={12}>
-                <FieldGroup id="formControlsEmail" placeholder="Email*" type="email" />
+                <FieldGroup id="formControlsEmail" placeholder="Email*" type="email"  name="email"
+/>
                 <FieldGroup
                   id="formControlsCompany"
                   type="text"
                   placeholder="Phone Number*"
+                  name="phone_num"
+
                 />
-                <FieldGroup id="formControlsNumber" placeholder="Unit Number*" type="number" />
+                <FieldGroup id="formControlsNumber" placeholder="Unit Number*" type="number"
+                name="unit"
+/>
                 <br />
-                <Select placeholder="Regarding*" className="form-select" >
-                  <Option value="Association Management">Association</Option>
-                  <Option value="Residential Property Management">Residential Property</Option>
+                <Select placeholder="Regarding*" className="form-select" name="subject" onSelect={this.handleSelect}>
+                  <Option value="Association">Association</Option>
+                  <Option value="Residential">Residential Property</Option>
                 </Select>
-                <Select placeholder="Associations (will be hidden)" className="form-select" >
-                  <Option value="Association1">Association 1</Option>
-                  <Option value="Assc 2">Association 2</Option>
-                </Select>
-                <TextArea className="form-message" placeholder="Message"  rows={4} />
+
+                <CitySearch style={this.state.showAssociations} selectAssociation={this.selectAssociation} name="association"/>
+                <TextArea className="form-message" placeholder="Message"       name="msg"
+rows={4} />
                 <button className="button-form" type="submit">SUBMIT</button>
               </Col>
             </form>

@@ -4,10 +4,6 @@ import { Row, Col } from 'react-bootstrap';
 
 import { Cascader } from 'antd';
 
-function onChange(value, selectedOptions) {
-  console.log(value, selectedOptions);
-}
-
 function filter(inputValue, path) {
   return (path.some(option => (option.label).toLowerCase().indexOf(inputValue.toLowerCase()) > -1));
 }
@@ -20,6 +16,15 @@ class CitySearch extends React.Component {
       val: null,
       options: []
     };
+    this.onChange = this.onChange.bind(this);
+
+  }
+
+  onChange(value, selectedOptions) {
+    console.log(value, selectedOptions);
+    if (value != null) {
+      this.props.selectAssociation(value[1]);
+    }
   }
 
   fetchData = () => {
@@ -57,14 +62,14 @@ class CitySearch extends React.Component {
   render() {
 
     return (
-      <Row className="dropdown-row" id="areas">
+      <Row className="dropdown-row" style={this.props.style}>
         <Col xs={12} md={12}>
         <Cascader
-          size="large"
-          className="cascader"
+          size="medium"
+          className="cascader-form"
           options={this.state.options}
-          onChange={onChange}
-          placeholder="Please select city / association"
+          onChange={this.onChange}
+          placeholder="Please select association*"
           showSearch={{ filter }}
         />
         </Col>

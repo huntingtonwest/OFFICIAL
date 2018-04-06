@@ -14,8 +14,11 @@ def allowed_file(filename, allowed):
            and len(filename.split('.')) == 2
 
 def upload_file_to_s3(file, subfol, bucket_name, acl="public-read"):
-
+    print(file.filename)
+    print(subfol)
+    print(bucket_name)
     filename = '{}/{}'.format(subfol,file.filename)
+    print(filename)
     try:
         s3.upload_fileobj(
             file,

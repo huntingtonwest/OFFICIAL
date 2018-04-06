@@ -156,27 +156,17 @@ class AvailableProperties extends Component {
         <BannerProperties onClick={this.fetchData} onSelect={this.handleFieldChange} title="AVAILABLE PROPERTIES"/>
         <div className="under-banner">
 
-<Grid className="property-search-grid">
-<Row className="property-search-row">
-  <Col xs={12} md={5} className="map-col">
-    <div className="search-map">
-      <MapContainer lat='33.750081' lng='-116.997621' markers={this.state.markers}/>
-    </div>
-  </Col>
-  <Col xs={12} md={7} className="props-col">
-        {this.state.properties}
-  </Col>
-</Row>
-</Grid>
 
-
-
+          <Grid className="properties-grid">
+              {this.state.properties}
+          </Grid>
           <div id="consultation">
             <ConsultationForm title="SCHEDULE CONSULTATION"/>
           </div>
         </div>
         <Footer bg="white"/>
       </div>
+
     );
   }
 }

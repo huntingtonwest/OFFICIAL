@@ -21,26 +21,7 @@ class Home extends Component {
           img="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/home_banner2.jpg"
           height="1200"
         />
-      <div className="under-banner">
-        <Grid className="home-grid">
-          <Row className="home-row">
-            <Col xs={12} md={7} className="home-col">
-              <h1 className="title-container home-title">
-                What We Do Best
-              </h1>
-              <br/>
-              <br/>
-              <p className="home-p">
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor."
-              </p>
-            </Col>
-            <Col xs={12} md={5} className="home-map home-col">
-              <MapContainer />
-            </Col>
-          </Row>
-        </Grid>
-      </div>
-      <div className="desc-container grey">
+      <div className="desc-container">
         <Grid>
         <Row className="card-row">
         <Col xs={12} sm={4} md={4} lg={4} className="card-col">
@@ -98,7 +79,7 @@ class Home extends Component {
     </Grid>
     </div>
 
-        <Footer bg="grey" />
+        <Footer bg="white" />
       </div>
     );
   }

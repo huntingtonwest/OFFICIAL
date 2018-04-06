@@ -81,7 +81,7 @@ class SearchForm extends React.Component {
           onSelectMin={this.onSelectRentMin}
           onSelectMax={this.onSelectRentMax}/>
           </Col>
-          <Col xs={6} md={3}>
+          <Col xs={12} md={3}>
           <DoubleSelect
           className="b-select"
           title='BED'
@@ -90,7 +90,7 @@ class SearchForm extends React.Component {
           onSelectMin={this.onSelectBedMin}
           onSelectMax={this.onSelectBedMax}/>
           </Col>
-          <Col xs={6} md={3}>
+          <Col xs={12} md={3}>
           <DoubleSelect
           className="b-select"
           title='BATH'

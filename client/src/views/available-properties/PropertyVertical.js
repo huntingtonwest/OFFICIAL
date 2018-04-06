@@ -8,14 +8,14 @@ class PropertyVertical extends React.Component {
 
     return (
       <Row className="property-card" key={this.props.key}>
-        <Col xs={4} md={4} className="small-col">
+        <Col xs={12} sm={4} md={4} className="small-col">
           <div className="property-thumbnail">
             <div className="prop-thumbnail">
               <Image src={this.props.img} responsive className="property-pic" />
             </div>
           </div>
         </Col>
-        <Col xs={8} md={8} className="big-col">
+        <Col xs={12} sm={8} md={8} className="big-col">
           <div className="property-padded">
             <Row className="property-info">
               <div className="property-main left-space">

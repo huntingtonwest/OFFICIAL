@@ -631,7 +631,6 @@ html, body {
   }
 
 /* AVAILABLE PROPERTIES -- SEARCH */
-
 .search-select span {
   display: block;
   cursor: pointer;
@@ -826,6 +825,7 @@ input[type=text].input-right  {
 
 }
 
+
 .map {
   width: 100%;
   max-height: 500px;
@@ -952,6 +952,7 @@ input[type=text].input-right  {
    /* max-width: 400px !important; */
    margin: 0 auto;
    overflow: hidden;
+
  }
 
 
@@ -974,7 +975,8 @@ input[type=text].input-right  {
  }
 
  .properties-grid {
-   width: 80%;
+   margin-top: 2em;
+   width: 90%;
  }
 
  .property-main {
@@ -1061,7 +1063,7 @@ input[type=text].input-right  {
    /* margin-top: 2em; */
    /* vertical-align: bottom; */
    margin-right: 10px;
-
+   margin-top: 4em;
  }
 
  .property-apply-button {
@@ -1112,10 +1114,15 @@ input[type=text].input-right  {
     width: 80%;
   }
 }
-@media only screen and (max-width: 450px) {
+@media only screen and (max-width: 950px) {
   .about-desc {
     font-size: 19px;
   }
+  .property-buttons {
+    margin-bottom: 1em;
+    margin-top: 0;
+  }
+
 }
 
 .dark-blue {

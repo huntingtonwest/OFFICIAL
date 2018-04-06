@@ -102,7 +102,7 @@ def association_validator(form, field):
         if  name == a.acn_name.lower():
             # print(name)
             field.data = a.acn_name
-            return
+            return True
 
     raise ValidationError('Please enter a valid association')
 

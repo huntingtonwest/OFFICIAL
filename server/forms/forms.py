@@ -22,12 +22,20 @@ class Fields():
                                                 validators.Length(min=6, max=100, message=len_error_msg(min=6, max=100)),
                                                 password_creation_validator])
 
+class AboutInfoForm(Form):
+    first    = Fields.name('First Name')
+    last     = Fields.name('Last Name')
+    position = Fields.name('Position')
+    email    = Fields.email
+    phone    = StringField('Phone Number', [phone_number_validator])
+
 class PasswordResetForm(Form):
     password = Fields.new_password('New Password')
     confirm = PasswordField('Confirm', [validators.DataRequired(), validators.EqualTo('password', message='Passwords must match')])
 
 class FileForm(Form):
     file_name = Fields.property_line('File Name')
+
 
 class LoginForm(Form):
     email = Fields.email
@@ -91,7 +99,6 @@ class ConsultationForm(Form):
 
     def regarding_validator(self, field):
         options = ['association management', 'residential property management', 'available properties', 'listing properties', 'employment opportunities', 'other']
-
         message='Choose one.'
         if not (field.data.strip()).lower() in options:
             raise ValidationError(message)
@@ -100,22 +107,10 @@ class ConsultationForm(Form):
     last_name  = Fields.name('Last Name')
     email      = Fields.email
     phone_num  = StringField('Phone Number', [phone_number_validator])
-    regarding  = StringField('Regarding', [validators.DataRequired(message=required()),
-                                            regarding_validator])
+    regarding  = StringField('Regarding', [validators.DataRequired(message=required()),regarding_validator])
     msg        = StringField('Message', [validators.Length(max=1000, message=len_error_msg(max=1000))])
 
-    # def get_names(self):
-    #     names=[]
-    #     for x in self:
-    #         names.append(x.name)
-    #     return names
 
-class AboutInfoForm(Form):
-    first    = Fields.name('First Name')
-    last     = Fields.name('Last Name')
-    position = Fields.name('Position')
-    email    = Fields.email
-    phone    = StringField('Phone Number', [phone_number_validator])
 
 class ContactForm(Form):
 

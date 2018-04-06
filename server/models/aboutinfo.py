@@ -7,7 +7,7 @@ class AboutInfo(db.Model):
     aboutinfo_id = db.Column(db.Integer, primary_key = True)
     first = db.Column(db.String(100))
     last = db.Column(db.String(100))
-    position = db.Column(db.String(200))
+    position = db.Column(db.String(100))
     email = db.Column(db.String(100))
     phone = db.Column(db.String(11))
     img_url = db.Column(db.String(1000))

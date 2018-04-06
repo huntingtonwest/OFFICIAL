@@ -13,6 +13,13 @@ def pst_time(date):
 
     return "{} PST".format(pst_dt.strftime('%m/%d/%Y %H:%M'))
 
+def pst_date(date):
+    utc_dt = pytz.utc.localize(date)
+    pst_tz = timezone('US/Pacific')
+    pst_dt = pst_tz.normalize(utc_dt.astimezone(pst_tz))
+
+    return "{} PST".format(pst_dt.strftime('%m/%d/%Y'))
+
 def get_property_types():
         return ['apartment', 'condo', 'duplex']
 def get_status_types():

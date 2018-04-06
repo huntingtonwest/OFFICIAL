@@ -2,6 +2,8 @@ from flask import Blueprint, render_template, request, redirect, url_for, abort,
 from flask_login import login_required, logout_user, login_user, current_user
 
 from server.models.users import Users
+from server.models.files import Files
+from server.models.aboutinfo import AboutInfo
 from server.models.properties import Properties
 from passlib.hash import sha256_crypt
 # from flask_mail import Message
@@ -11,7 +13,7 @@ from server.utils.hwp_email_template import html_consultation_form
 
 from server.forms.forms import ConsultationForm, ContactForm
 from sqlalchemy import or_
-from server.utils.query_utils import serialize, get_associations_by_loc
+from server.utils.query_utils import serialize, get_associations_by_loc, pst_date
 
 import json
 
@@ -45,6 +47,38 @@ def get_associations_get():
 	associations = get_associations_by_loc()
 
 	return jsonify({'associations':associations})
+
+@mod.route('/get-files', methods=['GET'])
+def get_files_get():
+	file = Files.query.all()
+
+	files=[]
+	for f in file:
+		# print(f)
+		fs = serialize(f, Files)
+		fs['date'] =pst_date(f.date)
+		del fs['file_id']
+		if fs['file_url'] == "":
+			continue
+		files.append(fs)
+
+	return jsonify({'files':files})
+
+@mod.route('/get-about')
+def get_about_get():
+	about = AboutInfo.query.all()
+
+	abouts=[]
+	for f in about:
+		# print(f)
+		fs = serialize(f, AboutInfo)
+		del fs['date']
+		del fs['aboutinfo_id']
+		if fs['img_url'] == "":
+			continue
+		abouts.append(fs)
+
+	return jsonify({'people':abouts})
 
 @mod.route('/property-test')
 def prop_test():

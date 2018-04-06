@@ -22,11 +22,12 @@ from server.forms.forms import LoginForm, RegisterForm, PersonalSettings, Passwo
 from server import app, db, s, mail
 
 mod = Blueprint('administration_files', __name__)
+ALLOWED_EXTENSIONS = ['png','jpg']
 
 
 
 @mod.route('/file-settings', methods=['GET'])
-@login_required
+# @login_required
 def file_settings():
 
     files = Files.query.all()
@@ -34,7 +35,7 @@ def file_settings():
     return render_template('administration/files/file_settings.html', files=files)
 
 @mod.route('/add-file', methods=['GET','POST'])
-@login_required
+# @login_required
 def add_file():
     form = FileForm(request.form)
 
@@ -51,11 +52,11 @@ def add_file():
             return render_template('administration/files/add_file.html', form=form)
 
 
-        if upload and allowed_file(upload.filename):
+        if upload and allowed_file(upload.filename, ALLOWED_EXTENSIONS):
             file = Files.query.filter_by(file_name = form.file_name.data).first()
             if file:
                 flash('A file by this name already exists!','danger')
-                render_template('administration/files/add_file.html', form=form)
+                return render_template('administration/files/add_file.html', form=form)
 
             try:
                 file = Files(form.file_name.data, "")
@@ -69,7 +70,7 @@ def add_file():
                 # print(output)
                 if not output:
                     flash('Something went wrong uploading the file. Please refresh the page and try again.','danger')
-                    render_template('administration/files/add_file.html', form=form, file = file)
+                    return render_template('administration/files/add_file.html', form=form, file = file)
 
                 new_history = History('add_file', current_user.id, tgt_file_id=file.file_id)
                 db.session.add(new_history)
@@ -87,19 +88,19 @@ def add_file():
                 # print(e)
                 db.session.rollback()
                 flash('Something went wrong uploading the file. Please refresh the page and try again.','danger')
-                render_template('administration/files/add_file.html',form=form)
+                return render_template('administration/files/add_file.html',form=form)
 
             flash('File was successfully added!', 'success')
             return redirect(url_for('administration_files.add_file'))
         else:
             flash('Only pdf files are accepted.','danger')
-            render_template('administration/files/add_file.html', form=form)
+            return render_template('administration/files/add_file.html', form=form)
 
     return render_template('administration/files/add_file.html', form=form)
 
 
 @mod.route('/edit-file/<string:id>', methods=['GET','POST'])
-@login_required
+# @login_required
 def edit_file(id):
 
     try:
@@ -112,82 +113,104 @@ def edit_file(id):
     form = FileForm(request.form)
 
     if request.method == 'POST' and form.validate():
-
+        upload = None
         if "user_file" in request.files:
             upload = request.files["user_file"]
 
-        if upload.filename == "":
-            flash('Please select a file.','danger')
+
+        if not upload and file.file_name == form.file_name.data:
+            flash('No changes were made!','danger')
             return render_template('administration/files/edit_file.html', form=form, file=file)
 
-        check = Files.query.filter_by(file_name = file_name)
-        if upload and allowed_file(upload.filename):
-            upload.filename = 'file_{}'.format(file.file_id)
+        if file.file_name != form.file_name.data and Files.query.filter_by(file_name = form.file_name.data).first():
+            flash('A file by this name already exists!','danger')
+            return render_template('administration/files/edit_file.html', form=form, file=file)
 
-            #if filename is the same, the file is overwritten
+        if upload and (upload.filename == "" or not allowed_file(upload.filename, ALLOWED_EXTENSIONS)):
+            flash('Only {} files are accepted.'.format(', '.join(ALLOWED_EXTENSIONS)), 'danger')
+            return render_template('administration/files/edit_file.html', form=form, file=file)
+        print(upload)
+        output = None
+        if upload:
+            upload.filename = '{}_{}'.format('file', file.file_id)
             output = upload_file_to_s3(upload, app.config['FILES_S3_BUCKET'], app.config["S3_BUCKET"])
-            # print(output)
             if not output:
-                flash('Something went wrong uploading the file. Please refresh the page and try again.','danger')
-                render_template('administration/files/edit_file.html', form=form, file = file)
+                flash('Something went wrong uploading the file. Please refresh the page and try again.', 'danger')
+                return render_template('administration/files/edit_file.html', form=form, file=file)
+
+        try:
+            new_history = History('edit_file', current_user.id, tgt_file_id=file.file_id)
+            db.session.add(new_history)
+            db.session.flush()
+
+            if file.file_name != form.file_name.data:
+                print('file name not equal')
+                new_content = HistoryContent(new_history.history_id, 'Identifier', form.file_name.data)
+                db.session.add(new_content)
+                new_content = HistoryContent(new_history.history_id, 'File Name', '"{}" to "{}"'.format(file.file_name, form.file_name.data))
+                db.session.add(new_content)
+                file.file_name = form.file_name.data
             else:
-                try:
-                    new_history = History('edit_file', current_user.id, tgt_file_id=file.file_id)
-                    db.session.add(new_history)
-                    db.session.flush()
+                print('file name equal')
+                new_content = HistoryContent(new_history.history_id, 'Identifier', file.file_name)
+                db.session.add(new_content)
 
-                    if file.file_name != form.file_name.data:
-                        new_content = HistoryContent(new_history.history_id, 'Identifier', form.file_name.data)
-                        db.session.add(new_content)
-                        new_content = HistoryContent(new_history.history_id, 'File Name', '"{}" to "{}"'.format(file.file_name, form.file_name.data))
-                        db.session.add(new_content)
-                    else:
-                        new_content = HistoryContent(new_history.history_id, 'Identifier', file.file_name)
-                        db.session.add(new_content)
+            if upload:
 
-                    new_content = HistoryContent(new_history.history_id, 'File', output)
-                    db.session.add(new_content)
+                file.file_url = output
+                new_content = HistoryContent(new_history.history_id, 'File', output)
+                db.session.add(new_content)
+                print('upload file')
 
-                    file.file_name = form.file_name.data
-                    file.file_url = output
-                    db.session.commit()
-                except Exception as e:
-                    # print(e)
-                    db.session.rollback()
-                    flash('Something went wrong uploading the file. Please refresh the page and try again.','danger')
-                    render_template('administration/files/edit_file.html',form=form,  file = file)
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            db.session.rollback()
+            flash('Something went wrong uploading the file. Please refresh the page and try again.','danger')
+            return render_template('administration/files/edit_file.html',form=form,  file = file)
 
-                flash('File was successfully edited!', 'success')
-                return redirect(url_for('administration_files.edit_file', id=id))
-        else:
-            flash('Only pdf files are accepted.','danger')
-            render_template('administration/files/edit_file.html', form=form, file = file)
+        flash('File was successfully edited!', 'success')
+        return redirect(url_for('administration_files.edit_file', id=id))
 
     return render_template('administration/files/edit_file.html', form=form, file = file)
 
 
 @mod.route('/delete-file', methods=['GET','POST'])
+# @login_required
 def delete_file():
-    if request.method == 'POST':
 
-        if "user_file" not in request.files:
-            return "No user_file key in request.files"
+    form = DeleteForm(request.form)
+    if request.method == 'POST' and form.validate():
 
-        file    = request.files["user_file"]
+        file = Files.query.get(int(form.id.data))
+        if not file:
+            abort(404)
 
-        if file.filename == "":
-            return "Please select a file"
 
-	# D.
-        if file and allowed_file(file.filename):
-            file.filename = secure_filename(file.filename)
-            output = upload_file_to_s3(file, app.config['PROPERTY_S3_BUCKET'], app.config["S3_BUCKET"])
+        if file.file_url != "":
+            s = delete_file_from_s3('{}_{}'.format('file', file.file_id), app.config['FILES_S3_BUCKET'], app.config["S3_BUCKET"])
+            if not s:
+                flash('Something went wrong deleting the file. Refresh the page and try again','danger')
+                return redirect(url_for('administration_files.file_settings'))
 
-            if not output:
-                flash('Something went wrong uploading the file. Please refresh the page and try again.')
-                render_template('administration/files/edit_file.html', file = file)
+        try:
+            new_history = History('del_file', current_user.id, tgt_file_id=file.file_id)
+            db.session.add(new_history)
+            db.session.flush()
 
-            return str(output)
+            new_content = HistoryContent(new_history.history_id, 'Identifier', file.file_name)
+            db.session.add(new_content)
 
-        else:
-            return redirect("/")
+            db.session.delete(file)
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            db.session.rollback()
+            flash('Something went wrong deleting the file. Refresh the page and try again','danger')
+            return redirect(url_for('administration_files.file_settings'))
+
+        flash('File was successfully deleted.','success')
+        return redirect(url_for('administration_files.file_settings'))
+
+    flash('Something went wrong deleting the file. Refresh the page and try again','danger')
+    return redirect(url_for('administration_files.file_settings'))

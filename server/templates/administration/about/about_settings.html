@@ -1,0 +1,39 @@
+{% extends 'index.html' %}
+
+{% block body %}
+<br><h1>Employee Settings</h1><br><br>
+<a class="btn btn-info" href="{{ url_for('administration_about.add_about_get')}}">Add Employee</a><br><br>
+<table class="table">
+  <thead>
+    <th scope="col">Name</th>
+    <th scope="col">Position</th>
+    <th scope="col">Email</th>
+    <th scope="col">Phone</th>
+    <th scope="col">Image</th>
+    <th scope="col">Date Updated</th>
+    <th scope="col">Edit</th>
+    <th scope="col">Delete</th>
+  </thead>
+  <tbody>
+    {% for e in about %}
+      <tr>
+        <td>{{ e.first }} {{e.last}}</td>
+        <td>{{e.position}}</td>
+        <td>{{e.email}}</td>
+        <td>{{e.phone}}</td>
+        <td><a href="{{e.img_url}}">view image</a></td>
+        <td>{{pst_time(e.date)}}</td>
+        <td><a class="btn btn-info" href="{{ url_for('administration_about.edit_about_get', id=e.aboutinfo_id)}}">edit</a></td>
+        <td>
+          <form class="form" action="{{ url_for('administration_about.delete_about') }}">
+            <input type="hidden" name="id" value="{{e.aboutinfo_id}}">
+            <input class="btn btn-info" type="submit" value="delete">
+          </form>
+        </td>
+      </tr>
+
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

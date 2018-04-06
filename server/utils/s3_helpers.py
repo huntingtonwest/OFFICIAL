@@ -8,10 +8,9 @@ s3 = boto3.client(
    aws_secret_access_key=S3_SECRET
 )
 
-ALLOWED_EXTENSIONS = ['png','jpg']
-def allowed_file(filename):
+def allowed_file(filename, allowed):
     return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS \
+           filename.rsplit('.', 1)[1].lower() in allowed \
            and len(filename.split('.')) == 2
 
 def upload_file_to_s3(file, subfol, bucket_name, acl="public-read"):
@@ -29,7 +28,7 @@ def upload_file_to_s3(file, subfol, bucket_name, acl="public-read"):
         )
 
     except Exception as e:
-        print("Something Happened: ", e)
+        # print("Something Happened: ", e)
         return False
 
     return "{}/{}".format(app.config['S3_LOCATION'], filename)
@@ -37,9 +36,12 @@ def upload_file_to_s3(file, subfol, bucket_name, acl="public-read"):
 def delete_file_from_s3(filename, subfol, bucket_name):
 
     filename = '{}/{}'.format(subfol, filename)
+
     try:
-        s3.delete_object(Bucket=bucket_name, Key=filename)
+        s3.delete_object(
+        Bucket=bucket_name,
+        Key=filename)
     except Exception as e:
-        print(e)
+        # print(e)
         return False
     return True

@@ -20,3 +20,10 @@
   </ul>
 {% endif %}
 {% endmacro %}
+
+{% macro render_field2(field) %}
+  <dt>{{ field.label }}
+  <dd>{{ field(**kwargs)|safe }}
+  <div class="{{field.name}}-errors"><div>
+
+{% endmacro %}

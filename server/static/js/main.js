@@ -3,28 +3,50 @@ $('.form').on('submit', function(event){
 	event.preventDefault();
   var form = $(this);
   var url = $(this).attr('action');
+
+	var formdata = new FormData($(this)[0]);
+// 	for (var [key, value] of formdata.entries()) {
+//   console.log(key, value);
+// }
+
   $.ajax({
     url: url,
-    data: $(this).serialize(),
+    data: formdata,
     type: 'POST',
+		processData: false,
+    contentType: false,
     success: function(response){
 
       if (response.status == 'success'){
+				$('#dangerMsg').hide()
+				$('#successMsg').html(response.msg);
+        $('#successMsg').show();
 				if (response.reload && response.reload=='true'){
+						alert(response.msg)
 						window.location.reload();
 				} else {
-        $('#successMsg').html(response.msg);
-        $('#successMsg').show();
-        form[0].reset();
+        	form[0].reset();
 				}
       } else if (response.status == 'danger'){
+
+				if (response.form_errors){
+					var errors = response.form_errors
+					for (var k in errors){
+						name = '.' + k + "-errors";
+						// console.log(name)
+						$(name).html(errors[k][0]);
+					}
+					// console.log(response.form_errors)
+				}
+				$('#successMsg').hide();
         $('#dangerMsg').html(response.msg);
         $('#dangerMsg').show();
       }
 
     },
     error: function(error){
-      alert('Something went wrong. Refresh the page and try again.');
+			$('#dangerMsg').html('Something went wrong. Refresh the page and try again.');
+			$('#dangerMsg').show();
     }
   });
 

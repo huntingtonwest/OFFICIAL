@@ -1,0 +1,21 @@
+{% extends 'index.html' %}
+
+{% block body %}
+{% from "includes/_formhelpers.html" import render_field2 %}
+
+
+<br><h1>Add Employee About Information </h1><br><br>
+<form class="form" action="{{ url_for('administration_about.add_about_post') }}" method='post' enctype="multipart/form-data">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+  {{ render_field2(form.first, class_="form-control")}}
+  {{ render_field2(form.last, class_="form-control")}}
+  {{ render_field2(form.position, class_="form-control")}}
+  {{ render_field2(form.email, class_="form-control")}}
+  {{ render_field2(form.phone, class_="form-control")}}
+
+  <dt><label>Picture</label><br>
+  <input type="file" class="file-upload" name="user_file"><br><br><br>
+  <button class="btn btn-info" type="submit">Upload</button>
+</form>
+
+{% endblock %}

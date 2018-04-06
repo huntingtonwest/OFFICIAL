@@ -1,4 +1,4 @@
-{% macro render_history(object) %}
+{% macro render_history(history) %}
 
 <table class="table table-sm">
   <thead>
@@ -12,21 +12,38 @@
     </tr>
   </thead>
   <tbody>
-     {% for h in object.history %}
-      <tr>
+    {% for h in history %}
+      <tr class="hist-row">
         <td>{{ pst_time(h.date) }}</td>
-        <td>{{h.user_info.email}}</td>
-        <td>{{h.type}}</td>
+        <td class="search">{{h.user_info.email}}</td>
+        <td class="search">{{h.type}}</td>
         <td class="content">
           <div class="container">
             {% for c in h.content %}
               <div class="row">
                 {% if c.col_name == 'Identifier' %}
-                  <div class="bold col-md-3">{{c.col_name}}:</div>
-                  <div class="bold col-md-9">{{ c.col_content }}</div>
+                  <div class="search bold col-md-3">{{c.col_name}}:</div>
+                  <div class="search bold col-md-9">{{ c.col_content }}</div>
                 {% else %}
-                  <div class="col-md-3">{{c.col_name}}:</div>
-                  <div class="col-md-9">{{ c.col_content }}</div>
+                  <div class="search col-md-3">{{c.col_name}}:</div>
+
+                                        {% if h.type in ['edit_file', 'add_file', 'del_file'] and c.col_name == 'File' %}
+                                            {% if h.tgt_file_id %}
+                                              <div class="col-md-3"><a class = "col-md-9" href="{{ c.col_content }}">view file</a></div>
+                                            {% else %}
+                                              <div class="col-md-3">deleted</div>
+                                            {% endif %}
+
+                                        {% elif h.type in ['edit_about', 'add_about', 'del_about'] and c.col_name == 'Image' %}
+                                            {% if h.tgt_about_id %}
+                                              <div class="col-md-3"><a class = "col-md-9" href="{{ c.col_content }}">view img</a></div>
+                                            {% else %}
+                                              <div class="col-md-3">deleted</div>
+                                            {% endif %}
+                                        {% else %}
+
+                            <div class="search col-md-9">{{ c.col_content }}</div>
+                                        {% endif %}
                 {% endif %}
               </div>
             {%endfor%}
@@ -43,7 +60,7 @@
 
       {% elif h.type in ['add_user', 'delete_user','edit_user','user_join'] %}
 
-        {% if h.tgt_user_id %}
+        {% if h.tgt_user_id and not h.tgt_info.is_deleted %}
           <td><a href="{{ url_for('administration_users.edit_user', user_id = h.tgt_user_id) }}">link</a></td>
         {% else %}
           <td>deleted</td>
@@ -57,18 +74,32 @@
           <td>deleted</td>
         {% endif %}
 
+      {% elif h.type in ['edit_file', 'add_file', 'del_file'] %}
+        {% if h.tgt_file_id %}
+          <td><a href="{{ url_for('administration_files.edit_file', id = h.tgt_file_id) }}">link</a></td>
+        {% else %}
+          <td>deleted</td>
+        {% endif %}
+
+      {% elif h.type in ['edit_about', 'add_about', 'del_about'] %}
+        {% if h.tgt_about_id %}
+          <td><a href="{{ url_for('administration_about.edit_about_get', id = h.tgt_about_id) }}">link</a></td>
+        {% else %}
+          <td>deleted</td>
+        {% endif %}
+
       {% endif %}
       <td>
         <form action="{{ url_for('administration_general.delete_history') }}" method='post'>
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
           <input type="hidden" name="id" value="{{ h.history_id }}">
           <input type="submit" value="delete" class="btn btn-info">
         </form>
       </td>
     </tr>
-
-
-
-{%  endfor %}
+    {%  endfor %}
+  </tbody>
+</table>
 
 
 {% endmacro %}

@@ -2,6 +2,7 @@
 
 {% block body %}
 {% from "includes/_formhelpers.html" import render_field %}
+{% from "includes/_history.html" import render_history %}
 
 
 <br><h1>Edit File</h1><br><br>
@@ -18,5 +19,9 @@
   <input type="file" name="user_file"><br></br>
   <button type="submit">Upload</button>
 </form>
+<br><br><br>
+
+
+{{ render_history(file.history) }}
 
 {% endblock %}

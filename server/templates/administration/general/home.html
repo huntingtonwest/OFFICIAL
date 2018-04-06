@@ -1,6 +1,7 @@
 {% extends 'index.html' %}
 
 {% block body %}
+{% from "includes/_history.html" import render_history %}
 
 <br><h1>Admin Home</h1><br><br>
 {% if prev_url %}
@@ -15,92 +16,7 @@
 
 
 
-<table class="table table-sm">
-  <thead>
-    <tr>
-      <th scope="col">Date</th>
-      <th scope="col">User</th>
-      <th scope="col">Action</th>
-      <th scope="col">Details</th>
-      <th scope="col">Link</th>
-      <th scope="col">Delete</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for h in history %}
-      <tr class="hist-row">
-        <td>{{ pst_time(h.date) }}</td>
-        <td class="search">{{h.user_info.email}}</td>
-        <td class="search">{{h.type}}</td>
-        <td class="content">
-          <div class="container">
-            {% for c in h.content %}
-              <div class="row">
-                {% if c.col_name == 'Identifier' %}
-                  <div class="search bold col-md-3">{{c.col_name}}:</div>
-                  <div class="search bold col-md-9">{{ c.col_content }}</div>
-                {% else %}
-                          <div class="search col-md-3">{{c.col_name}}:</div>
-
-                                        {% if h.type in ['edit_file', 'add_file', 'del_file'] %}
-                                            {% if h.tgt_file_id %}
-                                              <div class="col-md-3"><a class = "col-md-9" href="{{ h.file_url }}">view file</a></div>
-                                            {% else %}
-                                              <div class="col-md-3">deleted</div>
-                                            {% endif %}
-                                        {% else %}
-
-                            <div class="search col-md-9">{{ c.col_content }}</div>
-                                        {% endif %}
-                {% endif %}
-              </div>
-            {%endfor%}
-          </div>
-        </td>
-
-      {% if h.type in ['add_property', 'edit_property','del_property'] %}
-
-          {% if h.tgt_prop_id %}
-            <td><a href="{{ url_for('administration_property.edit_property', property_id = h.tgt_prop_id) }}">link</a></td>
-          {% else %}
-            <td>deleted</td>
-          {% endif %}
-
-      {% elif h.type in ['add_user', 'delete_user','edit_user','user_join'] %}
-
-        {% if h.tgt_user_id and not h.tgt_info.is_deleted %}
-          <td><a href="{{ url_for('administration_users.edit_user', user_id = h.tgt_user_id) }}">link</a></td>
-        {% else %}
-          <td>deleted</td>
-        {% endif %}
-
-      {% elif h.type in ['edit_association', 'add_association', 'del_association'] %}
-
-        {% if h.tgt_acn_id %}
-          <td><a href="{{ url_for('administration_associations.edit_association', acn_id = h.tgt_acn_id) }}">link</a></td>
-        {% else %}
-          <td>deleted</td>
-        {% endif %}
-
-      {% elif h.type in ['edit_file', 'add_file', 'del_file'] %}
-        {% if h.tgt_file_id %}
-          <td><a href="{{ url_for('administration_files.edit_file', id = h.tgt_file_id) }}">link</a></td>
-        {% else %}
-          <td>deleted</td>
-        {% endif %}
-
-      {% endif %}
-      <td>
-        <form action="{{ url_for('administration_general.delete_history') }}" method='post'>
-          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-          <input type="hidden" name="id" value="{{ h.history_id }}">
-          <input type="submit" value="delete" class="btn btn-info">
-        </form>
-      </td>
-    </tr>
-    {%  endfor %}
-  </tbody>
-</table>
+{{ render_history(history) }}
 
 
 

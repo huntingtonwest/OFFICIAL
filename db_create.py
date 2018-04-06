@@ -29,19 +29,19 @@ try:
 
 	files = [{
 		'file_name':'Enter-exit Checklist',
-		'file_url':'s'
+		'file_url':''
 		},{
 		'file_name':'30-Day Notice',
-		'file_url':'s'
+		'file_url':''
 		},{
 		'file_name': 'Cleaning Checklist',
-		'file_url':'s'
+		'file_url':''
 		},{
 		'file_name':'Satellite Dish Addendum',
-		'file_url':'s'
+		'file_url':''
 		},{
 		'file_name':'General Rules & Policies',
-		'file_url':'s'
+		'file_url':''
 		}]
 
 	properties = [{

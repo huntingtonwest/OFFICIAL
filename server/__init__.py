@@ -54,7 +54,7 @@ from server.views import administration_property
 from server.views import administration_users
 from server.views import administration_emails
 from server.views import administration_associations
-from server.views import administration_employees
+from server.views import administration_about
 from server.views import administration_files
 from server.views import forms
 app.register_blueprint(general.mod)
@@ -63,10 +63,11 @@ app.register_blueprint(administration_property.mod)
 app.register_blueprint(administration_emails.mod)
 app.register_blueprint(administration_associations.mod)
 app.register_blueprint(administration_users.mod)
-app.register_blueprint(administration_employees.mod)
+app.register_blueprint(administration_about.mod)
 app.register_blueprint(administration_files.mod)
 app.register_blueprint(forms.mod)
 csrf.exempt(forms.mod)
+# csrf.exempt(administration_about.mod)
 from server import models
 from server.models.users import Users
 

@@ -1,0 +1,30 @@
+{% extends 'index.html' %}
+
+{% block body %}
+{% from "includes/_formhelpers.html" import render_field2 %}
+{% from "includes/_history.html" import render_history %}
+
+
+<br><h1>Edit Employee About Information </h1><br><br>
+<form class="form" action="{{ url_for('administration_about.edit_about_post', id=about.aboutinfo_id) }}" method='post' enctype="multipart/form-data">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+  {{ render_field2(form.first, class_="form-control", value=about.first)}}
+  {{ render_field2(form.last, class_="form-control", value=about.last)}}
+  {{ render_field2(form.position, class_="form-control", value=about.position)}}
+  {{ render_field2(form.email, class_="form-control", value=about.email)}}
+  {{ render_field2(form.phone, class_="form-control", value=about.phone)}}
+  <br>
+  <a href="{{ about.img_url }}">view image</a>
+  <br>
+
+  <dt><label>Picture</label><br>
+  <input class="image" type="file" class="file-upload" name="user_file"><br><br><br>
+  <button class="btn btn-info" type="submit">Upload</button>
+</form>
+<br>
+{{ render_history(about.history) }}
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+{% endblock %}

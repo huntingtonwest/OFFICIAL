@@ -179,8 +179,8 @@ def admin_home_get():
 	prev_url = url_for('administration_general.admin_home_get', page=history_query.prev_num) \
 		if history_query.has_prev else None
 
-	for i in history_query.items:
-		print(i)
+	# for i in history_query.items:
+	# 	print(i)
 
 	return render_template('administration/general/home.html', history=history_query.items, next_url=next_url, prev_url=prev_url)
 

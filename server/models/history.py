@@ -11,7 +11,7 @@ class History(db.Model):
     tgt_prop_id = db.Column(db.Integer, db.ForeignKey('Properties.property_id'))
     tgt_acn_id = db.Column(db.Integer, db.ForeignKey('Associations.acn_id'))
     tgt_file_id = db.Column(db.Integer, db.ForeignKey('Files.file_id'))
-    tgt_info_id = db.Column(db.Integer, db.ForeignKey('AboutInfo.aboutinfo_id'))
+    tgt_about_id = db.Column(db.Integer, db.ForeignKey('AboutInfo.aboutinfo_id'))
 
 
     is_deleted = db.Column(db.Boolean(), default=False)
@@ -33,8 +33,8 @@ class History(db.Model):
             self.tgt_acn_id = kwargs['tgt_acn_id']
         if 'tgt_file_id' in kwargs:
             self.tgt_file_id = kwargs['tgt_file_id']
-        if 'tgt_info_id' in kwargs:
-            self.tgt_info_id = kwargs['tgt_info_id']
+        if 'tgt_about_id' in kwargs:
+            self.tgt_about_id = kwargs['tgt_about_id']
 
 
 

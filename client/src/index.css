@@ -532,6 +532,16 @@ html, body {
 .tab-desc {
   padding: 2em 10em;
   font-size: 18px;
+  text-align: left;
+}
+.tabs-img{
+  margin-bottom: 1em;
+}
+
+@media only screen and (max-width: 1200px) {
+  .tab-desc {
+    padding: 2em 3em;
+  }
 }
 
 .centerBlock {
@@ -578,6 +588,7 @@ html, body {
 .cascader {
   width: 80%!important;
   /* font-family: 'Gill Sans', sans-serif !important; */
+  text-align: left;
 
 }
 

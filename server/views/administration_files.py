@@ -27,7 +27,7 @@ ALLOWED_EXTENSIONS = ['png','jpg']
 
 
 @mod.route('/file-settings', methods=['GET'])
-# @login_required
+@login_required
 def file_settings():
 
     files = Files.query.all()
@@ -35,7 +35,7 @@ def file_settings():
     return render_template('administration/files/file_settings.html', files=files)
 
 @mod.route('/add-file', methods=['GET','POST'])
-# @login_required
+@login_required
 def add_file():
     form = FileForm(request.form)
 
@@ -100,7 +100,7 @@ def add_file():
 
 
 @mod.route('/edit-file/<string:id>', methods=['GET','POST'])
-# @login_required
+@login_required
 def edit_file(id):
 
     try:
@@ -176,7 +176,7 @@ def edit_file(id):
 
 
 @mod.route('/delete-file', methods=['GET','POST'])
-# @login_required
+@login_required
 def delete_file():
 
     form = DeleteForm(request.form)

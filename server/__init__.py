@@ -66,7 +66,7 @@ app.register_blueprint(administration_users.mod)
 app.register_blueprint(administration_employees.mod)
 app.register_blueprint(administration_files.mod)
 app.register_blueprint(forms.mod)
-
+csrf.exempt(forms.mod)
 from server import models
 from server.models.users import Users
 
@@ -75,12 +75,12 @@ def load_user(id):
     return Users.query.get(int(id))
 
 #times out user
-@app.before_request
-def before_request():
-    session.permanent = True
-    app.permanent_session_lifetime = datetime.timedelta(minutes=60)
-    session.modified = True
-    g.user = current_user
+# @app.before_request
+# def before_request():
+#     session.permanent = True
+#     app.permanent_session_lifetime = datetime.timedelta(minutes=60)
+#     session.modified = True
+#     g.user = current_user
 
 # from server.dbtest_init import properties, users, testdb_init
 

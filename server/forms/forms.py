@@ -1,4 +1,4 @@
-from wtforms import Form, BooleanField, IntegerField, StringField, DecimalField, validators, ValidationError, PasswordField
+from wtforms import Form, BooleanField, IntegerField, StringField, DecimalField, validators, ValidationError, PasswordField, FileField
 from wtforms.widgets import TextArea
 from server.forms.form_err_msg import *
 from server.models.associations import Associations
@@ -21,6 +21,16 @@ class Fields():
         return PasswordField(fieldname, [validators.DataRequired(message=required()),
                                                 validators.Length(min=6, max=100, message=len_error_msg(min=6, max=100)),
                                                 password_creation_validator])
+
+class PasswordResetForm(Form):
+    password = Fields.new_password('New Password')
+    confirm = PasswordField('Confirm', [validators.DataRequired(), validators.EqualTo('password', message='Passwords must match')])
+
+# class FileForm(Form):
+#     file = FileField('File', [
+#         validators.FileRequired(),
+#         FileAllowed(['jpg', 'png'], 'Images only!')
+#     ])
 
 class LoginForm(Form):
     email = Fields.email
@@ -56,7 +66,7 @@ class DeleteForm(Form):
 
 class PasswordForm(Form):
     id = IntegerField('User Id',[validators.InputRequired(), id_validator])
-    password = PasswordField('Password', [validators.DataRequired(message=required())])
+    password = PasswordField('Password', [validators.InputRequired(message=required())])
     new_password = Fields.new_password('New Password')
     confirm = PasswordField('Confirm New Password', [validators.InputRequired(), validators.EqualTo('new_password', message='Passwords must match')])
 

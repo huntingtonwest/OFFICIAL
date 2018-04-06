@@ -64,7 +64,7 @@ def create_user():
 		token = s.dumps(email, salt='email_confirm')
 		msg = Message('Confirm Email', sender=MAIL_USERNAME, recipients=[email])
 		link = url_for('administration_general.register', token=token, external=True)
-		msg.html = 'Go to <a href="{}/{}">this</a> link to register as a moderator for Huntington West Properties website.'.format(request.url_root,link)
+		msg.html = 'Go to <a href="{}{}">this</a> link to register as a moderator for Huntington West Properties website.'.format(request.url_root,link)
 
 		# msg.body = 'Go to this link to register as a moderator for Huntington West Properties website: {}'.format(link)
 
@@ -89,7 +89,7 @@ def create_user():
 		try:
 			mail.send(msg)
 		except:
-			flash('Invitation failed to send. Click here to try again.', 'danger')
+			flash('Invitation failed to send. Refresh and try again.', 'danger')
 			return render_template('administration/users/create_user.html', form=form)
 
 		flash('Invitation successfully sent!','success')
@@ -113,7 +113,7 @@ def resend_invitation():
 		token = s.dumps(email, salt='email_confirm')
 		msg = Message('Confirm Email', sender=MAIL_USERNAME, recipients=[email])
 		link = url_for('administration_general.register', token=token, external=True)
-		msg.html = 'Go to <a href="{}/{}">this</a> link to register as a moderator for Huntington West Properties website.'.format(request.url_root,link)
+		msg.html = 'Go to <a href="{}{}">this</a> link to register as a moderator for Huntington West Properties website.'.format(request.url_root,link)
 
 		try:
 			mail.send(msg)

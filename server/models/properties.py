@@ -9,6 +9,7 @@ class PropertyImgs(db.Model):
     __tablename__ = 'PropertyImgs'
     img_id =  db.Column(db.Integer, primary_key = True)
     property_id = db.Column(db.Integer, db.ForeignKey('Properties.property_id'))
+    order = db.Column(db.Integer)
     img_url = db.Column(db.String(1000))
     date_added = db.Column(db.DateTime(), default = datetime.utcnow)
 

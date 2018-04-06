@@ -1,5 +1,30 @@
 {% extends 'index.html' %}
 
 {% block body %}
-WIP
+<br><h1>File Settings</h1><br><br>
+
+<table class="table">
+  <thead>
+    <th scope="col">Filename</th>
+    <th scope="col">Filelink</th>
+    <th scope="col">Date Updated</th>
+    <th scope="col">Edit</th>
+    <th scope="col">Delete</th>
+  </thead>
+  <tbody>
+    {% for f in files %}
+    <tr>
+      <td>{{ f.file_name }}</td>
+      <td>{{ f.file_url }}</td>
+      <td>{{ pst_time(f.date) }}</td>
+      <td><a class = "btn btn-info" href="{{ url_for('administration_files.edit_file'), id=f.id }}">edit</a></td>
+      <td>delete</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+
+
 {% endblock %}

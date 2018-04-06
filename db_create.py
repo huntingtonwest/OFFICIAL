@@ -1,5 +1,6 @@
 
 #!flask/bin/python
+
 from migrate.versioning import api
 from config import SQLALCHEMY_DATABASE_URI
 from config import SQLALCHEMY_MIGRATE_REPO
@@ -8,10 +9,13 @@ from server.models.associations import Associations
 from server.models.users import Users
 from server.models.roles import Roles, Emails
 from server.models.properties import Properties
+from server.models.files import Files
 from passlib.hash import sha256_crypt
 import os.path
+import sys
 db.create_all()
-
+# db.session.rollback()
+# sys.exit()
 try:
 	#load roles
 	roles = [{
@@ -21,6 +25,23 @@ try:
 		},{
 		'role_name':'Contact Form',
 		'email':'bestgirlshiina@gmail.com'
+		}]
+
+	files = [{
+		'file_name':'Enter-exit Checklist',
+		'file_url':'s'
+		},{
+		'file_name':'30-Day Notice',
+		'file_url':'s'
+		},{
+		'file_name': 'Cleaning Checklist',
+		'file_url':'s'
+		},{
+		'file_name':'Satellite Dish Addendum',
+		'file_url':'s'
+		},{
+		'file_name':'General Rules & Policies',
+		'file_url':'s'
 		}]
 
 	properties = [{
@@ -114,7 +135,10 @@ try:
 		except:
 			role = Roles(role_name=r['role_name'])
 			db.session.add(role)
-			db.session.flush()
+			try:
+				db.session.flush()
+			except:
+				db.session.rollback()
 
 		try:
 			email = Emails.query.filter_by(email=r['email']).one()
@@ -124,6 +148,10 @@ try:
 			email = Emails(email=r['email'])
 			db.session.add(email)
 			db.session.flush()
+			try:
+				db.session.flush()
+			except:
+				db.session.rollback()
 
 			role.add_email(email)
 
@@ -149,25 +177,38 @@ try:
 		except:
 			association = Associations(acn_name=a['acn_name'], acn_loc=a['acn_loc'])
 			db.session.add(association)
-
+	print('associations done')
+	for f in files:
+		try:
+			# print(f)
+			file = Files.query.filter_by(file_name=f['file_name']).one()
+		except:
+			# print('here')
+			file = Files(file_name=f['file_name'], file_url=f['file_url'])
+			db.session.add(file)
 	#load master user
-
+	print('files done')
 	try:
-		user = Users.query.filter_by(email='bestgirlshiina@gmail.com').one()
+		user = Users.query.filter_by(email='bestgirlshiina@gmail.com', is_deleted=False).one()
 	except:
 		user = Users(email='bestgirlshiina@gmail.com')
 		db.session.add(user)
-		db.session.flush()
+		try:
+			x = 1
+			db.session.flush()
+		except:
+			db.session.rollback()
 		user.first = 'shiina'
 		user.last = 'mashiiro'
 		user.password = sha256_crypt.encrypt('sakurasou')
 		user.is_master = True
 		user.is_admin = True
 		user.is_verified = True
-
+	print('user added')
 	db.session.commit()
 	print('success')
 except Exception as e:
 	print(e)
 	db.session.rollback()
-	db.session.expire_all()
+	# db.session.expire_all()
+	db.session.close()

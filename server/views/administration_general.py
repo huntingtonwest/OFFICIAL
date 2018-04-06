@@ -4,23 +4,25 @@ from flask_login import login_required, logout_user, login_user, current_user
 from server.models.users import Users
 from server.models.history import History, HistoryContent
 from passlib.hash import sha256_crypt
+from flask_mail import Message
+
 
 from server.utils.authority_verification import is_admin
 from sqlalchemy import or_
 from itsdangerous import SignatureExpired
-from server.forms.forms import PropertyForm
+from server.forms.forms import PropertyForm, Resend
 from passlib.hash import sha256_crypt
 from server.utils.query_utils import serialize, pst_time
 
 from config import MAIL_USERNAME
 from sqlalchemy import exc
-from server.forms.forms import LoginForm, RegisterForm, PersonalSettings, PasswordForm, EmailForm, DeleteForm
+from server.forms.forms import LoginForm, RegisterForm, PersonalSettings, PasswordForm, EmailForm, DeleteForm, PasswordResetForm
 from server import app, db, s, mail
 
 mod = Blueprint('administration_general', __name__)
 
 """
-LOGIN
+LOGIN/LOGOUT
 """
 @mod.route('/login', methods=['GET','POST'])
 def login():
@@ -47,13 +49,73 @@ def login():
 
 	return render_template('administration/general/login.html', form=form)
 
-
 @mod.route('/logout', methods=['GET'])
 @login_required
 def logout():
 	logout_user()
 	flash('Logout successful','success')
 	return redirect(url_for('administration_general.login'))
+
+
+"""
+RESET PASSWORD
+"""
+@mod.route('/forgot-password', methods=['GET','POST'])
+def forgot_password():
+	form=Resend(request.form)
+
+	if request.method=='POST' and form.validate():
+		user = Users.query.filter_by(email=form.email.data, is_deleted=False).first()
+		if not user:
+			flash("This email doesn't exist!", 'danger')
+			return render_template('administration/general/forgot_password.html', form=form)
+
+		token = s.dumps(form.email.data, salt='password_change')
+		msg = Message('HWP Reset Password', sender=MAIL_USERNAME, recipients=[form.email.data])
+		link = url_for('administration_general.reset_password', token=token, external=True)
+		msg.html = 'Go to <a href="{}/{}">this</a> link to reset your password for Huntington West Properties website.'.format(request.url_root,link)
+
+		try:
+			mail.send(msg)
+		except:
+			flash('Something went wrong. Refresh the page and try again.', 'danger')
+			return render_template('administration/users/create_user.html', form=form)
+
+		flash('An email has been sent to reset your password','success')
+		return redirect(url_for('administration_general.login'))
+
+	return render_template('administration/general/forgot_password.html', form=form)
+
+
+@mod.route('/reset-password/<string:token>', methods=['GET','POST'])
+def reset_password(token):
+
+	form = PasswordResetForm(request.form)
+
+	try:
+		email = s.loads(token, salt='password_change', max_age=60*10)
+	except SignatureExpired:
+		alert={'status':'danger','msg':'This link has expired.'}
+		return redirect(url_for('administration_general.login'))
+	except:
+		abort(403)
+
+	if request.method== 'POST' and form.validate():
+		user = Users.query.filter_by(email=email, is_deleted=False).first()
+		if not user:
+			abort(404)
+		try:
+			user.password = sha256_crypt.encrypt(form.password.data)
+			db.session.commit()
+		except:
+			flash('Something went wrong. Please refresh the page and try again.','danger')
+			return render_template('administration/general/reset_password.html', form=form, token=token)
+		flash('Password was successfully reset.','success')
+		return redirect(url_for('administration_general.login'))
+
+	return render_template('administration/general/reset_password.html', form=form, token=token)
+
+
 
 
 """
@@ -122,6 +184,13 @@ def admin_home_get():
 
 	return render_template('administration/general/home.html', history=history_query.items, next_url=next_url, prev_url=prev_url)
 
+
+
+
+"""
+Personal Settings
+"""
+
 @mod.route('/personal-settings', methods=['GET','POST'])
 @login_required
 def personal_settings():
@@ -149,10 +218,6 @@ def personal_settings():
 
 	return render_template('administration/general/personal_settings.html', form=form)
 
-
-"""
-Personal Settings
-"""
 @mod.route('/password-settings', methods=['GET','POST'])
 @login_required
 def password_settings():
@@ -183,6 +248,10 @@ def password_settings():
 
 	return render_template('administration/general/password_settings.html', form=form)
 
+
+"""
+DELETE RECORDED HISTORY
+"""
 @mod.route('/delete-history', methods=['POST'])
 @login_required
 @is_admin

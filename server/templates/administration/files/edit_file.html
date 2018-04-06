@@ -1,14 +1,22 @@
 {% extends 'index.html' %}
 
 {% block body %}
-<br><h1>Edit File</h1><br><br>
-<form action="{{ url_for('administration_files.edit_file') }}" method='post' enctype="multipart/form-data">
-  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-  <dt>File Name:
-  <dd><input name="file_name" class="form-control"><br>
-        <input type="file" name="user_file">
-        <br></br>
-        <button type="submit">Upload</button>
+{% from "includes/_formhelpers.html" import render_field %}
 
+
+<br><h1>Edit File</h1><br><br>
+<form action="{{ url_for('administration_files.edit_file', id=file.file_id) }}" method='post' enctype="multipart/form-data">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+  {{ render_field(form.file_name, class_="form-control", value=file.file_name)}}
+
+  {% if file.file_url %}
+    <a href="{{ file.file_url }}">view image</a>
+  {% else %}
+    There is no uploaded file.
+  {% endif %}
+  <br><br>
+  <input type="file" name="user_file"><br></br>
+  <button type="submit">Upload</button>
 </form>
+
 {% endblock %}

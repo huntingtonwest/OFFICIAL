@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+
+{% block body %}
+{% from "includes/_formhelpers.html" import render_field %}
+
+
+<br><h1>Add File</h1><br><br>
+<form action="{{ url_for('administration_files.add_file') }}" method='post' enctype="multipart/form-data">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+  {{ render_field(form.file_name, class_="form-control")}}
+
+  <br><br>
+  <input type="file" name="user_file"><br></br>
+  <button type="submit">Upload</button>
+</form>
+
+{% endblock %}

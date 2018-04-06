@@ -94,7 +94,7 @@ def association_add_validator(form, field):
 
 #makes sure the input association is valid
 def association_validator(form, field):
-    name = (field.data.strip()).lower()
+    name = (field.strip()).lower()
 
     associations = Associations.query.all()
 
@@ -109,7 +109,7 @@ def association_validator(form, field):
 def alphanumeric_validator(form, field):
     name = field.data
     msg = 'Only alphanumeric characters and .\'"; are allowed.'
-    if re.match(r"^[A-Z a-z0-9.'\";]*$", name):
+    if re.match(r"^[A-Z a-z0-9.\-'\";]*$", name):
         return
     raise ValidationError(msg)
 

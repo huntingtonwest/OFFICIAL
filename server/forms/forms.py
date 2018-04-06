@@ -26,11 +26,8 @@ class PasswordResetForm(Form):
     password = Fields.new_password('New Password')
     confirm = PasswordField('Confirm', [validators.DataRequired(), validators.EqualTo('password', message='Passwords must match')])
 
-# class FileForm(Form):
-#     file = FileField('File', [
-#         validators.FileRequired(),
-#         FileAllowed(['jpg', 'png'], 'Images only!')
-#     ])
+class FileForm(Form):
+    file_name = Fields.property_line('File Name')
 
 class LoginForm(Form):
     email = Fields.email

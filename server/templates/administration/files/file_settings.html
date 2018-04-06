@@ -2,11 +2,12 @@
 
 {% block body %}
 <br><h1>File Settings</h1><br><br>
+<a class="btn btn-info" href="{{ url_for('administration_files.add_file') }}">Add File</a><br><br>
 
 <table class="table">
   <thead>
     <th scope="col">Filename</th>
-    <th scope="col">Filelink</th>
+    <th scope="col">File Link</th>
     <th scope="col">Date Updated</th>
     <th scope="col">Edit</th>
     <th scope="col">Delete</th>
@@ -15,9 +16,9 @@
     {% for f in files %}
     <tr>
       <td>{{ f.file_name }}</td>
-      <td>{{ f.file_url }}</td>
+      <td><a href="{{ f.file_url }}">view file</a></td>
       <td>{{ pst_time(f.date) }}</td>
-      <td><a class = "btn btn-info" href="{{ url_for('administration_files.edit_file'), id=f.id }}">edit</a></td>
+      <td><a class = "btn btn-info" href="{{ url_for('administration_files.edit_file',id=f.file_id)  }}">edit</a></td>
       <td>delete</td>
     </tr>
     {% endfor %}

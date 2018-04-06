@@ -40,8 +40,18 @@
                   <div class="search bold col-md-3">{{c.col_name}}:</div>
                   <div class="search bold col-md-9">{{ c.col_content }}</div>
                 {% else %}
-                  <div class="search col-md-3">{{c.col_name}}:</div>
-                  <div class="search col-md-9">{{ c.col_content }}</div>
+                          <div class="search col-md-3">{{c.col_name}}:</div>
+
+                                        {% if h.type in ['edit_file', 'add_file', 'del_file'] %}
+                                            {% if h.tgt_file_id %}
+                                              <div class="col-md-3"><a class = "col-md-9" href="{{ h.file_url }}">view file</a></div>
+                                            {% else %}
+                                              <div class="col-md-3">deleted</div>
+                                            {% endif %}
+                                        {% else %}
+
+                            <div class="search col-md-9">{{ c.col_content }}</div>
+                                        {% endif %}
                 {% endif %}
               </div>
             {%endfor%}
@@ -68,6 +78,13 @@
 
         {% if h.tgt_acn_id %}
           <td><a href="{{ url_for('administration_associations.edit_association', acn_id = h.tgt_acn_id) }}">link</a></td>
+        {% else %}
+          <td>deleted</td>
+        {% endif %}
+
+      {% elif h.type in ['edit_file', 'add_file', 'del_file'] %}
+        {% if h.tgt_file_id %}
+          <td><a href="{{ url_for('administration_files.edit_file', id = h.tgt_file_id) }}">link</a></td>
         {% else %}
           <td>deleted</td>
         {% endif %}

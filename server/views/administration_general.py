@@ -170,7 +170,7 @@ ADMIN HOME
 @mod.route('/admin-home', methods=['GET'])
 @login_required
 def admin_home_get():
-	print('here')
+	# print('here')
 	page = request.args.get('page', 1, type=int)
 	history_query = History.query.order_by(History.date.desc()).paginate(page, app.config['POSTS_PER_PAGE'], False)
 
@@ -178,9 +178,9 @@ def admin_home_get():
 		if history_query.has_next else None
 	prev_url = url_for('administration_general.admin_home_get', page=history_query.prev_num) \
 		if history_query.has_prev else None
-	# history = []
-	# for x in history_query:
-	# 	x.date =  pst_time(x.date)
+
+	for i in history_query.items:
+		print(i)
 
 	return render_template('administration/general/home.html', history=history_query.items, next_url=next_url, prev_url=prev_url)
 

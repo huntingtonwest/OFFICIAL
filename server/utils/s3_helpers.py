@@ -28,7 +28,7 @@ def upload_file_to_s3(file, subfol, bucket_name, acl="public-read"):
         )
 
     except Exception as e:
-        # print("Something Happened: ", e)
+        print("Something Happened: ", e)
         return False
 
     return "{}/{}".format(app.config['S3_LOCATION'], filename)
@@ -42,6 +42,6 @@ def delete_file_from_s3(filename, subfol, bucket_name):
         Bucket=bucket_name,
         Key=filename)
     except Exception as e:
-        # print(e)
+        print(e)
         return False
     return True

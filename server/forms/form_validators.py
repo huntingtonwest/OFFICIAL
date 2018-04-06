@@ -94,7 +94,7 @@ def association_add_validator(form, field):
 
 #makes sure the input association is valid
 def association_validator(form, field):
-    name = (field.strip()).lower()
+    name = (field.data.strip()).lower()
 
     associations = Associations.query.all()
 

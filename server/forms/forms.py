@@ -127,7 +127,7 @@ class ContactForm(Form):
 
     def if_association(self, field):
         subject = self._fields.get('subject')
-        if (subject.data.strip()).lower() == 'association' and not association_validator(self, field.data):
+        if (subject.data.strip()).lower() == 'association' and not association_validator(self, field):
             message = "You must choose a valid association"
             raise ValidationError(message)
 

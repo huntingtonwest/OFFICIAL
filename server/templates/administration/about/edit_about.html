@@ -14,10 +14,15 @@
   {{ render_field2(form.email, class_="form-control", value=about.email)}}
   {{ render_field2(form.phone, class_="form-control", value=about.phone)}}
   <br>
-  <a href="{{ about.img_url }}">view image</a>
   <br>
 
   <dt><label>Picture</label><br>
+    {% if about.img_url %}
+    <img id="img-preview" src="{{about.img_url}}" class="img-fluid" alt="Responsive image"></img>
+    {% else %}
+    This is no uploaded image.
+    <img id="img-preview" src="" class="hidden img-fluid" alt="Responsive image"></img>
+    {% endif %}
   <input class="image" type="file" class="file-upload" name="user_file"><br><br><br>
   <button class="btn btn-info" type="submit">Upload</button>
 </form>
@@ -27,4 +32,6 @@
 <br><br>
 <br><br>
 <br><br>
+<script type='text/javascript' src="{{ url_for('static',filename='js/img_render.js') }}"></script>
+
 {% endblock %}

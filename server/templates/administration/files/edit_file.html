@@ -11,8 +11,11 @@
   {{ render_field(form.file_name, class_="form-control", value=file.file_name)}}
 
   {% if file.file_url %}
-    <a href="{{ file.file_url }}">view image</a>
+    <img id="img-preview" src="{{file.file_url}}" class="img-fluid" alt="Responsive image"></img>
+
   {% else %}
+    <img id="img-preview" src="" class="hidden img-fluid" alt="Responsive image"></img>
+
     There is no uploaded file.
   {% endif %}
   <br><br>
@@ -23,5 +26,6 @@
 
 
 {{ render_history(file.history) }}
+<script type='text/javascript' src="{{ url_for('static',filename='js/img_render.js') }}"></script>
 
 {% endblock %}

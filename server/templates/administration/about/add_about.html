@@ -14,8 +14,12 @@
   {{ render_field2(form.phone, class_="form-control")}}
 
   <dt><label>Picture</label><br>
+  <img id="img-preview" src="" class="hidden img-fluid" alt="Responsive image"></img>
   <input type="file" class="file-upload" name="user_file"><br><br><br>
   <button class="btn btn-info" type="submit">Upload</button>
 </form>
+
+<script type='text/javascript' src="{{ url_for('static',filename='js/img_render.js') }}"></script>
+
 
 {% endblock %}

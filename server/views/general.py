@@ -37,7 +37,14 @@ def get_properties_get():
 	properties = []
 	for x in p:
 		prop = serialize(x, Properties)
+
+		images = []
+		for img in x.images:
+			images.append(img.img_url)
+		prop['images'] = images
 		properties.append(prop)
+
+
 
 	return jsonify({'properties':properties})
 

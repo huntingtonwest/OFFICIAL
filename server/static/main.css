@@ -7,3 +7,11 @@
 .bold {
   font-weight: bold;
 }
+
+img{
+    max-height:200px !important;
+    max-width:200px !important;
+}
+/* template{
+  display:none;
+} */

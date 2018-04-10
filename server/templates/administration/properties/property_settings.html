@@ -127,9 +127,13 @@
 
         </div>
       </td>
-      <td>PICTURES</td>
       <td>
-        <a class="btn btn-info" href="{{ url_for('administration_property.edit_property',property_id=p.property_id) }}">edit</a>
+        {% for img in p.images %}
+          <a href="{{img.img_url}}">view image</a>
+        {% endfor %}
+      </td>
+      <td>
+        <a class="btn btn-info" href="{{ url_for('administration_property.edit_property_get',property_id=p.property_id) }}">edit</a>
       </td>
       <td>
           <form class="delete" action="{{ url_for('administration_property.delete_property') }}" method='post'>

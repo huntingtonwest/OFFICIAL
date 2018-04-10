@@ -1,36 +1,83 @@
 {% extends 'index.html' %}
 
 {% block body %}
-{% from "includes/_formhelpers.html" import render_field %}
+{% from "includes/_formhelpers.html" import render_field2 %}
 
 <br><h1>Add Property</h1><br><br>
 
-<form action="{{ url_for('administration_property.add_property') }}" method="post">
+<form class="form" action="{{ url_for('administration_property.add_property') }}" method="post">
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-  {{ render_field(form.name, class="form-control") }}
-  {{ render_field(form.address_l1, class="form-control") }}
-  {{ render_field(form.address_l2, class="form-control") }}
-  {{ render_field(form.city, class="form-control") }}
-  {{ render_field(form.state, class="form-control") }}
-  {{ render_field(form.zipcode, class="form-control") }}
-  {{ render_field(form.type, class="form-control") }}
-  {{ render_field(form.beds, class="form-control") }}
-  {{ render_field(form.baths, class="form-control") }}
+  {{ render_field2(form.name, class="form-control") }}
+  {{ render_field2(form.address_l1, class="form-control") }}
+  {{ render_field2(form.address_l2, class="form-control") }}
+  {{ render_field2(form.city, class="form-control") }}
+  {{ render_field2(form.state, class="form-control") }}
+  {{ render_field2(form.zipcode, class="form-control") }}
+  {{ render_field2(form.type, class="form-control") }}
+  {{ render_field2(form.beds, class="form-control") }}
+  {{ render_field2(form.baths, class="form-control") }}
 
 
 
-  {{ render_field(form.for_sale) }}
-  {{ render_field(form.sale_price, class="form-control") }}
-  {{ render_field(form.for_rent) }}
-  {{ render_field(form.rent_price, class="form-control") }}
+  {{ render_field2(form.for_sale) }}
+  {{ render_field2(form.sale_price, class="form-control") }}
+  {{ render_field2(form.for_rent) }}
+  {{ render_field2(form.rent_price, class="form-control") }}
 
-  {{ render_field(form.area, class="form-control") }}
-  {{ render_field(form.notes, class="form-control") }}
-  <input type="submit" class="btn-info btn">
+  {{ render_field2(form.area, class="form-control") }}
+  {{ render_field2(form.notes, class="form-control") }}
+  <br><br>
+
+  <div class="img-preview container">
+
+    <div class="img-row row">
+      <div class="col-md-5">
+        <img src="" class="hidden img-fluid" alt="Responsive image"></img>
+      </div>
+      <div class="col-md-7">
+        <p class="hidden filename"></p>
+        <button type="button" class="hidden up">move up</button>
+        <button type="button" class="hidden down">move down</button>
+        <button type="button" class="hidden delete">delete</button>
+      </div>
+      <div>
+        <input class="file-upload" type="file" name="user_file" ><br>
+      </div>
+    </div>
+
+    <div id="img-preview"></div>
+  </div><br><br>
+
+  <button type = "button" id="add-file">add image</button><br>
+  <input type="submit" class="btn-info btn" >
 </form>
+
+<div id="img-preview-template" class="hidden">
+  <div class="img-row row">
+    <div class="col-md-5">
+      <img src="" class="hidden img-fluid" alt="Responsive image"></img>
+    </div>
+    <div class="col-md-7">
+      <p class="hidden filename"></p>
+      <button type="button" class="hidden up">move up</button>
+      <button type="button" class="hidden down">move down</button>
+      <button type="button" class="hidden delete">delete</button>
+    </div>
+    <div>
+      <input class="file-upload" type="file" name="user_file" ><br>
+    </div>
+  </div>
+</div>
+
+
 <br><br>
 <br><br>
 <br><br>
 <br><br>
 <br><br>
+
+
+
+<script type='text/javascript' src="{{ url_for('static',filename='js/properties.js') }}"></script>
+
 {% endblock %}

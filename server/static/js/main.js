@@ -1,14 +1,29 @@
+$.fn.exists = function () {
+    return this.length !== 0;
+}
+
+$('.delete').on('submit', function(event){
+	var r = confirm("Are you sure you want to proceed?");
+		if (r == false) {
+    	event.preventDefault();
+		}
+});
 
 $('.form').on('submit', function(event){
 	event.preventDefault();
   var form = $(this);
   var url = $(this).attr('action');
+	$('div.img-preview').find('img').each(function(){
+		if($(this).attr('src').length === 0){
+			$(this).closest('div.img-row').remove();
+		}
+	});
 
 	var formdata = new FormData($(this)[0]);
-// 	for (var [key, value] of formdata.entries()) {
-//   console.log(key, value);
-// }
 
+	// 	for (var [key, value] of formdata.entries()) {
+	//   console.log(key, value);
+	// }
   $.ajax({
     url: url,
     data: formdata,
@@ -22,7 +37,9 @@ $('.form').on('submit', function(event){
 				$('#successMsg').html(response.msg);
         $('#successMsg').show();
 				if (response.reload && response.reload=='true'){
-						alert(response.msg)
+						alert('success!')
+						sessionStorage.showmsg = true;
+						sessionStorage.msg = response.msg;
 						window.location.reload();
 				} else {
         	form[0].reset();
@@ -52,55 +69,12 @@ $('.form').on('submit', function(event){
 
 });
 
-$('.delete').on('submit', function(event){
-	var r = confirm("Are you sure you want to proceed?");
-		if (r == false) {
-    	event.preventDefault();
-		}
-});
-
-
-
-
-
-	// post_form = new FormData();
-// $('#form').on('submit', function() {
-//   event.preventDefault();
-//
-//   var options = {
-//     beforeSubmit: presubmit
-//   };
-//   alert('here')
-//   this.ajaxSubmit(options);
-//   alert('sds')
-//   return false;
-// });
-//
-// function presubmit(){
-//   alert('pressed')
-// }
-	// $.ajax({
- 	// 	type: "POST",
-  // 		url: "/ajax_post/" + forum_name + "/" + forum_id,
-  // 		contentType: false,
-  //   	processData: false,
-  // 		data: post_form,
-  // 		success: function(data) {
-  // 			if (data.redirect){
-  // 				window.location.replace(data.redirect);
-  // 			} else if (data.is_success){
-  // 				form[0].reset();
-  //   			resetPreview(form);
-  //
-  //         window.location.reload()
-  // 			} else {
-  // 				alert(data.msg)
-  // 				// form.parent().children('.alert-danger').css('display',block).html(data.msg)
-  // 			}
-  //
-  // 		},
-  // 		error: function(data){
-  //   		alert('A problem occured')
-  // 		}
-	// });
-// });
+$(document).ready(function(){
+	console.log('activated')
+	if (sessionStorage.showmsg == true){
+		$('#successMsg').html(sessionStorage.msg);
+		$('#successMsg').show();
+		// sessionStorage.showmsg=false;
+		// sessionStorage.msg="";
+	}
+})

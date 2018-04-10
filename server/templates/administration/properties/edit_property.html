@@ -6,7 +6,7 @@
 
 <br><h1>Edit Property</h1><br><br>
 
-<form action="{{ url_for('administration_property.edit_property',property_id=property.property_id) }}" method="post">
+<form class="form" action="{{ url_for('administration_property.edit_property',property_id=property.property_id) }}" method="post">
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
   {{ render_field(form.name, class="form-control", value=property.name) }}
   {{ render_field(form.address_l1, class="form-control", value=property.address_l1) }}
@@ -39,6 +39,31 @@
   {{ render_field(form.rent_price, class="form-control", value=property.rent_price) }}
 
   {{ render_field(form.notes, class="form-control", value=property.notes) }}
+
+
+<div class="img-preview container">
+  {% for p in property.images %}
+  <div class="img-row row">
+    <div class="col-md-5">
+      <img src="{{ p.img_url }}" class="img-fluid" alt="Responsive image"></img>
+    </div>
+    <div class="col-md-7">
+      <p class="filename">feqwfqwefqwefefwef</p>
+      <button type="button" class="up">move up</button>
+      <button type="button" class="down">move down</button>
+      <button type="button" class="delete">delete</button>
+    </div>
+    <div>
+      <input class="hidden file-upload" value="{{ p.img_id }}" name="file-order" ><br>
+    </div>
+  </div>
+  {% endfor %}
+
+  <div id="img-preview"></div>
+</div><br><br>
+
+
+  <button type = "button" id="add-file">add image</button><br>
   <input type="submit" class="btn-info btn">
 </form><br><br>
 <form class="delete" action="{{ url_for('administration_property.delete_property') }}" method='post'>
@@ -47,6 +72,23 @@
   <input class="btn btn-info" type="submit" value="Delete">
 </form>
 
+<div id="img-preview-template" class="hidden">
+  <div class="img-row row">
+    <div class="col-md-5">
+      <img src="" class="hidden img-fluid" alt="Responsive image"></img>
+    </div>
+    <div class="col-md-7">
+      <p class="hidden filename"></p>
+      <button type="button" class="hidden up">move up</button>
+      <button type="button" class="hidden down">move down</button>
+      <button type="button" class="hidden delete">delete</button>
+    </div>
+    <div>
+      <input class="file-upload" type="file" name="user_file" ><br>
+      <input class="hidden" value="new" name="file-order">
+    </div>
+  </div>
+</div>
 
 <br><br>
 <br><br>
@@ -56,5 +98,8 @@
 <br><br>
 <br><br>
 <br><br>
+
+<script type='text/javascript' src="{{ url_for('static',filename='js/properties.js') }}"></script>
+
 
 {% endblock %}

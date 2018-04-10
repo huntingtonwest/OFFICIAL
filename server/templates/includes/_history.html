@@ -40,6 +40,14 @@
                                             {% else %}
                                               <div class="col-md-3">deleted</div>
                                             {% endif %}
+                                            
+                                        {% elif h.type in ['edit_property', 'add_property', 'del_property'] and c.col_name in ['Image','Image added'] %}
+                                            {% if h.tgt_prop_id %}
+                                              <div class="col-md-3"><a class = "col-md-9" href="{{ c.col_content }}">view img</a></div>
+                                            {% else %}
+                                              <div class="col-md-3">deleted</div>
+                                            {% endif %}
+
                                         {% else %}
 
                             <div class="search col-md-9">{{ c.col_content }}</div>

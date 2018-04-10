@@ -60,7 +60,7 @@ def add_about_post():
 				upload.filename = "about_{}".format(new.aboutinfo_id)
 				output = upload_file_to_s3(upload, app.config['ABOUT_S3_BUCKET'], app.config["S3_BUCKET"])
 				if not output:
-					return jsonify({'msg':'Something went wrong uploading the file. Please refresh the page and try again.','status':'danger'})
+					raise
 				new.img_url = output
 
 				new_history = History('add_about', current_user.id, tgt_about_id=new.aboutinfo_id)

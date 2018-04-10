@@ -13,6 +13,8 @@ def allowed_file(filename, allowed):
            filename.rsplit('.', 1)[1].lower() in allowed \
            and len(filename.split('.')) == 2
 
+
+
 def upload_file_to_s3(file, subfol, bucket_name, acl="public-read"):
     print(file.filename)
     print(subfol)

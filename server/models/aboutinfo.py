@@ -14,7 +14,7 @@ class AboutInfo(db.Model):
 
     date = db.Column(db.DateTime(), onupdate = datetime.utcnow, default = datetime.utcnow)
 
-    history = db.relationship('History', backref = 'aboutinfo', lazy = 'dynamic')
+    history = db.relationship('History', backref = 'aboutinfo', lazy = 'dynamic', order_by='History.date.desc()')
 
     def __init__(self, first, last, position, email, phone, img_url):
         self.first = first

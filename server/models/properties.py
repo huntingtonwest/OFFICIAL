@@ -11,7 +11,7 @@ class PropertyImgs(db.Model):
     property_id = db.Column(db.Integer, db.ForeignKey('Properties.property_id'))
     order = db.Column(db.Integer)
     img_url = db.Column(db.String(1000))
-    date_added = db.Column(db.DateTime(), default = datetime.utcnow)
+    date_added = db.Column(db.DateTime(), onupdate = datetime.utcnow, default = datetime.utcnow)
 
 
     def __init__(self, property_id, img_url):
@@ -46,7 +46,7 @@ class Properties(db.Model):
 
     date_posted = db.Column(db.DateTime(), onupdate=datetime.utcnow, default = datetime.utcnow)
 
-    images = db.relationship('PropertyImgs', backref='property', lazy='dynamic')
+    images = db.relationship('PropertyImgs', backref='property', lazy='dynamic', order_by='PropertyImgs.date_added')
     history = db.relationship('History', backref='property', lazy='dynamic', order_by='History.date.desc()')
     def __init__(self, input):
         columns = Properties.__table__.columns
@@ -55,6 +55,16 @@ class Properties(db.Model):
                 setattr(self,c.key, input[c.key])
 
 
+    def add_image(self, image):
+        if not self.has_image(image):
+            self.images.append(image)
+
+    def remove_image(self, image):
+        if self.has_image(image):
+            self.images.remove(image)
+
+    def has_image(self, image):
+        return self.images.filter(PropertyImgs.img_id == image.img_id).count() > 0
 
 
 

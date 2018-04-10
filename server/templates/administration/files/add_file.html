@@ -10,8 +10,10 @@
   {{ render_field(form.file_name, class_="form-control")}}
 
   <br><br>
+  <img id="img-preview" src="" class="hidden img-fluid" alt="Responsive image"></img>
   <input type="file" name="user_file"><br></br>
   <button type="submit">Upload</button>
 </form>
+<script type='text/javascript' src="{{ url_for('static',filename='js/img_render.js') }}"></script>
 
 {% endblock %}

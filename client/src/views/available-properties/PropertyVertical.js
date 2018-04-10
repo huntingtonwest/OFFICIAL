@@ -40,9 +40,6 @@ class PropertyVertical extends React.Component {
             </Row>
           <Row className="property-buttons-row">
             <div className="property-buttons">
-              <Button bsStyle="primary" className="property-details-button">
-                View Details
-              </Button>
               <Button bsStyle="default" className="property-apply-button">
                 Apply Now
               </Button>

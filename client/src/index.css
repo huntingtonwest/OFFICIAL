@@ -472,7 +472,7 @@ html, body {
   letter-spacing: 0.11em;
   font-family: 'Khula', sans-serif!important;
   /* font-weight: lighter; */
-  filter: drop-shadow(0 0 1rem rgba(0, 0, 0, 0.9));
+  filter: drop-shadow(0 0 1rem rgba(0, 0, 0, 0.7));
 
 }
 
@@ -539,6 +539,11 @@ html, body {
 }
 .tabs-img{
   margin-bottom: 1em;
+}
+
+.ant-tabs .ant-tabs-tab-arrow-show {
+    background-color: #F0F0F0!important;
+    color: black!important;
 }
 
 @media only screen and (max-width: 1200px) {
@@ -815,7 +820,7 @@ input[type=text].input-right  {
   font-family: 'Khula', sans-serif!important;
   font-weight: lighter;
 
-  filter: drop-shadow(0 0 1rem rgba(0, 0, 0, 0.9));
+  filter: drop-shadow(0 0 1rem rgba(0, 0, 0, 0.7));
 }
 
 .search-inner {
@@ -1384,6 +1389,11 @@ input[type=text].input-right  {
 
 #grey {
   background-color: #F0F0F0;
+}
+
+#darkgrey {
+  background-color: #1f1f1f;
+
 }
 
 .footer-grid {

@@ -5,6 +5,9 @@ import DoubleSelect from './DoubleSelect'
 const { Option, OptGroup } = Select;
 const rentMinOptions = ['No Min','$500','$750','$1,000','$1,250'];
 const rentMaxOptions = ['No Max', '$500','$750','$1,000','$1,250'];
+const priceMinOptions = ['No Min','$100,000','$200,000','$300,000','$400,000'];
+const priceMaxOptions = ['No Max', '$100,000','$200,000','$300,000','$400,000'];
+
 const bedMinOptions = ['No Min', 'Studio','1','2','3', '4', '5', '6', '7', '8', '9', '10'];
 const bedMaxOptions = ['No Max', 'Studio','1','2','3', '4', '5', '6', '7', '8', '9', '10'];
 const bathMinOptions = ['No Min', '1','1.5','2','3', '4', '5', '6', '7', '8', '9', '10'];
@@ -13,11 +16,25 @@ const bathMaxOptions = ['No Max', '1','1.5','2','3', '4', '5', '6', '7', '8', '9
 
 const dataSource = ['Los Angeles, CA', 'Orange County, CA', 'San Diego, CA'];
 
+function removeCommas(str) {
+  return(str.toString().replace(/,/g,''));
+}
 
 class SearchForm extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      rentMins: rentMinOptions,
+      rentMaxs: rentMaxOptions,
+      priceMins: priceMinOptions,
+      priceMaxs: priceMaxOptions,
+      bedMins: bedMinOptions,
+      bedMaxs: bedMaxOptions,
+      bathMins: bathMinOptions,
+      bathMaxs: bathMaxOptions
+    };
+    console.log(this.state.rentMins);
 
     this.onSelectCity = this.onSelectCity.bind(this);
     this.onSelectBedMin = this.onSelectBedMin.bind(this);
@@ -26,7 +43,23 @@ class SearchForm extends React.Component {
     this.onSelectBathMax = this.onSelectBathMax.bind(this);
     this.onSelectRentMax = this.onSelectRentMax.bind(this);
     this.onSelectRentMin = this.onSelectRentMin.bind(this);
+    this.handleReset = this.handleReset.bind(this);
 
+
+  }
+
+  handleReset() {
+    // this.setState({
+    //   rentMins: rentMinOptions,
+    //   rentMaxs: rentMaxOptions,
+    //   priceMins: priceMinOptions,
+    //   priceMaxs: priceMaxOptions,
+    //   bedMins: bedMinOptions,
+    //   bedMaxs: bedMaxOptions,
+    //   bathMins: bathMinOptions,
+    //   bathMaxs: bathMaxOptions
+    // });
+    this.props.reset();
   }
 
   onSelectCity(value) {
@@ -34,33 +67,82 @@ class SearchForm extends React.Component {
   }
 
   onSelectBedMin(value) {
-    this.props.onSelect('minBed', (value == 'No Min') ? '-1' : value);
+    var numeric = Number((value == 'No Min') ? '-1' : (value == 'Studio' ? 0 : value));
+    let filtered = bedMaxOptions.filter(val => {
+      if (val == 'No Max') return true;
+      if (val == 'Studio') return (numeric <= 0);
+      return (Number(val) >= numeric);
+    });
+
+    this.setState({bedMaxs: filtered});
+    this.props.onSelect('minBed', numeric);
   }
   onSelectBedMax(value) {
-    this.props.onSelect('maxBed', (value == 'No Max') ? Number.MAX_SAFE_INTEGER : value);
+    var numeric = Number((value == 'No Max') ? Number.MAX_SAFE_INTEGER : (value == 'Studio' ? 0 : value));
+    let filtered = bedMinOptions.filter(val => {
+      if (val == 'No Min') return true;
+      if (val == 'Studio') return (numeric >= 0);
+      return (Number(val) <= numeric);
+    });
+
+    this.setState({bedMins: filtered});
+
+    this.props.onSelect('maxBed', numeric);
   }
   onSelectBathMin(value) {
-    this.props.onSelect('minBath', (value == 'No Min') ? '-1' : value);
+    var numeric = Number((value == 'No Min') ? '-1' : value);
+    let filtered = bathMaxOptions.filter(val => {
+      if (val == 'No Max') return true;
+      return (Number(val) >= numeric);
+    });
+
+    this.setState({bathMaxs: filtered});
+    this.props.onSelect('minBath', numeric);
   }
   onSelectBathMax(value) {
-    this.props.onSelect('maxBath', (value == 'No Max') ? Number.MAX_SAFE_INTEGER : value);
+    var numeric = Number((value == 'No Max') ? Number.MAX_SAFE_INTEGER : value);
+    let filtered = bathMinOptions.filter(val => {
+      if (val == 'No Min') return true;
+      return (Number(val) <= numeric);
+    });
+
+    this.setState({bathMins: filtered});
+
+    this.props.onSelect('maxBath', numeric);
   }
   onSelectRentMin(value) {
-    var rent = (value == 'No Min') ? '-1' : value.substring(1);
-    console.log("rent is", rent);
-   this.props.onSelect('minRent', rent);
+
+    var rent = Number((value == 'No Min') ? '-1' : Number(removeCommas(value.substring(1))));
+    var options = this.props.type == 'sale' ? priceMaxOptions : rentMaxOptions;
+    let filtered = options.filter(val => {
+      if (val == 'No Max') return true;
+      return (Number(removeCommas(val.substring(1))) >= rent);
+    });
+
+    if (this.props.type == 'sale') this.setState({priceMaxs: filtered});
+    else this.setState({rentMaxs: filtered});
+
+    this.props.onSelect('minRent', rent);
   }
   onSelectRentMax(value) {
-    var rent = (value == 'No Max') ? Number.MAX_SAFE_INTEGER : value.substring(1);
-    console.log("rent is", rent);
-   this.props.onSelect('maxRent', rent);
+    var numeric = Number((value == 'No Max') ? Number.MAX_SAFE_INTEGER : removeCommas(value.substring(1)));
+    var options = this.props.type == 'sale' ? priceMinOptions : rentMinOptions;
+    let filtered = options.filter(val => {
+      if (val == 'No Min') return true;
+      return (Number(removeCommas(val.substring(1))) <= numeric);
+    });
+    if (this.props.type == 'sale') this.setState({priceMins: filtered});
+    else this.setState({rentMins: filtered});
+
+    this.props.onSelect('maxRent', numeric);
+
   }
 
     render() {
       return (
         <div className="search-cont">
         <Row className="search-row location-row">
-            <Col xs={12} md={12}>
+            <Col xs={12} md={9}>
               <AutoComplete
                 className="location-form"
                 style={{ borderRadius: 0, width:734, float: 'left' }}
@@ -70,14 +152,17 @@ class SearchForm extends React.Component {
                 filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
               />
             </Col>
+            <Col xs={12} md={3} className="search-col">
+              <Button onClick={this.handleReset} className="button-form search-button " >Reset</Button>
+            </Col>
         </Row>
         <Row className="search-row">
           <Col xs={12} md={3}>
           <DoubleSelect
           className="r-select"
           title='PRICE'
-          minOptions={rentMinOptions}
-          maxOptions={rentMaxOptions}
+          minOptions={this.props.type == 'sale' ? this.state.priceMins : this.state.rentMins}
+          maxOptions={this.props.type == 'sale' ? this.state.priceMaxs : this.state.rentMaxs}
           onSelectMin={this.onSelectRentMin}
           onSelectMax={this.onSelectRentMax}/>
           </Col>
@@ -85,8 +170,8 @@ class SearchForm extends React.Component {
           <DoubleSelect
           className="b-select"
           title='BED'
-          minOptions={bedMinOptions}
-          maxOptions={bedMaxOptions}
+          minOptions={this.state.bedMins}
+          maxOptions={this.state.bedMaxs}
           onSelectMin={this.onSelectBedMin}
           onSelectMax={this.onSelectBedMax}/>
           </Col>
@@ -94,8 +179,8 @@ class SearchForm extends React.Component {
           <DoubleSelect
           className="b-select"
           title='BATH'
-          minOptions={bathMinOptions}
-          maxOptions={bathMaxOptions}
+          minOptions={this.state.bathMins}
+          maxOptions={this.state.bathMaxs}
           onSelectMin={this.onSelectBathMin}
           onSelectMax={this.onSelectBathMax}/>
           </Col>
@@ -114,7 +199,7 @@ class ControlledTabs extends React.Component {
     super(props, context);
     this.handleSelect = this.handleSelect.bind(this);
     this.state = {
-      key: 'rent'
+      key: 'all'
     };
   }
 
@@ -134,11 +219,14 @@ class ControlledTabs extends React.Component {
         bsStyle="pills"
         className="search-tabs"
       >
+      <Tab eventKey={'all'} title="ALL">
+        <SearchForm type='all' reset={this.props.reset} onClick={this.props.onClick} onSelect={this.props.onSelect}/>
+      </Tab>
         <Tab eventKey={'rent'} title="RENT">
-          <SearchForm type='rent' onClick={this.props.onClick} onSelect={this.props.onSelect}/>
+          <SearchForm type='rent' reset={this.props.reset} onClick={this.props.onClick} onSelect={this.props.onSelect}/>
         </Tab>
         <Tab eventKey={'sale'} title="SALE">
-          <SearchForm type='sale'onClick={this.props.onClick} onSelect={this.props.onSelect}/>
+          <SearchForm type='sale' reset={this.props.reset} onClick={this.props.onClick} onSelect={this.props.onSelect}/>
         </Tab>
       </Tabs>
     );
@@ -153,7 +241,7 @@ class BannerProperties extends React.Component {
             <div className="search-inner">
               <h1 className="search-title-banner">{this.props.title}</h1>
               <br />
-              <ControlledTabs className="search-tab-container"onClick={this.props.onClick} onSelect={this.props.onSelect}/>
+              <ControlledTabs className="search-tab-container" reset={this.props.reset} onClick={this.props.onClick} onSelect={this.props.onSelect}/>
             </div>
           </div>
     );

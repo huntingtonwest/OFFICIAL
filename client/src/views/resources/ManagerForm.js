@@ -3,10 +3,14 @@ import { FormGroup, FormControl, Grid, Row, Col} from 'react-bootstrap';
 import { Input } from 'antd';
 import { Select } from 'antd';
 import CitySearch from './CitySearch';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 const Option = Select.Option;
 const { TextArea } = Input;
 
+function onChange(value) {
+  console.log("Captcha value:", value);
+}
 
 function FieldGroup({ id, ...props }) {
   return (
@@ -144,6 +148,11 @@ class ManagerForm extends React.Component {
                 <CitySearch style={this.state.showAssociations} selectAssociation={this.selectAssociation} name="association"/>
                 <TextArea className="form-message" placeholder="Message"       name="msg"
 rows={4} />
+<ReCAPTCHA
+ref="recaptcha"
+sitekey="6LdnP1IUAAAAAPLDI5jgcHN6TKl1KNJiJzYAV90n"
+onChange={onChange}
+/>
                 <button className="button-form" type="submit">SUBMIT</button>
               </Col>
             </form>

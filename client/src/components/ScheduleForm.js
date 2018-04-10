@@ -2,6 +2,8 @@ import * as React from 'react';
 import { FormGroup, FormControl, Grid, Row, Col} from 'react-bootstrap';
 import { Input } from 'antd';
 import { Select } from 'antd';
+import ReCAPTCHA from 'react-google-recaptcha';
+import { Card, Modal } from 'antd';
 
 const { TextArea } = Input;
 const Option = Select.Option;
@@ -20,20 +22,56 @@ class ConsultationForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      regarding: ''
+      regarding: '',
+      captcha: false,
+      modalVisible: false,
+      errors: [],
+      status: 'Error'
     };
 
     this.handleSelect = this.handleSelect.bind(this);
+    this.handleCaptcha = this.handleCaptcha.bind(this);
+
+  }
+
+  handleCaptcha(value) {
+    console.log("Captcha value:", value);
+    this.setState({captcha: value});
   }
 
   postForm = (e) => {
     e.preventDefault();
+    if (!this.state.captcha) {
+      this.setState({errors: ['Captcha is required'], status: 'Error', modalVisible: true});
+      return;
+    }
     const data = new FormData(e.target);
     data.set('regarding', this.state.regarding);
     fetch('https://realhwptest.herokuapp.com/consultation-form', {
       method: 'POST',
       body: data
-    });
+    }).then(response => response.json())
+    .then(response => {
+
+      if (response.status == 'error') {
+        var arr = [];
+        for(var i in response.errors)
+            arr.push([i, response.errors [i]]);
+        let errors = arr.map((error) => {
+          return (
+            <li>{error[0] + ': ' + error[1]}</li>
+          );
+        });
+        this.setState({errors: errors, status: 'Error', modalVisible: true});
+      }
+      else {
+        this.setState({errors: ['Form was sent!'], status: 'Success!', modalVisible: true});
+      }
+  });
+  }
+
+  setModalVisible(modalVisible) {
+    this.setState({ modalVisible });
   }
 
   handleSelect(e) {
@@ -82,11 +120,26 @@ class ConsultationForm extends React.Component {
                 <Option value="Other">Other</Option>
               </Select>
               <TextArea className="form-message" placeholder="Message" name="msg" rows={4} />
+              <ReCAPTCHA
+    ref="recaptcha"
+    sitekey="6LdnPVIUAAAAAPz5aMwGu0MffoRD-qQA4-R376RN"
+    onChange={this.handleCaptcha}
+  />
               <button className="button-form" type="submit">SUBMIT</button>
             </Col>
           </form>
         </Row>
       </Grid>
+      <Modal
+      title={this.state.status}
+      wrapClassName="vertical-center-modal"
+      visible={this.state.modalVisible}
+      onCancel={() => this.setModalVisible(false)}
+      footer={[
+      ]}
+      >
+    {this.state.errors}
+  </Modal>
       </div>
     );
   }

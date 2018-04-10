@@ -21,65 +21,7 @@ class Home extends Component {
           img="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/home_banner2.jpg"
           height="1200"
         />
-      <div className="desc-container">
-        <Grid>
-        <Row className="card-row">
-        <Col xs={12} sm={4} md={4} lg={4} className="card-col">
-          <Card
-            className="home-card"
-            hoverable
-            bodyStyle={{ padding: 5, paddingBottom: 0 }}
-            onClick={() => this.cardClick('/availableProperties')}
-            id="properties"
-            >
-            <div className="custom-image">
-              <img alt="example" width="100%" src="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/h1.jpg" />
-            </div>
-            <div className="custom-card">
-              <h1></h1>
-              <p>Available Properties</p>
-            </div>
-          </Card>
-        </Col>
-        <Col xs={12} sm={4} md={4} lg={4} className="card-col">
-          <Card
-            className="home-card"
-            hoverable
-            bodyStyle={{ padding: 5, paddingBottom: 0 }}
-            onClick={() => this.cardClick('http://www.paylease.com')}
-            id="payments"
-            >
-            <div className="custom-image">
-              <img alt="example" width="100%" src="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/h3.jpg" />
-            </div>
-            <div className="custom-card">
-              <h1></h1>
-              <p>Make Payments</p>
-            </div>
-          </Card>
-        </Col>
-        <Col xs={12} sm={4} md={4} lg={4} className="card-col">
-          <Card
-            className="home-card"
-            hoverable
-            bodyStyle={{ padding: 5, paddingBottom: 0 }}
-            onClick={() => this.cardClick('/availableProperties#consultation')}
-            id="consultation"
-            >
-            <div className="custom-image">
-              <img alt="example" width="100%" src="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/h2.jpg" />
-            </div>
-            <div className="custom-card">
-              <h1></h1>
-              <p>Schedule Consultation</p>
-            </div>
-          </Card>
-        </Col>
-      </Row>
-    </Grid>
-    </div>
-
-        <Footer bg="white" />
+      <Footer bg="darkgrey" />
       </div>
     );
   }

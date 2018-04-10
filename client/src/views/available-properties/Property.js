@@ -30,9 +30,6 @@ class Property extends React.Component {
             <p className="property-address">{this.props.address}</p>
             <p className="property-availability">{this.props.availability}</p>
             <div className="property-buttons">
-              <Button bsStyle="primary" className="property-details-button">
-                View Details
-              </Button>
               <Button bsStyle="default" className="property-apply-button">
                 Apply Now
               </Button>

@@ -28,7 +28,7 @@ class AvailableProperties extends Component {
       minBath: -1,
       maxBath: Number.MAX_SAFE_INTEGER,
       properties: [],
-      type: 'rent',
+      type: 'all',
       minRent: -1,
       maxRent: Number.MAX_SAFE_INTEGER,
       markers: []
@@ -36,15 +36,32 @@ class AvailableProperties extends Component {
     this.handleFieldChange = this.handleFieldChange.bind(this);
     this.fetchData = this.fetchData.bind(this);
     this.fetchMarkers = this.fetchMarkers.bind(this);
+    this.reset = this.reset.bind(this);
 
   }
+
+  reset() {
+    this.setState({
+      city: 'all',
+      minBed: -1,
+      maxBed: Number.MAX_SAFE_INTEGER,
+      minBath: -1,
+      maxBath: Number.MAX_SAFE_INTEGER,
+      properties: [],
+      minRent: -1,
+      maxRent: Number.MAX_SAFE_INTEGER
+     });
+     this.fetchData();
+  }
+
 
   handleFieldChange(fieldId, value) {
     this.setState({ [fieldId] : value});
 
     this.setState({fieldId: value}, () => {
-      if (fieldId == 'type')
-        this.fetchData();
+      if (fieldId == 'type') {
+        this.reset();
+      }
     });
   }
 
@@ -60,11 +77,12 @@ class AvailableProperties extends Component {
       console.log("Filtering ", this.state);
 
       let properties = data.properties.filter((property) => {
-        if (this.removeCommas(this.state.minRent) > property.price ||
-            this.removeCommas(this.state.maxRent) < property.price)
-            return false;
-        if (this.state.type == 'rent' && !property.for_rent ||
+        if (this.state.type != 'all' && this.state.type == 'rent' && !property.for_rent ||
             this.state.type == 'sale' && !property.for_sale)
+            return false;
+        var price = this.state.type == 'rent' ? property.rent_price : property.sale_price;
+        if (this.state.minRent > price ||
+            this.state.maxRent < price)
             return false;
         if (this.state.city != 'all') {
           var citySub = this.state.city.substring(0, this.state.city.length - 4);
@@ -153,7 +171,7 @@ class AvailableProperties extends Component {
   render() {
     return (
       <div className="AvailableProperties" id="search">
-        <BannerProperties onClick={this.fetchData} onSelect={this.handleFieldChange} title="AVAILABLE PROPERTIES"/>
+        <BannerProperties reset={this.reset} onClick={this.fetchData} onSelect={this.handleFieldChange} title="AVAILABLE PROPERTIES"/>
         <div className="under-banner">
 
 

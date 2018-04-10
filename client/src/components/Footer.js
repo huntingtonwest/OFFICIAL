@@ -13,7 +13,7 @@ class Footer extends Component {
     return (
       <div>
         <Grid className="logos-grid">
-          <Row className="logos-row" id={this.props.bg}>
+          <Row className="logos-row" id={this.props.bg} style={{display: this.props.logo == 'hide' ? 'none' : 'block'}}>
             <div className="footer-logos">
               <Image
                 src="https://s3.us-east-2.amazonaws.com/hwp-frontend/static/media/CAI-logo.png"

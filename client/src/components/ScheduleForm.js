@@ -36,7 +36,7 @@ class ConsultationForm extends React.Component {
 
   handleCaptcha(value) {
     console.log("Captcha value:", value);
-    this.setState({captcha: value});
+    this.setState({captcha: true});
   }
 
   postForm = (e) => {
@@ -106,7 +106,7 @@ class ConsultationForm extends React.Component {
               <FieldGroup id="formControlsEmail" placeholder="Email*" type="email" name="email"/>
             </Col>
             <Col xs={12} md={6}>
-              <FieldGroup id="formControlsNumber" placeholder="Phone Number" type="number" name="phone_num" />
+              <FieldGroup id="formControlsNumber" placeholder="Phone Number*" type="number" name="phone_num" />
             </Col>
             <Col xs={12} md={12}>
               <h4 className="form-text">*We ensure your privacy. We do not share your information with anyone.</h4>
@@ -119,7 +119,7 @@ class ConsultationForm extends React.Component {
                 <Option value="Employment Opportunities">Employment Opportunities</Option>
                 <Option value="Other">Other</Option>
               </Select>
-              <TextArea className="form-message" placeholder="Message" name="msg" rows={4} />
+              <TextArea className="form-message" placeholder="Message*" name="msg" rows={4} />
               <ReCAPTCHA
     ref="recaptcha"
     sitekey="6LdnPVIUAAAAAPz5aMwGu0MffoRD-qQA4-R376RN"

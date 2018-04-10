@@ -150,7 +150,7 @@ class ManagerForm extends React.Component {
 rows={4} />
 <ReCAPTCHA
 ref="recaptcha"
-sitekey="6LdnP1IUAAAAAPLDI5jgcHN6TKl1KNJiJzYAV90n"
+sitekey="6LdnPVIUAAAAAPz5aMwGu0MffoRD-qQA4-R376RN"
 onChange={onChange}
 />
                 <button className="button-form" type="submit">SUBMIT</button>

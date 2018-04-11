@@ -47,7 +47,8 @@ def consultation_form_post():
 	msg = Message('"{}" Consultation Form Submission'.format(name), sender=MAIL_USERNAME, recipients=recipients)
 	msg2 = Message('Consultation Form Submission Receipt', sender=MAIL_USERNAME, recipients=form.email.data)
 	msg.html = email_content
-	msg2.html = "Thank you for your interest in Huntington West Properties. Someone will be in contact with you shortly.<br><br>" + email_content
+	# msg2.html = "Thank you for your interest in Huntington West Properties. Someone will be in contact with you shortly.<br><br>{}".format(email_content)
+	# print(msg2.html)
 	try:
 		new_history = History('consultation_form', None)
 		db.session.add(new_history)
@@ -67,7 +68,7 @@ def consultation_form_post():
 		db.session.add(msg_content)
 		db.session.commit()
 		mail.send(msg)
-		mail.send(msg2)
+		# mail.send(msg2)
 	except:
 		db.session.rollback()
 		return jsonify({'status':'error', 'msg': 'Form failed to send. Please try again.'})
@@ -105,8 +106,8 @@ def contact_form_post():
 	msg = Message('"{}" Contact Form Submission'.format(name), sender=MAIL_USERNAME, recipients=recipients)
 	msg2 = Message('Contact Form Submission Receipt', sender=MAIL_USERNAME, recipients=form.email.data)
 	msg.html = email_content
-	msg2.html = "Thank you for contacting Huntington West Properties. Someone will be in contact with you shortly.<br><br>" + email_content
-
+	# msg2.html = "Thank you for contacting Huntington West Properties. Someone will be in contact with you shortly.<br><br>{}".format(email_content)
+	# print(msg2.html)
 	try:
 		new_history = History('contact_form', None)
 		db.session.add(new_history)
@@ -131,7 +132,7 @@ def contact_form_post():
 		db.session.commit()
 
 		mail.send(msg)
-		mail.send(msg2)
+		# mail.send(msg2)
 	except:
 		db.session.rollback()
 		return jsonify({'status':'error', 'msg': 'Form failed to send. Please try again.'})

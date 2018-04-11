@@ -6,6 +6,9 @@ from datetime import datetime
 from pytz import timezone
 import pytz
 
+def comma_num(num):
+    return "{:,}".format(int(num))
+
 def pst_time(date):
     utc_dt = pytz.utc.localize(date)
     pst_tz = timezone('US/Pacific')
@@ -18,7 +21,7 @@ def pst_date(date):
     pst_tz = timezone('US/Pacific')
     pst_dt = pst_tz.normalize(utc_dt.astimezone(pst_tz))
 
-    return "{} PST".format(pst_dt.strftime('%m/%d/%Y'))
+    return "{}".format(pst_dt.strftime('%m/%d/%Y'))
 
 def get_property_types():
         return ['apartment', 'condo', 'duplex']
@@ -79,3 +82,4 @@ def serialize(object, classname):
 
 def jinjaf_init(app):
     app.jinja_env.globals.update(pst_time = pst_time)
+    app.jinja_env.globals.update(comma_num = comma_num)

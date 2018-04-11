@@ -20,6 +20,38 @@ class TeamMember extends Component {
 }
 
 class About extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      team: []
+    };
+    this.fetchData = this.fetchData.bind(this);
+  }
+
+  fetchData = () => {
+    fetch('https://realhwptest.herokuapp.com/get-about')
+    .then(results => {
+      return results.json();
+    }).then(data => {
+      let team = data.people.map((person) => {
+        return (
+          <TeamMember
+            name={person.first + ' ' + person.last}
+            position={person.position}
+            email={person.email}
+            phone={person.phone}
+            image={person.img_url}
+          />
+        )
+      });
+      this.setState({team: team});
+    });
+  }
+
+  componentWillMount() {
+    this.fetchData();
+  }
+
   render() {
     return (
       <div className="About">
@@ -83,62 +115,7 @@ class About extends Component {
             <br />
             <Grid className="about-grid">
               <Row>
-                <TeamMember
-                  name="Jason Hughes"
-                  position="Chairman, CEO, and Owner"
-                  email="Email@hwp.com"
-                  phone="(213)883-9332"
-                  image="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/test7.jpg"
-                />
-                <TeamMember
-                  name="Jason Hughes"
-                  position="Chairman, CEO, and Owner"
-                  email="Email@hwp.com"
-                  phone="(213)883-9332"
-                  image="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/test2.jpg"
-
-                />
-                <TeamMember
-                  name="Jason Hughes"
-                  position="Chairman, CEO, and Owner"
-                  email="Email@hwp.com"
-                  phone="(213)883-9332"
-                  image="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/test3.jpg"
-
-                />
-                <TeamMember
-                  name="Jason Hughes"
-                  position="Chairman, CEO, and Owner"
-                  email="Email@hwp.com"
-                  phone="(213)883-9332"
-                  image="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/test4.jpg"
-
-                />
-              </Row>
-              <Row>
-                <TeamMember
-                  name="Jason Hughes"
-                  position="Chairman, CEO, and Owner"
-                  email="Email@hwp.com"
-                  phone="(213)883-9332"
-                  image="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/test5.jpg"
-
-                />
-                <TeamMember
-                  name="Jason Hughes"
-                  position="Chairman, CEO, and Owner"
-                  email="Email@hwp.com"
-                  phone="(213)883-9332"
-                  image="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/test1.jpg"
-
-                />
-                <TeamMember
-                  name="Jason Hughes"
-                  position="Chairman, CEO, and Owner"
-                  email="Email@hwp.com"
-                  phone="(213)883-9332"
-                  image="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/test6.jpg"
-                />
+                {this.state.team}
               </Row>
             </Grid>;
           </div>

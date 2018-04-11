@@ -353,9 +353,8 @@ html, body {
   margin-bottom: 0;
   letter-spacing: 0.1em;
   text-align: center;
-  font-family: 'Gill Sans', sans-serif !important;
+  font-family: 'Khula', sans-serif!important;
   font-weight: lighter;
-
 }
 
 .home-inner {
@@ -462,21 +461,23 @@ html, body {
   /* width:90%; */
   margin: 0 auto;
   background-size: cover;
-  height: 400px;
+  height: 100%;
   width: 100%;
 }
 
 .title-banner {
   /* margin-top: 100px!important; */
-  font-size: 70px;
+  font-size: 111px;
   color: white;
-  letter-spacing: 0.1em;
-  font-family: 'Gill Sans', sans-serif !important;
-  font-weight: lighter;
+  letter-spacing: 0.11em;
+  font-family: 'Khula', sans-serif!important;
+  /* font-weight: lighter; */
+  filter: drop-shadow(0 0 1rem rgba(0, 0, 0, 0.7));
+
 }
 
 .title-lower-banner {
-  margin-top: 150px!important;
+  margin-top: 130px!important;
 }
 
 @media only screen and (max-width: 575px) {
@@ -512,6 +513,8 @@ html, body {
 .title-container {
   text-align: center;
   padding-top: 1px;
+  font-family: 'Khula', sans-serif!important;
+  font-weight: 600!important;
 }
 
 .description {
@@ -536,6 +539,11 @@ html, body {
 }
 .tabs-img{
   margin-bottom: 1em;
+}
+
+.ant-tabs .ant-tabs-tab-arrow-show {
+    background-color: #F0F0F0!important;
+    color: black!important;
 }
 
 @media only screen and (max-width: 1200px) {
@@ -808,9 +816,11 @@ input[type=text].input-right  {
 .search-title-banner {
   font-size: 70px;
   color: white;
-  letter-spacing: 0.1em;
-  font-family: 'Gill Sans', sans-serif !important;
+  letter-spacing: 0.11em;
+  font-family: 'Khula', sans-serif!important;
   font-weight: lighter;
+
+  filter: drop-shadow(0 0 1rem rgba(0, 0, 0, 0.7));
 }
 
 .search-inner {
@@ -1379,6 +1389,11 @@ input[type=text].input-right  {
 
 #grey {
   background-color: #F0F0F0;
+}
+
+#darkgrey {
+  background-color: #1f1f1f;
+
 }
 
 .footer-grid {

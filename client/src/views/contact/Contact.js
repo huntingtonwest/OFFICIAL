@@ -22,8 +22,8 @@ class Contact extends Component {
       <div className="Contact">
         <Banner
           id="resources-banner"
-          title="GET IN TOUCH"
-          img="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/contact-banner.jpg"
+          title="GET IN TOUCH."
+          img="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/getintouch.jpg"
         />
       <br/>
         <br/>

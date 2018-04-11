@@ -28,7 +28,7 @@ class Properties(db.Model):
     address_l2= db.Column(db.String(200))
     city = db.Column(db.String(200))
     state = db.Column(db.String(2))
-    zipcode = db.Column(db.Integer)
+    zipcode = db.Column(db.String(20))
 
     type = db.Column(db.String(50))
 

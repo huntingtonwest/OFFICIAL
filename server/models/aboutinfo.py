@@ -9,7 +9,7 @@ class AboutInfo(db.Model):
     last = db.Column(db.String(100))
     position = db.Column(db.String(100))
     email = db.Column(db.String(100))
-    phone = db.Column(db.String(11))
+    phone = db.Column(db.String(20))
     img_url = db.Column(db.String(1000))
 
     date = db.Column(db.DateTime(), onupdate = datetime.utcnow, default = datetime.utcnow)

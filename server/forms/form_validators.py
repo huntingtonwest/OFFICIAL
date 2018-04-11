@@ -26,15 +26,41 @@ def decimal_validator(form, field):
 
 #makes sure that zipcode is 5 digits and is made up of numbers
 def zipcode_validator(form, field):
-    s = str(field.data)
+    cleaned = field.data.replace('-','')
+    # print(cleaned)
+    s = str(cleaned)
     message = 'Please enter a valid zipcode.'
 
-    if len(s) != 5:
-        raise ValidationError(message)
+    if re.match(r"^[0-9]*$", s):
+        # print('hewqeqwre')
+        # print(len(s))
+        if len(s) == 5 or len(s) == 9 or len(s) == 10:
+            # print('here2')
+            if len(s) == 5:
+                # print('rewrw')
+                field.data = s
+                return
+            else:
+                # print('jknwefofn')
+                field.data = '{}-{}'.format(s[0:5], s[5:])
+                return
+    raise ValidationError(message)
+
+def price_validator(form, field):
+    raw_price = field.data
+    raw_price = ''.join(raw_price.split(','))
+    # raw_price.replace(',','')
+    if not raw_price:
+        field.data=0
+        return
     try:
-        int(s)
+        int_price = int(raw_price)
+        if int_price < 0:
+            raise
     except:
-        raise ValidationError(message)
+        raise ValidationError('Please enter a valid price.')
+
+    field.data = int_price
 
 #a name can only have alpabet values and periods
 def name_validator(form, field):
@@ -47,7 +73,8 @@ def name_validator(form, field):
 #makes sure ids are numbers
 def id_validator(form, field):
     try:
-        int(field.data)
+        s = int(field.data)
+
     except:
         raise ValidationError('Invalid input.')
 
@@ -55,13 +82,18 @@ def id_validator(form, field):
 def phone_number_validator(form, field):
 
     filtered_num = re.sub('-','',str(field.data))
+    s = ''.join(filtered_num.split(')'))
+    s = ''.join(s.split('('))
+    s = ''.join(s.split(' '))
+    filtered_num = ''.join(s.split('-'))
+
 
     if re.match(r"^[0-9]*$", filtered_num):
         if not len(filtered_num) in [10,11]:
             msg = 'Please enter a valid phone number'
             raise ValidationError(msg)
     else:
-        msg = 'Please use only numbers and dashes'
+        msg = 'Please use only numbers and -()'
         raise ValidationError(msg)
 
     if len(filtered_num) == 10:
@@ -76,7 +108,8 @@ def phone_number_validator(form, field):
         end = filtered_num[7:]
 
         new_num = '{}-{}-{}-{}'.format(country, area,mid,end)
-        field.data=new_num
+        # field.data=new_num
+        return
 
 #make sure that state abbreviation input is valid
 def state_validator(form, field):
@@ -108,8 +141,8 @@ def association_validator(form, field):
 
 def alphanumeric_validator(form, field):
     name = field.data
-    msg = 'Only alphanumeric characters and .\'"; are allowed.'
-    if re.match(r"^[A-Z a-z0-9.\-'\";]*$", name):
+    msg = 'Only alphanumeric characters and @$%^~&.\'#/-"(); are allowed.'
+    if re.match(r"^[A-Z a-z0-9.@$%~()^&#/\-'\";]*$", name):
         return
     raise ValidationError(msg)
 
@@ -117,12 +150,12 @@ def alphanumeric_validator(form, field):
 def rent_validator(form, field):
     price = form._fields.get('rent_price')
     if field.data:
-        if not price.data or price.data <= 0:
+        if not price.data:
             raise ValidationError('You must input a rental price!')
 
 # if for_sale is true, there must be a sale price
 def sale_validator(form, field):
     price = form._fields.get('sale_price')
     if field.data:
-        if not price.data or price.data <= 0:
+        if not price.data:
             raise ValidationError('You must input a sale price!')

@@ -23,10 +23,11 @@
     This is no uploaded image.
     <img id="img-preview" src="" class="hidden img-fluid" alt="Responsive image"></img>
     {% endif %}
-  <input class="image" type="file" class="file-upload" name="user_file"><br><br><br>
+  <input id = "file-upload" class="image" type="file" class="file-upload" name="user_file"><br><br><br>
   <button class="btn btn-info" type="submit">Upload</button>
 </form>
 <br>
+<h1>This employee's history</h1><br>
 {{ render_history(about.history) }}
 <br><br>
 <br><br>

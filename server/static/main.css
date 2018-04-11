@@ -12,6 +12,17 @@ img{
     max-height:200px !important;
     max-width:200px !important;
 }
+.field-errors {
+  color:red;
+}
+.errors {
+  color:red;
+}
+div.img-row {
+  border-style: solid;
+  border-color:gray;
+    border-width: 2px;
+}
 /* template{
   display:none;
 } */

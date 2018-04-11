@@ -47,8 +47,8 @@
 	<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 	<input type="hidden" name="id" value="{{user.id}}">
 	<input class="btn btn-info" type="submit" value="delete">
-</form><br>
-
+</form><br><br>
+<h1>This user's history</h1><br>
 {{ render_history(user.history) }}
 <br><br>
 <br><br>

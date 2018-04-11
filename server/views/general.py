@@ -73,7 +73,7 @@ def get_files_get():
 
 @mod.route('/get-about')
 def get_about_get():
-	about = AboutInfo.query.all()
+	about = AboutInfo.query.order_by(AboutInfo.date.asc()).all()
 
 	abouts=[]
 	for f in about:

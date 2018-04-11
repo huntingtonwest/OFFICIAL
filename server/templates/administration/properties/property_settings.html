@@ -2,7 +2,7 @@
 
 {% block body %}
 <br><h1>Property Settings</h1><br>
-<a class="btn btn-info" href="{{url_for('administration_property.add_property')}}">add property</a>
+<a class="btn btn-info" href="{{url_for('administration_property.add_property_get')}}">add property</a>
 <br><br>
 
 <div class="container-fluid">
@@ -19,13 +19,12 @@
       <button id="sale" class="filter btn btn-info">For Sale</button>
       <button id="rs" class="filter btn btn-info">For Rent & Sale</button>
       <button id="neither" class="filter btn btn-info">Not For Rent or Sale</button>
+      <button id="reset" class="btn btn-info">All</button>
     </div>
     <div class="col">
       Search:  <input id="search" class="" type="text" placeholder="Search..">
     </div>
-    <div>
-      <button id="reset" class="btn btn-info">Reset</button>
-    </div>
+
   </div>
 </div>
 <br>
@@ -129,7 +128,7 @@
       </td>
       <td>
         {% for img in p.images %}
-          <a href="{{img.img_url}}">view image</a>
+          <a href="{{img}}">view image</a><br>
         {% endfor %}
       </td>
       <td>

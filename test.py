@@ -1,16 +1,14 @@
 import re
-from server.models.associations import Associations
-#makes sure phone numbers are valid
-#makes sure the input association is valid
-def association_validator(stri):
-    name = stri
-    associations = Associations.query.all()
+# from server.models.associations import Associations
 
-    for a in associations:
-        if (name.strip()).lower() == a.acn_name.lower():
-
-            print('valid')
-
-
-#isalpha
-association_validator('Ash Street CommunityAssociation')
+filtered_num = '(408) 123-1234'
+# print(s[5:])
+# s = re.sub(r'^[\(\)\- ]*$', '', filtered_num)
+s = ''.join(filtered_num.split(')'))
+s = ''.join(s.split('('))
+s = ''.join(s.split(' '))
+s = ''.join(s.split('-'))
+# filtered_num.replace(' ','')
+# s = ""
+print(filtered_num)
+print(s)

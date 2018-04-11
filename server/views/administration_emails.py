@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, flash, request, redirect, url_for,
 from flask_login import login_required, current_user
 
 from server.models.roles import Roles, Emails
+from server.models.history import History, HistoryContent
 from server.utils.authority_verification import is_admin
 from server.forms.forms import EmailForm
 from server import app,db, mail
@@ -49,6 +50,14 @@ def add_email():
 				db.session.flush()
 			role = Roles.query.filter_by(role_name = role_name).one()
 			role.add_email(new_email)
+
+
+			new_history = History('add_email', current_user.id)
+			db.session.add(new_history)
+			db.session.flush()
+			new_content = HistoryContent(new_history.history_id, 'Identifier', email)
+			db.session.add(new_content)
+
 			db.session.commit()
 		except:
 			db.session.rollback()
@@ -90,6 +99,12 @@ def delete_email():
 				email_roles = [e.role_name for e in email.roles]
 				if len(email_roles) <= 0:
 					db.session.delete(email)
+
+				new_history = History('del_email', current_user.id)
+				db.session.add(new_history)
+				db.session.flush()
+				new_content = HistoryContent(new_history.history_id, 'Identifier', form_email)
+				db.session.add(new_content)
 
 				db.session.commit()
 		except:

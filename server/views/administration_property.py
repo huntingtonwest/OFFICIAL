@@ -30,6 +30,7 @@ def property_settings():
 		prop = serialize(x, Properties)
 		prop['date_posted'] = pst_time(x.date_posted)
 		prop['recent_order'] = count
+		prop['images'] = [i.img_url for i in x.images]
 		properties.append(prop)
 		count += 1
 

@@ -40,7 +40,7 @@
                                             {% else %}
                                               <div class="col-md-3">deleted</div>
                                             {% endif %}
-                                            
+
                                         {% elif h.type in ['edit_property', 'add_property', 'del_property'] and c.col_name in ['Image','Image added'] %}
                                             {% if h.tgt_prop_id %}
                                               <div class="col-md-3"><a class = "col-md-9" href="{{ c.col_content }}">view img</a></div>
@@ -95,6 +95,10 @@
         {% else %}
           <td>deleted</td>
         {% endif %}
+
+      {% elif h.type in ['add_email', 'del_email'] %}
+            <td><a href="{{ url_for('administration_emails.email_settings') }}">link</a></td>
+
 
       {% endif %}
       <td>

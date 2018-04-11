@@ -10,14 +10,17 @@ $(function() {
         }
       reader.readAsDataURL(newimage);
     }
-
-    $(document).on('change','.file-upload', function() {
+    $('#file-upload').on('change', function() {
       var file = this.files[0];
+      console.log(file)
       if (typeof file == 'undefined'){
         return;
       }
       console.log(file)
       renderImage($('img#img-preview'), file);
     });
+
+
+
 
 });

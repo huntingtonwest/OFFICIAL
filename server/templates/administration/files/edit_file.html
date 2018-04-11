@@ -19,12 +19,12 @@
     There is no uploaded file.
   {% endif %}
   <br><br>
-  <input type="file" name="user_file"><br></br>
+  <input id="file-upload" type="file" name="user_file"><br></br>
   <button type="submit">Upload</button>
 </form>
 <br><br><br>
 
-
+<h1>This file's history</h1><br>
 {{ render_history(file.history) }}
 <script type='text/javascript' src="{{ url_for('static',filename='js/img_render.js') }}"></script>
 

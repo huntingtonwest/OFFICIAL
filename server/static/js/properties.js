@@ -39,13 +39,11 @@ $(function() {
 
       var reader = new FileReader();
       reader.onload = function(event) {
-        var count = images.length;
         $(row).find('img').attr('src',event.target.result).css('display','block');
         $(row).find('button.up').css('display','block');
         $(row).find('button.down').css('display','block');
         $(row).find('button.delete').css('display','block');
         $(row).find('.filename').html(newimage.name).css('display','block');
-        $(row).attr('count',count);
         $(row).find('input').attr('class','hidden');
         }
       reader.readAsDataURL(newimage);
@@ -62,7 +60,10 @@ $(function() {
 
     $('#add-file').on('click', function(){
       var preview_row = $('#img-preview-template').find('.img-row').clone();
+
+
       preview_row.insertBefore('div#img-preview');
+      $('<br>').insertBefore('div#img-preview');
     });
 
     $(document).on('click','button.up', function() {

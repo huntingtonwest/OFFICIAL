@@ -3,6 +3,9 @@
 {% block body %}
 <br><h1>Employee Settings</h1><br><br>
 <a class="btn btn-info" href="{{ url_for('administration_about.add_about_get')}}">Add Employee</a><br><br>
+
+<form action="{{ url_for('administration_about.about_settings') }}" method='post'>
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 <table class="table">
   <thead>
     <th scope="col">Name</th>
@@ -11,6 +14,7 @@
     <th scope="col">Phone</th>
     <th scope="col">Image</th>
     <th scope="col">Date Updated</th>
+    <th scope="col">Change Order</th>
     <th scope="col">Edit</th>
     <th scope="col">Delete</th>
   </thead>
@@ -19,10 +23,16 @@
       <tr>
         <td>{{ e.first }} {{e.last}}</td>
         <td>{{e.position}}</td>
+        <input type="hidden" name="sort-id" value="{{e.aboutinfo_id}}">
         <td>{{e.email}}</td>
         <td>{{e.phone}}</td>
         <td><a href="{{e.img_url}}">view image</a></td>
         <td>{{pst_time(e.date)}}</td>
+        <td>
+          <button type="button" class="up btn btn-info">Move up</button>
+          <button type="button" class="down btn btn-info">Move down</button>
+        </td>
+
         <td><a class="btn btn-info" href="{{ url_for('administration_about.edit_about_get', id=e.aboutinfo_id)}}">edit</a></td>
         <td>
           <form class="form" action="{{ url_for('administration_about.delete_about') }}">
@@ -35,5 +45,10 @@
     {% endfor %}
   </tbody>
 </table>
+<input type="submit" class="btn btn-info" value="Save order">
+</form>
+<br>
+
+<script type='text/javascript' src="{{ url_for('static',filename='js/about.js') }}"></script>
 
 {% endblock %}

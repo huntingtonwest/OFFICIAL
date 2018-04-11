@@ -13,7 +13,7 @@ from server.utils.hwp_email_template import html_consultation_form
 
 from server.forms.forms import ConsultationForm, ContactForm
 from sqlalchemy import or_
-from server.utils.query_utils import serialize, get_associations_by_loc, pst_date
+from server.utils.query_utils import serialize, get_associations_by_loc, pst_date, comma_num
 
 import json
 
@@ -42,8 +42,12 @@ def get_properties_get():
 		for img in x.images:
 			images.append(img.img_url)
 		prop['images'] = images
+		prop['date_posted'] =pst_date(x.date_posted)
+		prop['area_comma'] = comma_num(prop['area'])
+		prop['rent_price_comma'] = comma_num(prop['rent_price'])
+		prop['sale_price_comma'] = comma_num(prop['sale_price'])
+		del prop['property_id']
 		properties.append(prop)
-
 
 
 	return jsonify({'properties':properties})
@@ -73,7 +77,7 @@ def get_files_get():
 
 @mod.route('/get-about')
 def get_about_get():
-	about = AboutInfo.query.all()
+	about = AboutInfo.query.order_by(AboutInfo.date.asc()).all()
 
 	abouts=[]
 	for f in about:

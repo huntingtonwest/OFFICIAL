@@ -12,7 +12,7 @@ class Fields():
     def name(fieldname):
         return StringField(fieldname, [validators.DataRequired(message=required()),
                                             validators.Length(max=100, message=len_error_msg(max=100)),
-                                            name_validator])
+                                            alphanumeric_validator])
     def property_line(fieldname):
         return StringField(fieldname, [validators.DataRequired(message=required()),
                                             validators.Length(max=200, message=len_error_msg(max=200)),
@@ -133,7 +133,7 @@ class ContactForm(Form):
     association = StringField('Association', [if_association])
     unit        = StringField('Unit', [validators.DataRequired(message=required()),
                                         validators.Length(max=20, message=len_error_msg(max=20)),
-                                        name_validator])
+                                        alphanumeric_validator])
     email       = Fields.email
     phone_num   = StringField('Phone Number', [phone_number_validator])
     msg         = StringField('Message', [validators.Length(max=1000, message=len_error_msg(max=1000))])
@@ -148,7 +148,7 @@ class PropertyForm(Form):
     state      = StringField('State', [validators.Length(min=2, max=2, message=len_error_msg(fixed=2)),
                                         validators.DataRequired(message=required()),
                                         state_validator])
-    zipcode    = IntegerField('Zipcode', [zipcode_validator,validators.InputRequired(message=required())])
+    zipcode    = StringField('Zipcode', [zipcode_validator,validators.DataRequired(message=required())])
     type       = StringField('Property Type', [validators.Length(max=50, message=len_error_msg(max=50)),
                                             validators.DataRequired(message=required())])
     beds       = DecimalField('Beds', [validators.InputRequired(message=required()),
@@ -158,9 +158,9 @@ class PropertyForm(Form):
                                         validators.NumberRange(min=0, message=int_error_msg(min=0)),
                                         decimal_validator])
     for_rent   = BooleanField('For Rent', [rent_validator])
-    rent_price   = IntegerField('Rental Price', [validators.NumberRange(min=0, message=int_error_msg(min=0))])
+    rent_price   = StringField('Rental Price', [price_validator])
     for_sale   = BooleanField('For Sale', [sale_validator])
-    sale_price  = IntegerField('Sale Price', [validators.NumberRange(min=0, message=int_error_msg(min=0))])
+    sale_price  = StringField('Sale Price', [price_validator])
 
 
     area       = IntegerField('Area (sq ft)', [validators.NumberRange(min=0, message=int_error_msg(min=0)),

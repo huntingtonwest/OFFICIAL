@@ -19,15 +19,33 @@ from config import MAIL_USERNAME
 from sqlalchemy import exc
 from server.forms.forms import DeleteForm, AboutInfoForm
 from server import app, db, s, mail
+from datetime import datetime
 
 mod = Blueprint('administration_about', __name__)
 ALLOWED_EXTENSIONS=['png','jpeg','jpg']
 
-@mod.route('/about-info-settings', methods=['GET'])
+@mod.route('/about-info-settings', methods=['GET','POST'])
 @login_required
 def about_settings():
 
-	about = AboutInfo.query.all()
+	about = AboutInfo.query.order_by(AboutInfo.date.asc()).all()
+
+	if request.method=='POST':
+
+		try:
+			ids = request.form.getlist('sort-id')
+			print(ids)
+			for id in ids:
+				tabout = AboutInfo.query.get(int(id))
+				tabout.date = datetime.utcnow()
+				print('updated')
+			db.session.commit()
+			flash('Order was successfully saved!','success')
+			return redirect(url_for('administration_about.about_settings'))
+		except:
+			flash('Something went wrong. Refresh the page and try again.','danger')
+			return redirect(url_for('administration_about.about_settings'))
+
 
 	return render_template('administration/about/about_settings.html', about=about)
 
@@ -124,6 +142,7 @@ def edit_about_post(id):
 		upload = None
 		if "user_file" in request.files:
 			upload = request.files['user_file']
+			print(upload)
 			if upload.filename == "":
 				return jsonify({'status':'danger','msg':'Please upload an image.'})
 			if not upload or not allowed_file(upload.filename, ALLOWED_EXTENSIONS):
@@ -155,10 +174,17 @@ def edit_about_post(id):
 				db.session.add(new_content)
 
 		if upload:
+			print('here')
 			upload.filename = "about_{}".format(about.aboutinfo_id)
+			# s = delete_file_from_s3('{}_{}'.format('about', about.aboutinfo_id), app.config['ABOUT_S3_BUCKET'], app.config["S3_BUCKET"])
+			# if not s:
+			# 	raise
 			output = upload_file_to_s3(upload, app.config['ABOUT_S3_BUCKET'], app.config["S3_BUCKET"])
+			# output = False
 			if output:
+				print(output)
 				new_content = HistoryContent(new_history.history_id, 'Image', output)
+				about.img_url = output
 				db.session.add(new_content)
 			else:
 				return jsonify({'status':'danger','msg':'Something went wrong. Please refresh the page and try again.'})

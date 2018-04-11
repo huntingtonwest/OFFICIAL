@@ -25,7 +25,7 @@
               {{e.email}}
             </div>
             <div class="col-md-6">
-              <form class="" action="/delete-email" method='post'>
+              <form class="" action="{{ url_for('administration_emails.delete_email') }}" method='post'>
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                 <input type="hidden" name="role" value="{{f.name}}">
                 <input type="hidden" name="email" value="{{e.email}}">
@@ -37,7 +37,7 @@
         </div>
       </td>
       <td>
-        <form class="" action="/add-email" method='post'>
+        <form class="" action="{{ url_for('administration_emails.add_email') }}" method='post'>
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
           <input type="hidden" name="role" value="{{f.name}}">
           <input name="email" >

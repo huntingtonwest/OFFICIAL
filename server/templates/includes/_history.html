@@ -98,7 +98,8 @@
 
       {% elif h.type in ['add_email', 'del_email'] %}
             <td><a href="{{ url_for('administration_emails.email_settings') }}">link</a></td>
-
+      {% else %}
+        <td>N/A</td>
 
       {% endif %}
       <td>

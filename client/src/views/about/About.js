@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Thumbnail, Grid, Row, Col } from 'react-bootstrap';
+import { Thumbnail, Grid, Row, Col, Image } from 'react-bootstrap';
 import Banner from '../../components/Banner';
 import Footer from '../../components/Footer';
 
@@ -7,13 +7,14 @@ class TeamMember extends Component {
 
   render() {
     return (
-      <Col xs={6} md={3}>
-        <Thumbnail src={this.props.image}>
+      <Col xs={6} md={3} className="team-desc">
+        <div className="team-img-container">
+          <Image className="team-img" src={this.props.image} />
+        </div>
           <p className="about-name">{this.props.name}</p>
           <p className="about-position">{this.props.position}</p>
           <p className="about-contact">{this.props.email}</p>
           <p className="about-contact">{this.props.phone}</p>
-        </Thumbnail>
       </Col>
     );
   }

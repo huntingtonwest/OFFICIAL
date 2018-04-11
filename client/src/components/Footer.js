@@ -42,7 +42,7 @@ class Footer extends Component {
           <hr className="footer-hr" />
           <br />
           <Row>
-            <Col xs={4} md={3}>
+            <Col xs={6} md={4}>
               <Image
                 style={{ width: 200 }}
                 src="https://s3.us-east-2.amazonaws.com/hwp-frontend/static/media/HWP+LOGO+BLUE+WINDOWS.png"
@@ -50,7 +50,7 @@ class Footer extends Component {
                 className="logo"
               />
             </Col>
-            <Col xs={8} md={3}>
+            <Col xs={6} md={4}>
               <div className="footer-emphasize footer-address">
                 <p>13812 Goldenwest Street Ste. 100,</p>
                 <p>Westminster, CA 92683</p>
@@ -60,15 +60,9 @@ class Footer extends Component {
                 <p>(714) 897-9120 FAX</p>
               </div>
             </Col>
-            <Col xs={12} md={6}>
-              <div className="footer-info">
-                <p>
-                  Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                  accusantium doloremque laudantium, totam rem aperiam, eaque
-                  ipsa quae ab illo inventore veritatis et quasi architecto
-                  beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem
-                </p>
-                <p className="footer-emphasize">PRIVACY POLICY</p>
+            <Col xs={12} md={4}>
+                <div className="footer-info">
+                <a href="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/privacypolicy.pdf" className="footer-emphasize">PRIVACY POLICY</a>
               </div>
             </Col>
           </Row>

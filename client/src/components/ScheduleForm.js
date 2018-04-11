@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Grid, Row, Col} from 'react-bootstrap';
 import { Input } from 'antd';
 import { Select } from 'antd';
 import ReCAPTCHA from 'react-google-recaptcha';
-import { Card, Modal } from 'antd';
+import { Modal } from 'antd';
 
 const { TextArea } = Input;
 const Option = Select.Option;

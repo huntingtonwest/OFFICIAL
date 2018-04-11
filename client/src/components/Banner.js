@@ -14,7 +14,7 @@ class Banner extends React.Component {
 
     return (
       <div className="text-center search-banner" style={divStyle}>
-        <div className="search-inner">
+        <div className="ban-inner">
           <h1 className="title-banner title-lower-banner">{this.props.title}</h1>
           <br />
         </div>

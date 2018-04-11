@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Tabs, Tab, Row, Col } from 'react-bootstrap';
+import { Tabs, Tab, Row, Col, Grid } from 'react-bootstrap';
 import { AutoComplete, Select, Button } from 'antd';
 import DoubleSelect from './DoubleSelect'
 const { Option, OptGroup } = Select;
@@ -141,53 +141,62 @@ class SearchForm extends React.Component {
     render() {
       return (
         <div className="search-cont">
+        <Grid className="my-search-grid">
         <Row className="search-row location-row">
-            <Col xs={12} md={9}>
+            <Col xs={12} sm={9} lg={9}>
+            <Row>
               <AutoComplete
                 className="location-form"
-                style={{ borderRadius: 0, width:734, float: 'left' }}
+                id="location"
+                style={{ borderRadius: 0, width:'98%', float: 'left' }}
                 dataSource={dataSource}
                 placeholder="Location"
                 onSelect={this.onSelectCity}
                 filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
               />
+</Row>
+<Row className="double-row">
+<Col xs={12} sm={4} lg={4} className="double-col">
+
+              <DoubleSelect
+              className="r-select"
+              title='PRICE'
+              minOptions={this.props.type == 'sale' ? this.state.priceMins : this.state.rentMins}
+              maxOptions={this.props.type == 'sale' ? this.state.priceMaxs : this.state.rentMaxs}
+              onSelectMin={this.onSelectRentMin}
+              onSelectMax={this.onSelectRentMax}/>
+</Col>
+<Col xs={12} sm={4} lg={4} className="double-col">
+
+              <DoubleSelect
+              className="b-select"
+              title='BED'
+              minOptions={this.state.bedMins}
+              maxOptions={this.state.bedMaxs}
+              onSelectMin={this.onSelectBedMin}
+              onSelectMax={this.onSelectBedMax}/>
+              </Col>
+              <Col xs={12} sm={4} lg={4} className="double-col">
+              <DoubleSelect
+              className="b-select"
+              title='BATH'
+              minOptions={this.state.bathMins}
+              maxOptions={this.state.bathMaxs}
+              onSelectMin={this.onSelectBathMin}
+              onSelectMax={this.onSelectBathMax}/>
+              </Col>
+              </Row>
             </Col>
-            <Col xs={12} md={3} className="search-col">
-              <Button onClick={this.handleReset} className="button-form search-button " >Reset</Button>
+            <Col xs={12} sm={3} lg={3} className="search-col">
+            <Row>
+              <Button onClick={this.props.onClick} className="button-form search-button " icon="search">Search</Button>
+</Row>
+<Row className="reset-col">
+              <Button onClick={this.handleReset} className="button-form reset-button " >Reset</Button>
+</Row>
             </Col>
         </Row>
-        <Row className="search-row">
-          <Col xs={12} md={3}>
-          <DoubleSelect
-          className="r-select"
-          title='PRICE'
-          minOptions={this.props.type == 'sale' ? this.state.priceMins : this.state.rentMins}
-          maxOptions={this.props.type == 'sale' ? this.state.priceMaxs : this.state.rentMaxs}
-          onSelectMin={this.onSelectRentMin}
-          onSelectMax={this.onSelectRentMax}/>
-          </Col>
-          <Col xs={12} md={3}>
-          <DoubleSelect
-          className="b-select"
-          title='BED'
-          minOptions={this.state.bedMins}
-          maxOptions={this.state.bedMaxs}
-          onSelectMin={this.onSelectBedMin}
-          onSelectMax={this.onSelectBedMax}/>
-          </Col>
-          <Col xs={12} md={3}>
-          <DoubleSelect
-          className="b-select"
-          title='BATH'
-          minOptions={this.state.bathMins}
-          maxOptions={this.state.bathMaxs}
-          onSelectMin={this.onSelectBathMin}
-          onSelectMax={this.onSelectBathMax}/>
-          </Col>
-          <Col xs={12} md={3} className="search-col">
-            <Button onClick={this.props.onClick} className="button-form search-button " icon="search">Search</Button>
-          </Col>
-        </Row>
+        </Grid>
       </div>
     );
   }
@@ -199,7 +208,7 @@ class ControlledTabs extends React.Component {
     super(props, context);
     this.handleSelect = this.handleSelect.bind(this);
     this.state = {
-      key: 'all'
+      key: 'rent'
     };
   }
 
@@ -219,9 +228,6 @@ class ControlledTabs extends React.Component {
         bsStyle="pills"
         className="search-tabs"
       >
-      <Tab eventKey={'all'} title="ALL">
-        <SearchForm type='all' reset={this.props.reset} onClick={this.props.onClick} onSelect={this.props.onSelect}/>
-      </Tab>
         <Tab eventKey={'rent'} title="RENT">
           <SearchForm type='rent' reset={this.props.reset} onClick={this.props.onClick} onSelect={this.props.onSelect}/>
         </Tab>
@@ -250,3 +256,56 @@ class BannerProperties extends React.Component {
 
 
 export default BannerProperties;
+
+//
+//
+// <div className="search-cont">
+// <Row className="search-row location-row">
+//     <Col xs={12} md={9}>
+//       <AutoComplete size={'lg'}
+//         className="location-form"
+//         id="location"
+//         style={{ borderRadius: 0, width:734, float: 'left' }}
+//         dataSource={dataSource}
+//         placeholder="Location"
+//         onSelect={this.onSelectCity}
+//         filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
+//       />
+//     </Col>
+//     <Col xs={12} md={3} className="search-col">
+//       <Button onClick={this.props.onClick} className="button-form search-button " icon="search">Search</Button>
+//     </Col>
+// </Row>
+// <Row className="search-row">
+//   <Col xs={12} md={3}>
+//   <DoubleSelect
+//   className="r-select"
+//   title='PRICE'
+//   minOptions={this.props.type == 'sale' ? this.state.priceMins : this.state.rentMins}
+//   maxOptions={this.props.type == 'sale' ? this.state.priceMaxs : this.state.rentMaxs}
+//   onSelectMin={this.onSelectRentMin}
+//   onSelectMax={this.onSelectRentMax}/>
+//   </Col>
+//   <Col xs={12} md={3}>
+//   <DoubleSelect
+//   className="b-select"
+//   title='BED'
+//   minOptions={this.state.bedMins}
+//   maxOptions={this.state.bedMaxs}
+//   onSelectMin={this.onSelectBedMin}
+//   onSelectMax={this.onSelectBedMax}/>
+//   </Col>
+//   <Col xs={12} md={3}>
+//   <DoubleSelect
+//   className="b-select"
+//   title='BATH'
+//   minOptions={this.state.bathMins}
+//   maxOptions={this.state.bathMaxs}
+//   onSelectMin={this.onSelectBathMin}
+//   onSelectMax={this.onSelectBathMax}/>
+//   </Col>
+//   <Col xs={12} md={3} className="reset-col">
+//     <Button onClick={this.handleReset} className="button-form reset-button " >Reset</Button>
+//   </Col>
+// </Row>
+// </div>

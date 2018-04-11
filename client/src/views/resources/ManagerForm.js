@@ -4,6 +4,7 @@ import { Input } from 'antd';
 import { Select } from 'antd';
 import CitySearch from './CitySearch';
 import ReCAPTCHA from 'react-google-recaptcha';
+import { Modal } from 'antd';
 
 const Option = Select.Option;
 const { TextArea } = Input;
@@ -30,18 +31,32 @@ class ManagerForm extends React.Component {
       },
       options: [],
       subject: '',
-      association: ''
+      association: '',
+      captcha: false,
+      modalVisible: false,
+      errors: [],
+      status: 'Error'
     };
 
     this.handleSelect = this.handleSelect.bind(this);
     this.selectAssociation = this.selectAssociation.bind(this);
+    this.handleCaptcha = this.handleCaptcha.bind(this);
 
+  }
+
+
+  handleCaptcha(value) {
+    this.setState({captcha: true});
   }
 
 
 
   postForm = (e) => {
     e.preventDefault();
+    if (!this.state.captcha) {
+      this.setState({errors: ['Captcha is required'], status: 'Error', modalVisible: true});
+      return;
+    }
     const data = new FormData(e.target);
     data.set('subject', this.state.subject);
     if (this.state.subject == 'Association')
@@ -50,8 +65,30 @@ class ManagerForm extends React.Component {
     fetch('https://realhwptest.herokuapp.com/contact-form', {
       method: 'POST',
       body: data
+    }).then(response => response.json())
+    .then(response => {
+
+      if (response.status == 'error') {
+        var arr = [];
+        for(var i in response.errors)
+            arr.push([i, response.errors [i]]);
+        let errors = arr.map((error) => {
+          return (
+            <li>{error[0] + ': ' + error[1]}</li>
+          );
+        });
+        this.setState({errors: errors, status: 'Error', modalVisible: true});
+      }
+      else {
+        this.setState({errors: ['Form was sent!'], status: 'Success!', modalVisible: true});
+      }
     });
   }
+
+  setModalVisible(modalVisible) {
+    this.setState({ modalVisible });
+  }
+
 
   handleSelect(e) {
     if (e == 'Association') {
@@ -151,13 +188,23 @@ rows={4} />
 <ReCAPTCHA
 ref="recaptcha"
 sitekey="6LdnPVIUAAAAAPz5aMwGu0MffoRD-qQA4-R376RN"
-onChange={onChange}
+onChange={this.handleCaptcha}
 />
                 <button className="button-form" type="submit">SUBMIT</button>
               </Col>
             </form>
           </Row>
         </Grid>
+        <Modal
+        title={this.state.status}
+        wrapClassName="vertical-center-modal"
+        visible={this.state.modalVisible}
+        onCancel={() => this.setModalVisible(false)}
+        footer={[
+        ]}
+        >
+      {this.state.errors}
+    </Modal>
       </div>
     );
   }

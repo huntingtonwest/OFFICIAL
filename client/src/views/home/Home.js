@@ -21,7 +21,7 @@ class Home extends Component {
           img="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/home_banner2.jpg"
           height="1200"
         />
-      <Footer bg="darkgrey" />
+      <Footer bg="grey" logo="hide"/>
       </div>
     );
   }

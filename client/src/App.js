@@ -45,7 +45,7 @@ class App extends React.Component {
     return (
       <div>
         <MyNav background={this.state.background} display={this.state.opacity} color={this.state.color} logo={this.state.logo}/>
-        <Main />
+        <Main/>
       </div>
     );
   }

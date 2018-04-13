@@ -7,14 +7,15 @@ class TeamMember extends Component {
 
   render() {
     return (
-      <Col xs={6} md={3} className="team-desc">
+      <Col xs={12} sm={6} md={4} lg={3} className="team-desc">
         <div className="team-img-container">
-          <Image className="team-img" src={this.props.image} />
+          <img style={{objectFit: 'cover'}} className="img-responsive team-img" src={this.props.image} />
         </div>
           <p className="about-name">{this.props.name}</p>
           <p className="about-position">{this.props.position}</p>
+            <hr className="about-hr" />
           <p className="about-contact">{this.props.email}</p>
-          <p className="about-contact">{this.props.phone}</p>
+          <p className="about-contact about-margin">{this.props.phone}</p>
       </Col>
     );
   }
@@ -110,13 +111,17 @@ class About extends Component {
             </Grid>
           </div>
           <br/>
-          <div className="desc-container" id="team">
+          <br/>
+            <br/>
+
+          <div id="team">
             <h1 className="title-container">OUR TEAM</h1>
             <br />
-            <br />
             <Grid className="about-grid">
-              <Row>
+              <Row className="team-row">
+                <Col xs={12} className="team-col">
                 {this.state.team}
+              </Col>
               </Row>
             </Grid>;
           </div>

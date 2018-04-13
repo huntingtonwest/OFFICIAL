@@ -2,9 +2,10 @@ html, body {
   margin: 0;
   padding: 0;
   /* font-family: 'Molengo', sans-serif!important; */
-  font-family: 'Open Sans', sans-serif!important;
-  height: calc(100% + 150px);
+  font-family: 'Questrial', sans-serif!important;
+  /* height: calc(100% + 150px); */
   /* overflow-x: hidden; */
+  height: 100%;
 }
 
 /* NAVBAR (ON SCROLL, COLLAPSIBLE) */
@@ -565,6 +566,11 @@ html, body {
     color: black!important;
 }
 
+.ant-tabs-tabpane {
+  font-family: 'Questrial', sans-serif!important;
+}
+
+
 @media only screen and (max-width: 1200px) {
   .tab-desc {
     padding: 2em 3em;
@@ -629,6 +635,7 @@ html, body {
   box-shadow: @box-shadow-base;
   white-space: nowrap; */
   /* font-family: 'Gill Sans', sans-serif !important; */
+  font-family: 'Questrial', sans-serif!important;
 
 }
 
@@ -642,6 +649,8 @@ html, body {
     /* line-height: 50px!important; */
     /* font-family: 'Gill Sans', sans-serif !important; */
     height: 100%!important;
+    font-family: 'Questrial', sans-serif!important;
+
   }
 
   .ant-cascader-menu-item {
@@ -649,7 +658,7 @@ html, body {
     line-height: 30px!important;
     min-width: 150px;
     padding: 0.4em 2em 0.4em 0.8em!important;
-    /* font-family: 'Gill Sans', sans-serif !important; */
+    font-family: 'Questrial', sans-serif!important;
 
   }
 
@@ -1356,20 +1365,19 @@ input[type=text].input-right  {
 
 
 .dark-blue {
-  height: 100%;
   /* display: flex; */
   text-align: center;
-  font-style: italic;
-  font-size: 23px;
+  /* font-style: italic; */
+  font-size: 22px;
   line-height: 40px;
-  font-weight: lighter;
+  font-weight: lighter!important;
 }
 
 .light-blue {
   background-color: #B7CED4;
   /* display: flex; */
   text-align: left;
-  height: 100%;
+  height: 100%!important;
 }
 
 .about-row-info {
@@ -1381,6 +1389,7 @@ input[type=text].input-right  {
   font-size: 20px;
   line-height: 32px;
   background-color: #165672;
+  overflow-y: hidden;
 }
 
 .about-row-title {
@@ -1388,37 +1397,77 @@ input[type=text].input-right  {
   margin-bottom: 1em;
   font-style: normal;
   color: white;
+  font-family: 'Khula', sans-serif!important;
+}
+
+.about-container{
+
+padding: 0!important;
+margin: 0 auto!important;
+text-align: center!important;
+}
+
+.team-desc {
+  border: none;
+  box-shadow: none;
+  /* font-family: 'Gill Sans', sans-serif !important; */
+  padding: 0;
+  /* margin: 0 0.1em; */
+  line-height: 8px;
+  font-size: 15.5px;
+  font-weight: 300;
+  color: darkgrey;
+  margin-bottom: 3em;
+
+}
+
+.about-name {
+  margin-top: 1.3em;
+  margin-bottom: 16px;
+  font-size: 19px;
+  text-transform: capitalize;
+  color: black;
+  font-weight: 600!important;
+}
+
+.about-hr {
+  /* line-height: 0!important; */
+  /* margin-bottom: 13px; */
+  background-color: #165672;
+  width: 8%;
+  margin-top: 0;
+  margin-bottom: 13px;
+  height: 0.9px;
+}
+
+.about-line {
+  line-height: 0!important;
+  margin-bottom: 12px;
+  color: #B7CED4;
+}
+.about-position {
+  text-transform: uppercase;
+  color: grey;
+  margin-bottom: 12px;
 
 }
 
 .about-grid {
   text-align: center;
   width: 75%;
+  /* display: table; */
+  margin: 0 auto!important;
 }
 
-.about-name {
-  margin-top: 0.6em;
-  margin-bottom: 0.4em;
-  /* font-style: italic; */
-  font-size: 20px;
-}
-
-.about-position {
-  /* font-style: italic; */
-  font-size: 17px;
-}
-
-.about-contact {
-  /* font-weight: 600; */
-  font-size: 17px;
-  line-height: 14px;
-  letter-spacing: 0.03em;
-  font-weight: normal;
-}
-
-@media only screen and (max-width: 1300px) {
+@media only screen and (max-width: 1460px) {
   .about-grid {
-    width: 85%;
+    width: 85%!important;
+  }
+}
+
+@media only screen and (max-width: 1400px) {
+  .about-grid {
+    width: 95%!important;
   }
 }
 
@@ -1435,33 +1484,56 @@ input[type=text].input-right  {
   .about-desc {
     font-size: 19px;
   }
-  .about-contact, .about-position {
+  /* .about-contact, .about-position {
     font-size: 14px;
   }
   .about-name {
     font-size: 15px;
-  }
+  } */
 }
 
 .team-img {
   border: none;
   min-height: 100%!important;
   min-width: 100%!important;
+
 }
 
 .team-img-container {
-  height: 220px;
-  width: 220px;
+  height: 250px;
+  width: 250px;
   overflow: hidden;
-
+  margin: 0 auto;
+  text-align: center;
 }
-.team-desc {
-  border: none;
-  margin: 1em 2.4em;
-  box-shadow: none;
-  /* font-family: 'Gill Sans', sans-serif !important; */
-  width: 220px;
-  padding: 0;
+
+
+.team-col {
+  /* background-color: blue; */
+  margin: 0 auto;
+  text-align: center;
+  display: table-cell!important;
+  width: 100%;
+}
+
+.team-row {
+  /* background-color: red!important; */
+  text-align: center;
+  display: table;
+  margin: 0 auto;
+}
+
+.about-margin {
+  /* margin-bottom: 3em; */
+}
+
+@media only screen and (max-width: 1533px) {
+
+  .about-grid {
+    /* width: 90%; */
+  }
+
+
 }
 
 
@@ -1530,7 +1602,7 @@ input[type=text].input-right  {
   vertical-align: middle;
   top: 0;
   text-align: left;
-  font-family: 'Open Sans', sans-serif!important;
+  font-family: 'Questrial', sans-serif!important;
 
 }
 
@@ -1538,7 +1610,7 @@ input[type=text].input-right  {
     font-size: 24px!important;
     line-height: 30px!important;
     /* font-family: 'Gill Sans', sans-serif !important; */
-    font-family: 'Open Sans', sans-serif!important;
+    font-family: 'Questrial', sans-serif!important;
 
   }
 
@@ -1631,40 +1703,35 @@ input[type=text].input-right  {
 .footer-grid {
   background-color: #1f1f1f;
   width: 100%;
-  margin: 0;
+  margin: 0!important;
   padding: 0.7em 0;
   color: rgba(255, 255, 255, 0.21);
-  text-align: left;
+  text-align: center;
+  white-space: pre-wrap!important;
 }
 
 .footer-emphasize {
   color: rgba(255, 255, 255, 0.6);
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0.01em;
 }
 
-.footer-address {
-  line-height: 12px;
-  margin-bottom: 1.8em;
-}
-
-.footer-bottom {
-  text-align: center;
+.footer-underline {
+  text-decoration: underline;
 }
 
 .footer-hr {
   border: none;
   height: 1px;
   color: rgba(255, 255, 255, 0.2);
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
-@media only screen and (min-width: 400px) {
-  .footer-grid {
-    padding: 0.7em 5em;
-  }
-}
-
-@media only screen and (min-width: 1249px) {
-  .footer-grid {
-    padding: 0.7em 16em;
+@media only screen and (max-width: 400px) {
+  .footer-emphasize {
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.01em;
   }
 }

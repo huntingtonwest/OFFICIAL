@@ -11,6 +11,13 @@ $('.sort').on('click', function () {
         return a > b;
     });
     $("tbody#body").html(name_ordered);
+
+    if (type == "order"){
+      $('#sort-by-display').text('Sort by: edit date');
+    } else {
+      $('#sort-by-display').text('Sort by: ' + type);
+    }
+
 });
 
 $('.filter').on('click', function () {
@@ -20,80 +27,48 @@ $('.filter').on('click', function () {
     $rows.hide();
     var cls = '.' + type;
     $rows.find(cls).closest('.prop-row').show();
+    $('#filter-by-display').text('Filter by: For ' + type);
   } else if (type == 'rs'){
     $rows.hide();
     $rows.find(".rent").closest('.prop-row').find('.sale').closest('.prop-row').show();
-
+    $('#filter-by-display').text('Filter by: For rent and sale');
   } else if (type.match('neither')) {
     $rows.show();
     $rows.find('.rent, .sale').closest('.prop-row').hide();
+    $('#filter-by-display').text('Filter by: Not for rent or sale');
   }
 });
 
 $('#reset').on('click', function(){
   $rows.show();
+  $('#filter-by-display').text('Filter by: All');
 });
 
-$(function() {
-    var renderImages = function(row, newimage) {
 
-      var reader = new FileReader();
-      reader.onload = function(event) {
-        $(row).find('img').attr('src',event.target.result).css('display','block');
-        $(row).find('button.up').css('display','block');
-        $(row).find('button.down').css('display','block');
-        $(row).find('button.delete').css('display','block');
-        $(row).find('.filename').html(newimage.name).css('display','block');
-        $(row).find('input').attr('class','hidden');
-        }
-      reader.readAsDataURL(newimage);
-    }
-    $(document).on('change','.file-upload', function() {
-      for (var i = 0; i < this.files.length; i++){
-        var file = this.files[i];
-        if (typeof file == 'undefined'){
-          return;
-        }
-        renderImages(this.closest('.img-row'), file);
-      }
-    });
+$('a.maximizer').on('click', function(event){
+  event.preventDefault();
 
-    $('#add-file').on('click', function(){
-      var preview_row = $('#img-preview-template').find('.img-row').clone();
-
-
-      preview_row.insertBefore('div#img-preview');
-      $('<br>').insertBefore('div#img-preview');
-    });
-
-    $(document).on('click','button.up', function() {
-
-      if ($(this).closest('div.img-row').prev('div.img-row').exists()){
-        var current = $(this).closest('div.img-row').clone();
-        var prev = $(this).closest('div.img-row').prev('div.img-row');
-        current.insertBefore(prev);
-        $(this).closest('div.img-row').remove();
-        return;
-      } else {
-        return
-      }
-    });
-
-    $(document).on('click','button.down', function() {
-      if ($(this).closest('div.img-row').next('div.img-row').exists()){
-        var current = $(this).closest('div.img-row').clone();
-        var next = $(this).closest('div.img-row').next('div.img-row');
-        current.insertAfter(next);
-        $(this).closest('div.img-row').remove();
-      } else {
-        return;
-      }
-    });
-    $(document).on('click', 'button.delete', function(){
-      $(this).closest('div.img-row').remove();
-    });
+  if ($(this).text() == "see more"){
+    $(this).closest('tr').find('div.minimize').css('display','block');
+    $(this).text('see less');
+  } else {
+    $(this).closest('tr.prop-row').find('div.minimize').css('display','none');
+    $(this).text('see more');
+  }
 });
 
+$('button#maximize-all').on('click', function(){
+  $rows.each(function(){
+    $(this).find('div.minimize').css('display','block');
+    $(this).find('a.maximizer').text('see less');
+  });
+});
+$('button#minimize-all').on('click', function(){
+  $rows.each(function(){
+    $(this).find('div.minimize').css('display','none');
+    $(this).find('a.maximizer').text('see more');
+  });
+});
 
 
 $(document).ready(function(){

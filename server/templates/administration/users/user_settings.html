@@ -40,7 +40,7 @@
 				<form class="delete" action="{{ url_for('administration_users.delete_user')}}" method="post">
 					<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 					<input type="hidden" name="id" value="{{u.id}}">
-					<input class="btn btn-info" type="submit" value="delete">
+					<input class="btn btn-danger" type="submit" value="delete">
 				</form>
 			</td>
 			{% endfor %}
@@ -75,7 +75,7 @@
 			<form class="delete" action="{{ url_for('administration_users.delete_user')}}" method="post">
 				<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 				<input type="hidden" name="id" value = "{{p.id}}">
-				<input class="btn btn-info" type="submit" value="Revoke">
+				<input class="btn btn-danger" type="submit" value="Revoke">
 			</form>
 		</td>
 

@@ -23,7 +23,7 @@ def add_association():
 
 	form = AssociationForm(request.form)
 	if request.method =='POST' and form.validate():
-		association = Associations(acn_name = form.acn_name.data, acn_loc = form.acn_loc.data)
+		association = Associations(acn_name = form.acn_name.data, acn_loc = form.acn_loc.data, acn_url = form.acn_url.data)
 
 		try:
 			db.session.add(association)
@@ -96,6 +96,7 @@ def edit_association(acn_id):
 	if request.method == 'POST' and form.validate():
 		new_name = form.acn_name.data
 		new_loc = form.acn_loc.data
+		new_url = form.acn_url.data
 
 		if acn.acn_name.lower() == new_name.lower():
 			pass
@@ -115,6 +116,7 @@ def edit_association(acn_id):
 							content.append({
 								form.__dict__[p].label.text: "\"{}\" to \"{}\"".format(acn.__dict__[p], form.__dict__[p].data)
 								})
+							setattr(acn, p, form.__dict__[p].data)
 
 			new_history = History('edit_association', current_user.id, tgt_acn_id=acn.acn_id)
 			db.session.add(new_history)
@@ -129,10 +131,12 @@ def edit_association(acn_id):
 						db.session.add(new_content)
 
 
-			acn.acn_name = new_name
-			acn.acn_loc = new_loc
+			# acn.acn_name = new_name
+			# acn.acn_loc = new_loc
+			# acn.acn_url = new_url
 			db.session.commit()
-		except:
+		except Exception as e:
+			print(e)
 			db.session.rollback()
 			flash('Something went wrong. Please refresh the page and try again.','danger')
 			return render_template('administration/associations/edit_association.html',form=form, acn=acn)

@@ -4,6 +4,7 @@
 
 {% from "includes/_formhelpers.html" import render_field %}
 <br><h1>Email Settings</h1><br><br>
+Please note that any changes made will be implemented immediately<br><br>
 <div>All completed forms are sent to recipients through "{{parent_email}}." If you need to change this email, notify a developer.</div><br>
 <table class="table">
   <thead>
@@ -29,7 +30,7 @@
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                 <input type="hidden" name="role" value="{{f.name}}">
                 <input type="hidden" name="email" value="{{e.email}}">
-                <input type="submit" class="btn btn-info" value="delete">
+                <input type="submit" class="btn btn-danger" value="delete">
               </form>
             </div>
           </div>

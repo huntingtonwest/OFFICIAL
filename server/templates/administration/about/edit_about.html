@@ -6,6 +6,7 @@
 
 
 <br><h1>Edit Employee About Information </h1><br><br>
+Please note that any changes made will be implemented immediately<br><br>
 <form class="form" action="{{ url_for('administration_about.edit_about_post', id=about.aboutinfo_id) }}" method='post' enctype="multipart/form-data">
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
   {{ render_field2(form.first, class_="form-control", value=about.first)}}

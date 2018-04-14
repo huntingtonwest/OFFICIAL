@@ -1,98 +1,116 @@
 {% extends 'index.html' %}
 
 {% block body %}
-{% from "includes/_formhelpers.html" import render_field %}
+{% from "includes/_formhelpers.html" import render_field3 %}
 {% from "includes/_history.html" import render_history %}
 
 <br><h1>Edit Property</h1><br><br>
+Please note that any changes made while "For Sale" or "For Rent" are marked will be implemented immediately. Uncheck those boxes if you wish to avoid this.<br><br>
 
-<form class="form" action="{{ url_for('administration_property.edit_property',property_id=property.property_id) }}" method="post">
+<form class="form form-horizontal" action="{{ url_for('administration_property.edit_property',property_id=property.property_id) }}" method="post">
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-  {{ render_field(form.name, class="form-control", value=property.name) }}
-  {{ render_field(form.address_l1, class="form-control", value=property.address_l1) }}
-  {{ render_field(form.address_l2, class="form-control", value=property.address_l2) }}
-  {{ render_field(form.city, class="form-control", value=property.city) }}
-  {{ render_field(form.state, class="form-control", value=property.state) }}
-  {{ render_field(form.zipcode, class="form-control", value=property.zipcode) }}
-  {{ render_field(form.type, class="form-control", value=property.type) }}
-  {{ render_field(form.beds, class="form-control", value=property.beds) }}
-  {{ render_field(form.baths, class="form-control", value=property.baths) }}
-  {{ render_field(form.area, class="form-control", value=property.area) }}
+    {{ render_field3(form.name, class="form-control", value=property.name) }}
+    {{ render_field3(form.address_l1, class="form-control", value=property.address_l1) }}
+    {{ render_field3(form.address_l2, class="form-control", value=property.address_l2) }}
+    {{ render_field3(form.city, class="form-control", value=property.city) }}
+    {{ render_field3(form.state, class="form-control", value=property.state) }}
+    {{ render_field3(form.zipcode, class="form-control", value=property.zipcode) }}
+    {{ render_field3(form.type, class="form-control", value=property.type) }}
+    {{ render_field3(form.beds, class="form-control", value=property.beds) }}
+    {{ render_field3(form.baths, class="form-control", value=property.baths) }}
+    {{ render_field3(form.area, class="form-control", value=property.area) }}
 
-
-
-
-  <dt><label for="for_sale">For Sale</label>
-  {% if property.for_sale %}
-  <dd><input id="for_sale" type="checkbox" name="for_sale" checked>
-  {% else %}
-  <dd><input id="for_sale" type="checkbox" name="for_sale">
-  {% endif %}
-  {{ render_field(form.sale_price, class="form-control", value=property.sale_price) }}
-
-  <dt><label for="for_rent">For Rent</label>
-  {% if property.for_rent %}
-  <dd><input id="for_rent" name="for_rent" type="checkbox" checked>
-  {% else %}
-  <dd><input id="for_rent" name="for_rent" type="checkbox">
-  {% endif %}
-  {{ render_field(form.rent_price, class="form-control", value=property.rent_price) }}
-
-  {{ render_field(form.notes, class="form-control", value=property.notes) }}
-
-
-<div class="img-preview container">
-  {% for p in property.images %}
-  <div class="img-row row">
-    <div class="col-md-5">
-      <img src="{{ p.img_url }}" class="img-fluid" alt="Responsive image"></img>
+  <div class="form-group row">
+    <legend class="col-form-label col-sm-2 font-weight-bold" for="for_sale">For Sale</legend>
+    <div class="col-sm-10">
+      <div class="form-check">
+        {% if property.for_sale %}
+        <input id="for_sale" class="form-check-input" name="for_sale" type="checkbox" checked>
+        {% else %}
+        <input id="for_sale" class="form-check-input"  name="for_sale" type="checkbox">
+        {% endif %}
+        <label class="form-check-label" for="for_sale">
+          Checking this box will put this property up for sale.
+        </label>
+        <div class="field-errors for_sale-errors"></div>
+      </div>
     </div>
-    <div class="col-md-7">
-      <p class="filename"></p>
-      <button type="button" class="btn btn-info up">move up</button>
-      <button type="button" class="btn btn-info down">move down</button>
-      <button type="button" class="btn btn-info delete">delete</button>
+  </div>
+
+  {{ render_field3(form.sale_price, class="form-control", value=property.sale_price) }}
+
+    <div class="form-group row">
+      <legend class="col-form-label col-sm-2 font-weight-bold" for="for_rent">For Rent</legend>
+      <div class="col-sm-10">
+        <div class="form-check">
+          {% if property.for_rent %}
+          <input id="for_rent" class="form-check-input" name="for_rent" type="checkbox" checked>
+          {% else %}
+          <input id="for_rent" class="form-check-input"  name="for_rent" type="checkbox">
+          {% endif %}
+          <label class="form-check-label" for="for_rent">
+            Checking this box will put this property up for rent.
+          </label>
+          <div class="field-errors for_rent-errors"></div>
+        </div>
+      </div>
     </div>
-    <div>
-      <input class="hidden file-upload" value="{{ p.img_id }}" name="file-order" ><br>
-    </div>
-  </div><br>
-  {% endfor %}
 
-  <div id="img-preview"></div><br><br>
-  <button type = "button" class = "btn btn-info" id="add-file">add image</button><br><br><br><br>
-</div><br><br>
+  {{ render_field3(form.rent_price, class="form-control", value=property.rent_price) }}
+
+  {{ render_field3(form.notes, class="form-control", value=property.notes) }}
+
+  <div class="image-list">
+    {% for p in property.images %}
+      <div class="form-group row img-row">
+        <div class= "col-sm-3">
+          <img src="{{ p.img_url }}" class="img-fluid" alt="Responsive image"></img>
+        </div>
+        <div class="col-sm-9">
+          <p class="filename"><a href="{{ p.img_url }}">link</a></p>
+          <button type="button" class="btn btn-info up">move up</button>
+          <button type="button" class="btn btn-info down">move down</button>
+          <button type="button" class="btn btn-danger delete">delete</button>
+        </div>
+        <input class="hidden file-upload" value="{{ p.img_id }}" name="file-order" >
+      </div>
+    {% endfor %}
+    <div id="img-preview"></div>
+  </div>
 
 
 
+
+  <button type = "button" class = "btn btn-secondary" id="add-file">add image</button><br><br><br><br>
   <input type="submit" class="btn-info btn">
-</form><br><br>
-<form class="delete" action="{{ url_for('administration_property.delete_property') }}" method='post'>
-  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-  <input type="hidden" name="id" value="{{property.property_id}}">
-  <input class="btn btn-info" type="submit" value="Delete">
 </form>
 
 <div id="img-preview-template" class="hidden">
-  <div class="img-row row">
-    <div class="col-md-5">
-      <img src="" class="hidden img-fluid" alt="Responsive image"></img>
+  <div class="form-group row img-row">
+    <div class= "col-sm-3 img-block">
+      <img src="" class="img-fluid" ></img>
+      <input class="file-upload" type="file" name="user_file" >
     </div>
-    <div class="col-md-7">
-      <p class="hidden filename"></p>
-      <button type="button" class="hidden btn btn-info up">move up</button>
-      <button type="button" class="hidden btn btn-info down">move down</button>
-      <button type="button" class="hidden btn btn-info delete">delete</button>
+    <div class="col-sm-9 hidden buttons">
+      <p class="filename"></p>
+      <button type="button" class="btn btn-info up">move up</button>
+      <button type="button" class="btn btn-info down">move down</button>
+      <button type="button" class="btn btn-danger delete">delete</button>
     </div>
-    <div>
-      <input class="file-upload btn btn-info" type="file" name="user_file" ><br>
-      <input class="hidden" value="new" name="file-order">
-    </div>
+    <input class="hidden" value="new" name="file-order" >
   </div>
 </div>
 
-<br><br>
-<br><br>
+<br><br><br><br><br><br><br><br>
+<form class="delete" action="{{ url_for('administration_property.delete_property') }}" method='post'>
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+  <input type="hidden" name="id" value="{{property.property_id}}">
+  <input class="btn btn-danger" type="submit" value="Delete">
+</form>
+
+
+
+<br><br><br><br>
 <h1>This property's history</h1>
 {{ render_history(property.history) }}
 <br><br>
@@ -100,7 +118,7 @@
 <br><br>
 <br><br>
 
-<script type='text/javascript' src="{{ url_for('static',filename='js/properties.js') }}"></script>
+<script type='text/javascript' src="{{ url_for('static',filename='js/modify_property.js') }}"></script>
 
 
 {% endblock %}

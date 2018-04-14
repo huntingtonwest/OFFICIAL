@@ -18,11 +18,9 @@ img{
 .errors {
   color:red;
 }
-div.img-row {
-  border-style: solid;
-  border-color:gray;
-    border-width: 2px;
+div.form-group {
+
 }
-/* template{
-  display:none;
-} */
+.btn-space {
+    margin-right: 5px;
+}

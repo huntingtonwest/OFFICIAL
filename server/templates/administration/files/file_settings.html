@@ -2,6 +2,7 @@
 
 {% block body %}
 <br><h1>File Settings</h1><br><br>
+Please note that any changes made will be implemented immediately<br><br>
 <a class="btn btn-info" href="{{ url_for('administration_files.add_file') }}">Add File</a><br><br>
 
 <table class="table">
@@ -23,7 +24,7 @@
         <form action="{{ url_for('administration_files.delete_file') }}" method='post'>
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
           <input type="hidden" name="id" value="{{f.file_id }}">
-          <input class="btn btn-info" type="submit" value="delete">
+          <input class="btn btn-danger" type="submit" value="delete">
         </form>
       </td>
     </tr>

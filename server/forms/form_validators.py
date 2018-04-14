@@ -13,8 +13,6 @@ def password_creation_validator(form, field):
             return
     raise ValidationError(msg)
 
-def all(form, field):
-    raise ValidationError('tada')
 #makes sure the number is an integer or is in an increment of 0.5
 def decimal_validator(form, field):
     message = '{} must be an integer or in increments of 0.5'.format(field.name)
@@ -27,29 +25,24 @@ def decimal_validator(form, field):
 #makes sure that zipcode is 5 digits and is made up of numbers
 def zipcode_validator(form, field):
     cleaned = field.data.replace('-','')
-    # print(cleaned)
     s = str(cleaned)
     message = 'Please enter a valid zipcode.'
 
     if re.match(r"^[0-9]*$", s):
-        # print('hewqeqwre')
-        # print(len(s))
+
         if len(s) == 5 or len(s) == 9 or len(s) == 10:
-            # print('here2')
             if len(s) == 5:
-                # print('rewrw')
                 field.data = s
                 return
             else:
-                # print('jknwefofn')
                 field.data = '{}-{}'.format(s[0:5], s[5:])
                 return
     raise ValidationError(message)
 
+#makes sure the price is all numbers
 def price_validator(form, field):
     raw_price = field.data
     raw_price = ''.join(raw_price.split(','))
-    # raw_price.replace(',','')
     if not raw_price:
         field.data=0
         return
@@ -133,7 +126,6 @@ def association_validator(form, field):
 
     for a in associations:
         if  name == a.acn_name.lower():
-            # print(name)
             field.data = a.acn_name
             return True
 

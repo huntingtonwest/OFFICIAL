@@ -159,23 +159,27 @@ try:
 	#load associations
 	associations = [{
 		'acn_name':'Ash Street Community Association',
-		'acn_loc':'Huntington Beach'
+		'acn_loc':'Huntington Beach',
+		'acn_url':'https://www.google.com/'
 		},{
 		'acn_name':'B.P. Homeowners Association',
-		'acn_loc':'Newport Beach'
+		'acn_loc':'Newport Beach',
+		'acn_url':'https://www.google.com/'
 		},{
 		'acn_name':'Birchview Brea Homeowners Association',
-		'acn_loc':'Brea'
+		'acn_loc':'Brea',
+		'acn_url':'https://www.google.com/'
 		},{
 		'acn_name': 'Casa Gaviota Homeoners Association, Inc.',
-		'acn_loc':'Signal Hill'
+		'acn_loc':'Signal Hill',
+		'acn_url':'https://www.google.com/'
 		}]
 
 	for a in associations:
 		try:
 			association = Associations.query.filter_by(acn_name=a['acn_name'], acn_loc=a['acn_loc']).one()
 		except:
-			association = Associations(acn_name=a['acn_name'], acn_loc=a['acn_loc'])
+			association = Associations(acn_name=a['acn_name'], acn_loc=a['acn_loc'], acn_url=a['acn_url'])
 			db.session.add(association)
 	print('associations done')
 	for f in files:

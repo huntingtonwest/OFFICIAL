@@ -46,9 +46,15 @@ def get_associations_by_loc():
     acn_list = {}
     for a in associations:
         if not a.acn_loc in acn_list:
-            acn_list[a.acn_loc] = [a.acn_name]
+            acn_list[a.acn_loc] = [{
+                                'acn_loc':a.acn_name,
+                                'acn_url':a.acn_url
+                            }]
         else:
-            acn_list[a.acn_loc].append(a.acn_name)
+            acn_list[a.acn_loc].append({
+                                'acn_loc':a.acn_name,
+                                'acn_url':a.acn_url
+                            })
 
 
     return acn_list

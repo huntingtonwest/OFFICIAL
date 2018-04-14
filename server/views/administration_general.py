@@ -13,7 +13,7 @@ from itsdangerous import SignatureExpired
 from server.forms.forms import PropertyForm, Resend
 from passlib.hash import sha256_crypt
 from server.utils.query_utils import serialize, pst_time
-
+from datetime import datetime, timedelta
 from config import MAIL_USERNAME
 from sqlalchemy import exc
 from server.forms.forms import LoginForm, RegisterForm, PersonalSettings, PasswordForm, EmailForm, DeleteForm, PasswordResetForm
@@ -26,7 +26,6 @@ LOGIN/LOGOUT
 """
 @mod.route('/login', methods=['GET','POST'])
 def login():
-
 	form = LoginForm(request.form)
 
 	if not current_user.is_anonymous:
@@ -37,14 +36,14 @@ def login():
 
 		try:
 			user = Users.query.filter_by(email=email, is_verified=True, is_deleted=False).one()
-		except:
+		except Exception as e:
+			print(e)
 			form.email.errors.append('Invalid email or password.')
 			return render_template('administration/general/login.html', form=form)
 
 		if sha256_crypt.verify(form.password.data, user.password):
 			login_user(user)
 			return redirect(url_for('administration_general.admin_home_get'))
-
 		form.email.errors.append('Invalid email or password.')
 
 	return render_template('administration/general/login.html', form=form)
@@ -140,15 +139,12 @@ def register(token):
 			user.last = form.last_name.data
 			user.is_verified=True
 
-			print('here')
 			new_history = History('user_join',user.id, tgt_user_id=user.id)
 			db.session.add(new_history)
 			db.session.flush()
-			print('here2')
 
 			new_content = HistoryContent(new_history.history_id, 'Identifier',user.email)
 			db.session.add(new_content)
-			print('here3')
 
 			db.session.commit()
 
@@ -168,19 +164,34 @@ def register(token):
 ADMIN HOME
 """
 @mod.route('/admin-home', methods=['GET'])
-@login_required
+# @login_required
 def admin_home_get():
-	# print('here')
+
 	page = request.args.get('page', 1, type=int)
 	history_query = History.query.order_by(History.date.desc()).paginate(page, app.config['POSTS_PER_PAGE'], False)
+
+	#delete history thats too old
+	try:
+		for record in history_query.items:
+
+			age = datetime.utcnow() -  record.date
+			if age >= timedelta(days=60):
+				content = record.content
+				if content:
+					for r in content:
+						db.session.delete(r)
+				db.session.delete(record)
+		db.session.commit()
+
+	except Exception as e:
+		print(e)
+		db.session.rollback()
+
 
 	next_url = url_for('administration_general.admin_home_get', page=history_query.next_num) \
 		if history_query.has_next else None
 	prev_url = url_for('administration_general.admin_home_get', page=history_query.prev_num) \
 		if history_query.has_prev else None
-
-	# for i in history_query.items:
-	# 	print(i)
 
 	return render_template('administration/general/home.html', history=history_query.items, next_url=next_url, prev_url=prev_url)
 

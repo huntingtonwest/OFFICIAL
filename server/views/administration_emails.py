@@ -18,7 +18,8 @@ def email_settings():
 	try:
 		consultation = Roles.query.filter_by(role_name = 'Consultation Form').one()
 		contact = Roles.query.filter_by(role_name = 'Contact Form').one()
-	except:
+	except Exception as e:
+		print(e)
 		abort(400)
 
 	forms = [{
@@ -59,7 +60,8 @@ def add_email():
 			db.session.add(new_content)
 
 			db.session.commit()
-		except:
+		except Exception as e:
+			print(e)
 			db.session.rollback()
 			flash('Something went wrong. Refresh the page and try again.', 'danger')
 			return redirect(url_for('administration_emails.email_settings'))
@@ -107,7 +109,8 @@ def delete_email():
 				db.session.add(new_content)
 
 				db.session.commit()
-		except:
+		except Exception as e:
+			print(e)
 			db.session.rollback()
 			flash('Something went wrong. Refresh the page and try again.','danger')
 			return redirect(url_for('administration_emails.email_settings'))

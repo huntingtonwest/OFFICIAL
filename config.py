@@ -27,7 +27,7 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 MAIL_PORT = 465
 MAIL_USE_SSL = True
 MAIL_USE_TLS = False
+MAX_CONTENT_LENGTH = 16 * 1024 * 1024
 
-
-serializer_key  = '27f06ca6-b864-4ff9-895b-42abd7ca8a22'
-POSTS_PER_PAGE = 30
+serializer_key  = os.urandom(32)
+POSTS_PER_PAGE = 50

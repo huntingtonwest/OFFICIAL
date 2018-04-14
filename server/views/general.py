@@ -90,27 +90,3 @@ def get_about_get():
 		abouts.append(fs)
 
 	return jsonify({'people':abouts})
-
-@mod.route('/property-test')
-def prop_test():
-
-	p = Properties.query.filter(or_(Properties.for_sale == True, Properties.for_rent == True)).all()
-
-	properties = []
-	for x in p:
-		prop = serialize(x, Properties)
-
-		prop['city'] = x.city_info.city_name
-		prop['type'] = x.type_info.type_name
-
-		properties.append(prop)
-
-
-	return render_template('general/available_properties.html', properties=properties)
-
-@mod.route('/ass-test')
-def ass_test():
-
-	associations = get_associations_by_loc()
-
-	return render_template('general/resources.html', ass=associations)

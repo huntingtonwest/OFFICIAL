@@ -6,7 +6,7 @@ from server.models.users import Users
 from server.models.history import History, HistoryContent
 from server.utils.authority_verification import is_admin
 from server.utils.query_utils import serialize, pst_time
-from server.forms.forms import CreateUser, Resend, EditUser, DeleteForm
+from server.forms.forms import CreateUser, Resend, EditUser, DeleteForm, EditMasterForm
 from server import app, db,s, mail
 from server.views.general import init
 
@@ -23,7 +23,7 @@ USER SETTINGS - allows admins to control who has access to admin
 """
 @mod.route('/user-settings', methods=['GET'])
 @login_required
-@is_admin
+# @is_admin
 def user_settings_get():
 	users_query = Users.query.filter_by(is_verified=True, is_deleted=False).order_by(Users.first).all()
 	not_verified_query = Users.query.filter_by(is_verified=False, is_deleted=False).order_by(Users.email).all()
@@ -79,7 +79,6 @@ def create_user():
 			new_content = HistoryContent(new_history.history_id, 'Identifier', email)
 			db.session.add(new_content)
 
-
 			db.session.commit()
 		except Exception as e:
 			db.session.rollback()
@@ -107,7 +106,8 @@ def resend_invitation():
 		id = form.id.data
 		try:
 			user = Users.query.filter_by(id = id, email=email, is_verified=False, is_deleted=False).one()
-		except:
+		except Exception as e:
+			print(e)
 			return jsonify({'status':'danger','msg':'Something went wrong. Refresh the page and try again.'})
 
 		token = s.dumps(email, salt='email_confirm')
@@ -117,7 +117,8 @@ def resend_invitation():
 
 		try:
 			mail.send(msg)
-		except:
+		except Exception as e:
+			print(e)
 			return jsonify({'status':'danger','msg':'Invitation failed to resend. Refresh the page and try again.'})
 	else:
 		return jsonify({'status':'danger','msg':'Something went wrong. Refresh the page and try again.'})
@@ -137,7 +138,8 @@ def delete_user():
 			user = Users.query.get(int(user_id))
 			if user.is_deleted:
 				abort(404)
-		except:
+		except Exception as e:
+			print(e)
 			flash('Something went wrong. Please try again after refreshing the page.','danger')
 			return redirect(url_for('administration_users.user_settings_get'))
 
@@ -154,7 +156,6 @@ def delete_user():
 		email = user.email
 
 		try:
-			print(current_user.id)
 			new_history = History('delete_user', current_user.id, tgt_user_id=user.id)
 			db.session.add(new_history)
 			db.session.flush()
@@ -162,10 +163,10 @@ def delete_user():
 			new_content = HistoryContent(new_history.history_id, 'Identifier', email)
 			db.session.add(new_content)
 			db.session.flush()
-			print('here')
+			user.is_master = False
+			user.is_admin = False
 			user.is_deleted=True
 			user.delete_date = datetime.utcnow()
-			print(user)
 			db.session.commit()
 		except Exception as e:
 			print(e)
@@ -180,56 +181,39 @@ def delete_user():
 	return redirect(url_for('administration_users.user_settings_get'))
 
 
-@mod.route('/edit-user/<string:user_id>', methods=['GET','POST'])
+@mod.route('/edit-user/<string:user_id>', methods=['GET', 'POST'])
 @login_required
 @is_admin
 def edit_user(user_id):
-	form=EditUser(request.form)
+
+	if not current_user.is_master:
+		abort(403)
 
 	try:
-		user = Users.query.get(user_id)
+		user = Users.query.get(int(user_id))
 		if user.is_deleted:
 			abort(404)
 	except:
 		abort(404)
 
+	form = EditMasterForm(request.form)
+
 	if request.method=='POST' and form.validate():
-
-		is_admin = form.is_admin.data
-		if int(user_id) == current_user.id:
-			alert={'status':'danger','msg':"Go to personal settings to change your own settings."}
-			return render_template('administration/users/edit_user.html', user=user, alert=alert, form=form)
-		if not user.is_verified:
-			alert = {'status':'danger','msg':"This user must have their email verified first."}
-			return render_template('administration/users/edit_user.html', user=user, alert=alert, form=form)
-		if user.is_admin and not current_user.is_master:
-			alert = {'status':'danger','msg':'Only the master admin can edit admin accounts.'}
-			return render_template('administration/users/edit_user.html', user=user, alert=alert, form=form)
-		if is_admin != user.is_admin and user.is_admin and not current_user.is_master:
-			alert={'status':'success','msg':'Only the master admin can promote/demote admins.'}
-			return render_template('administration/users/edit_user.html', user=user, alert=alert, form=form)
 		try:
+			if not user.is_verified or user.is_deleted:
+				raise
+			elif user.id == current_user.id:
+				flash('You cannot edit you own settings!', 'danger')
+				return render_template('administration/users/edit_user.html', user=user)
 
-			if is_admin !=user.is_admin:
-				content = "{} to {}".format(user.is_admin, is_admin)
-
-				new_history = History('edit_user',current_user.id, tgt_user_id=user.id)
-				db.session.add(new_history)
-				db.session.flush()
-
-				new_content = HistoryContent(new_history.history_id, 'Identifier', user.email)
-				db.session.add(new_content)
-				new_content = HistoryContent(new_history.history_id, 'Is Admin', content)
-				db.session.add(new_content)
-				db.session.flush()
-
-			user.is_admin= is_admin
+			user.is_master = True
+			current_user.is_master = False
 			db.session.commit()
-		except:
+			flash('{} {} is now the master admin. You have relinquished your master admin privileges.'.format(user.first, user.last),'success')
+			return redirect(url_for('administration_general.admin_home_get'))
+		except Exception as e:
+			print(e)
 			db.session.rollback()
-			alert = {'status':'danger','msg':'Something went wrong. Refresh the page and try again.'}
-			return render_template('administration/users/edit_user.html', user=user, alert=alert, form=form)
+			flash('Something went wrong. Please refresh the page and try again.','danger')
 
-		flash('Settings saved for {} {}'.format(user.first, user.last),'success')
-		return redirect(url_for('administration_users.user_settings_get'))
-	return render_template('administration/users/edit_user.html', user=user,form=form)
+	return render_template('administration/users/edit_user.html', user=user)

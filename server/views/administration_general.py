@@ -72,7 +72,7 @@ def forgot_password():
 		token = s.dumps(form.email.data, salt='password_change')
 		msg = Message('HWP Reset Password', sender=MAIL_USERNAME, recipients=[form.email.data])
 		link = url_for('administration_general.reset_password', token=token, external=True)
-		msg.html = 'Go to <a href="{}/{}">this</a> link to reset your password for Huntington West Properties website.'.format(request.url_root,link)
+		msg.html = 'Go to <a href="{}{}">this</a> link to reset your password for Huntington West Properties website.'.format(request.url_root,link)
 
 		try:
 			mail.send(msg)
@@ -164,7 +164,7 @@ def register(token):
 ADMIN HOME
 """
 @mod.route('/admin-home', methods=['GET'])
-# @login_required
+@login_required
 def admin_home_get():
 
 	page = request.args.get('page', 1, type=int)
@@ -260,7 +260,7 @@ def password_settings():
 	return render_template('administration/general/password_settings.html', form=form)
 
 @mod.route('/admin-faq', methods=['GET'])
-# @login_required
+@login_required
 def admin_faq():
 	return render_template('administration/general/admin_faq.html')
 

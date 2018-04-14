@@ -28,7 +28,7 @@ class AvailableProperties extends Component {
       minBath: -1,
       maxBath: Number.MAX_SAFE_INTEGER,
       properties: [],
-      type: 'all',
+      type: 'rent',
       minRent: -1,
       maxRent: Number.MAX_SAFE_INTEGER,
       markers: []
@@ -102,22 +102,31 @@ class AvailableProperties extends Component {
           addr += property.address_l2 + ', ';
         addr += property.state + ' ' + property.zipcode;
         var price;
-        if (this.state.type == 'rent') price = property.rent_price;
-        else price = property.sale_price;
+        var price_comma;
+        if (this.state.type == 'rent') {
+          price = property.rent_price;
+          price_comma = property.rent_price_comma;
+        }
+        else {
+          price = property.sale_price;
+          price_comma = property.sale_price_comma;
+        }
 
         return (
           <PropertyVertical
             key={property.property_id}
             id={property.property_id}
-            img="http://www.eplans.com/house-plans/media/catalog/product/a/m/ama879-fr-re-co.jpg"
+            img={property.images}
             rent={price}
-            sqrft={property.area}
+            rentComma={price_comma}
+            sqrft={property.area_comma}
             bed={property.beds}
             bath={property.baths}
             desc={property.notes}
             address={addr}
             availability="Available Now"
             type={this.state.type}
+            date={property.date_posted}
           />
         )
       });
@@ -173,8 +182,6 @@ class AvailableProperties extends Component {
       <div className="AvailableProperties" id="search">
         <BannerProperties reset={this.reset} onClick={this.fetchData} onSelect={this.handleFieldChange} title="AVAILABLE PROPERTIES"/>
         <div className="under-banner">
-
-
           <Grid className="properties-grid">
               {this.state.properties}
           </Grid>

@@ -135,7 +135,7 @@ class Resources extends Component {
         </div>
         <Footer bg="grey" />
       </div>
-    );
+    )
   }
 }
 

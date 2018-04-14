@@ -1,0 +1,33 @@
+{% extends 'index.html' %}
+
+{% block body %}
+<table class="table">
+
+	<tbody>
+		<tr>
+			<th scope="col">The changes I made keep returning errors.</th>
+			<td>This can be due to multiple reasons:
+        <ul>
+          <li>This site depends on Amazon web services (AWS) to store files and images. The AWS server might be down. Please try again after ~5 minutes. If problems persist, contact a developer.</li>
+          <li>This site is hosted by Heroku app services. The Heroku server might be down. Please try again after ~5 minutes. If problems persist, contact a developer. </li>
+          <li>This site only accepts files of a maximum size of 16 MB. Larger files will be rejected without warning.</li>
+        </ul>
+      </td>
+		</tr>
+
+    <tr>
+      <th scope="col">I can't edit user information.</th>
+      <td>Only the master admin can edit/add/delete user information as well as delete any history records.</td>
+    </tr>
+
+    <tr>
+      <th scope="col">I'm not being forwarded any emails sent when forms are submitted on the website (e.g. Consultation Form, Work Order/Contact Form).</th>
+      <td>Please check you email spam.</td>
+    </tr>
+
+		<tr>
+			<th> Please report any bugs to a developer</th>
+		</tr>
+	</tbody>
+</table>
+{% endblock %}

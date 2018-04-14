@@ -4,6 +4,7 @@
 {% from "includes/_history.html" import render_history %}
 
 <br><h1>Admin Home</h1><br><br>
+Please note that only the master admin may delete history records. History records will automatically disappear after 2 months.<br><br>
 {% if prev_url %}
   <a class="btn btn-info"  href="{{ prev_url }}">Newer History</a>
 {% endif %}
@@ -12,7 +13,7 @@
 {% endif %}
 
 
-      
+
 
 
 

@@ -6,7 +6,7 @@
 {% from "includes/_history.html" import render_history %}
 
 <br><h1>Add Association</h1><br><br>
-Please note that any changes made will be implemented immediately<br><br>
+Please note that any changes made will be implemented immediately.<br><br>
 <form action="{{ url_for('administration_associations.edit_association', acn_id=acn.acn_id) }}" method='post'>
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
   {{ render_field(form.acn_name, class_='form-control', value=acn.acn_name) }}

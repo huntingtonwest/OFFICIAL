@@ -259,6 +259,10 @@ def password_settings():
 
 	return render_template('administration/general/password_settings.html', form=form)
 
+@mod.route('/admin-faq', methods=['GET'])
+# @login_required
+def admin_faq():
+	return render_template('administration/general/admin_faq.html')
 
 """
 DELETE RECORDED HISTORY

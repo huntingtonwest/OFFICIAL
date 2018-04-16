@@ -25,9 +25,6 @@ $('.form').on('submit', function(event){
 	});
 	var formdata = new FormData($(this)[0]);
 
-	// 	for (var [key, value] of formdata.entries()) {
-	//   console.log(key, value);
-	// }
   $.ajax({
     url: url,
     data: formdata,
@@ -42,13 +39,7 @@ $('.form').on('submit', function(event){
 				$('#dangerMsg').hide();
 				$('#successMsg').html(response.msg);
         $('#successMsg').show();
-				if (response.reload && response.reload=='true'){
-						sessionStorage.showmsg = true;
-						sessionStorage.msg = response.msg;
-						window.location.reload();
-				} else {
-        	form[0].reset();
-				}
+
       } else if (response.status == 'danger'){
 				alert('There were errors.')
 				if (response.form_errors){
@@ -106,13 +97,3 @@ $('.big-warn-form').on('submit', function(event){
     	event.preventDefault();
 		}
 });
-
-$(document).on('ready', function(){
-	console.log('activated')
-	if (sessionStorage.showmsg == true){
-		$('#successMsg').html(sessionStorage.msg);
-		$('#successMsg').show();
-		sessionStorage.showmsg=false;
-		sessionStorage.msg="";
-	}
-})

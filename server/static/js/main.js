@@ -36,6 +36,7 @@ $('.form').on('submit', function(event){
     contentType: false,
     success: function(response){
 			$('.field-errors').text('');
+      window.scrollTo(0, 0);
       if (response.status == 'success'){
 				alert('success!');
 				$('#dangerMsg').hide();
@@ -106,12 +107,12 @@ $('.big-warn-form').on('submit', function(event){
 		}
 });
 
-// $(document).ready(function(){
-// 	console.log('activated')
-// 	if (sessionStorage.showmsg == true){
-// 		$('#successMsg').html(sessionStorage.msg);
-// 		$('#successMsg').show();
-// 		// sessionStorage.showmsg=false;
-// 		// sessionStorage.msg="";
-// 	}
-// })
+$(document).on('ready', function(){
+	console.log('activated')
+	if (sessionStorage.showmsg == true){
+		$('#successMsg').html(sessionStorage.msg);
+		$('#successMsg').show();
+		sessionStorage.showmsg=false;
+		sessionStorage.msg="";
+	}
+})

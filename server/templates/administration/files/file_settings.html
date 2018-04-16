@@ -17,7 +17,11 @@ Please note that any changes made will be implemented immediately.<br><br>
     {% for f in files %}
     <tr>
       <td>{{ f.file_name }}</td>
+      {% if f.file_url %}
       <td><a href="{{ f.file_url }}">view file</a></td>
+      {% else %}
+      <td>No file uploaded</td>
+      {% endif %}
       <td>{{ pst_time(f.date) }}</td>
       <td><a class = "btn btn-info" href="{{ url_for('administration_files.edit_file',id=f.file_id)  }}">edit</a></td>
       <td>

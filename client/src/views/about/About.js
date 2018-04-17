@@ -59,7 +59,7 @@ class About extends Component {
       <div className="About">
         <Banner
           title="OUR STORY"
-          img="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/about-banner.jpg"
+          img="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/ourstory1.jpg"
         />
         <div className="under-banner">
           <div className="desc-container about-desc">
@@ -126,7 +126,7 @@ class About extends Component {
             </Grid>;
           </div>
         </div>
-        <Footer />
+        <Footer logo="hide"/>
       </div>
     );
   }

@@ -23,7 +23,7 @@ class PropertyCarousel extends React.Component {
 
   render() {
     return (
-      <Carousel>
+      <Carousel interval="">
         {this.state.pics}
       </Carousel>
     );
@@ -32,13 +32,59 @@ class PropertyCarousel extends React.Component {
 
 
 class PropertyVertical extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      button: 'View More',
+      style: {
+        maxHeight: '100px'
+      },
+      buttonVisible: true,
+      applyButton: '1em'
+    };
+
+    this.toggleDesc = this.toggleDesc.bind(this);
+
+  }
+
+  componentDidMount() {
+    const height = document.getElementById(this.props.id).clientHeight;
+    if (height < 100) {
+      this.setState({
+        buttonVisible: false,
+        applyButton: '8em!important'
+      });
+    }
+  }
+
+  toggleDesc() {
+    if (this.state.button == 'View More') {
+      this.setState({
+        button: 'View Less',
+        style: {
+          maxHeight: '100%'
+        }
+      });
+    }
+    else {
+      this.setState({
+        button: 'View More',
+        style: {
+          height: '100px'
+        }
+      });
+    }
+  }
+
+
   render() {
 
     var type = this.props.type == 'rent' ? 'RENT' : 'PRICE';
 
     return (
       <Row className="property-card" key={this.props.key}>
-        <Col xs={12} sm={6} md={6} lg={5} className="small-col">
+        <Col xs={12} md={12} lg={5} className="small-col">
           <div className="property-thumbnail">
             <div className="prop-thumbnail">
             <PropertyCarousel
@@ -47,7 +93,7 @@ class PropertyVertical extends React.Component {
             </div>
           </div>
         </Col>
-        <Col xs={12} sm={6} md={6} lg={7} className="big-col">
+        <Col xs={12}  md={12} lg={7} className="big-col">
           <div className="property-padded">
             <Row className="property-info">
               <div className="property-main left-space">
@@ -66,12 +112,13 @@ class PropertyVertical extends React.Component {
               </div>
             </Row>
             <Row>
-            <p className="property-desc">{this.props.desc}</p>
             <p className="property-address">{this.props.address}</p>
             <p className="property-availability">{this.props.availability}</p>
             <p className="property-date">Date posted: {this.props.date}</p>
-
+            <p className="property-desc" id={this.props.id} style={this.state.style}>{this.props.desc}</p>
+            <button className="property-button" style={{display: this.state.buttonVisible ? 'block' : 'none'}} onClick={this.toggleDesc}>{this.state.button}</button>
             </Row>
+            <br style={{height: this.state.applyButton}} />
           <Row className="property-buttons-row">
             <div className="property-buttons">
               <Button bsStyle="default" className="property-apply-button">

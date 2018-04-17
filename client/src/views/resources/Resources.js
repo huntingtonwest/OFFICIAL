@@ -6,7 +6,9 @@ import {
   Grid,
   Row,
   Col,
-  Glyphicon
+  Glyphicon,
+  Thumbnail,
+  Image
 } from "react-bootstrap";
 import ManagerForm from "./ManagerForm";
 import Banner from '../../components/Banner';
@@ -18,6 +20,7 @@ class Resources extends Component {
 
   state = {
     modalVisible: false,
+    files: []
   }
 
   setModalVisible(modalVisible) {
@@ -40,66 +43,75 @@ class Resources extends Component {
     }
   }
 
+  componentWillMount() {
+    this.fetchData();
+  }
+
+  fetchData = () => {
+    fetch('https://realhwptest.herokuapp.com/get-files')
+    .then(results => {
+      return results.json();
+    }).then(data => {
+
+      let files = data.files.map((file) => {
+        return (
+          <ListGroupItem
+            className="form-item"
+            href={file.file_url}
+          >
+              {file.file_name}
+          </ListGroupItem>
+        )
+      });
+
+      this.setState({files: files});
+    });
+  }
+
+
   render() {
     return (
       <div className="Contact">
         <Banner
           title="RESIDENT / OWNER RESOURCES"
-          img="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/resources-banner.jpg"
+          img="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/resources2.jpg"
         />
       <div className="desc-container" id="tenant-options">
         <Grid>
         <Row className="card-row">
         <Col xs={12} sm={4} md={4} lg={4} className="card-col">
-          <Card
-            className="home-card forms-button"
-            hoverable
-            bodyStyle={{ padding: 5, paddingBottom: 0 }}
-            onClick={() => this.cardClick('forms')}
-            id="forms"
-            >
-            <div className="custom-image">
-              <img alt="example" width="100%" src="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/h1.jpg" />
+          <a>
+          <div className="text-center res-banner">
+            <div className="ban-inner">
+              <h1 className="title-banner title-lower-banner">RENTAL FORMS</h1>
+              <br />
             </div>
-            <div className="custom-card">
-              <h1></h1>
-              <p>Rental Forms</p>
-            </div>
-          </Card>
+
+          </div>
+  </a>
         </Col>
         <Col xs={12} sm={4} md={4} lg={4} className="card-col">
-          <Card
-            className="home-card"
-            hoverable
-            bodyStyle={{ padding: 5, paddingBottom: 0 }}
-            onClick={() => this.cardClick('payments')}
-            id="payments"
-            >
-            <div className="custom-image">
-              <img alt="example" width="100%" src="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/h3.jpg" />
+          <a>
+          <div className="text-center res-banner">
+            <div className="ban-inner">
+              <h1 className="title-banner title-lower-banner">MAKE PAYMENT</h1>
+              <br />
             </div>
-            <div className="custom-card">
-              <h1></h1>
-              <p>Make Payments</p>
-            </div>
-          </Card>
+
+          </div>
+</a>
         </Col>
         <Col xs={12} sm={4} md={4} lg={4} className="card-col">
-          <Card
-            className="home-card"
-            hoverable
-            bodyStyle={{ padding: 5, paddingBottom: 0 }}
-            onClick={() => this.cardClick('condocerts')}
-            id="condocerts"
-            >
-            <div className="custom-image">
-              <img alt="example" width="100%" src="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/h2.jpg" />
+          <a>
+          <div className="text-center res-banner">
+            <div className="ban-inner">
+              <h1 className="title-banner title-lower-banner">CONDOCERTS</h1>
+              <br />
             </div>
-            <div className="custom-card">
-              <h1></h1>
-              <p>Condocerts</p>
-            </div>
-          </Card>
+
+          </div>
+</a>
+
         </Col>
       </Row>
     </Grid>
@@ -112,20 +124,7 @@ class Resources extends Component {
   ]}
   >
   <ListGroup className="form-list">
-    <ListGroupItem
-      className="form-item"
-      href="http://www.huntingtonwest.com/pdf/131_Enter-Exit_Checklist.pdf"
-    >
-        Enter-exit
-        Checklist
-    </ListGroupItem>
-    <ListGroupItem
-      className="form-item"
-      href="http://www.huntingtonwest.com/pdf/30DayNotice.pdf"
-    >
-        30-Day Notice
-    </ListGroupItem>
-
+    {this.state.files}
   </ListGroup>
 </Modal>
 
@@ -133,13 +132,48 @@ class Resources extends Component {
         <div className="grey" id="resource-form">
           <ManagerForm title="WORK ORDER / CONTACT YOUR MANAGER" />
         </div>
-        <Footer bg="grey" />
+        <Footer bg="grey" logo="hide"/>
       </div>
     )
   }
 }
 
 export default Resources;
+//
+//
+// <Card
+//   className="home-card"
+//   hoverable
+//   bodyStyle={{ padding: 5, paddingBottom: 0 }}
+//   onClick={() => this.cardClick('condocerts')}
+//   id="condocerts"
+//   >
+//   <div className="custom-image">
+//     <img alt="example" width="100%" src="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/condocerts.jpg" />
+//   </div>
+//   <div className="custom-card">
+//     <h1></h1>
+//     <p>Condocerts</p>
+//   </div>
+// </Card>
+//
+//
+// <Card
+//   className="home-card forms-button"
+//   hoverable
+//   bodyStyle={{ padding: 5, paddingBottom: 0 }}
+//   onClick={() => this.cardClick('forms')}
+//   id="forms"
+//   >
+//   <div className="custom-image">
+//     <img alt="example" width="100%" src="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/rentalforms.jpg" />
+//   </div>
+//   <div className="custom-card">
+//     <h1></h1>
+//     <p>Rental Forms</p>
+//   </div>
+// </Card>
+
 
 //OLD RENTAL FORMS + BUTTONS
 

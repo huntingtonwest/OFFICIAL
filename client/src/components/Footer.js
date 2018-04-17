@@ -11,7 +11,13 @@ class Footer extends Component {
     console.log(this.props.bg);
 
     return (
-      <div>
+
+      <div className="footer-container">
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
         <Grid className="logos-grid">
           <Row className="logos-row" id={this.props.bg} style={{display: this.props.logo == 'hide' ? 'none' : 'block'}}>
             <div className="footer-logos">
@@ -39,14 +45,13 @@ class Footer extends Component {
           </Row>
         </Grid>
         <div className="footer-grid">
-          <hr className="footer-hr" />
             <div className="footer-emphasize">
-              <p>13812 Goldenwest Street Ste #100, Westminster, CA 92683</p>
-              <p>Phone: (714) 891-1522    |    Fax: (714) 897-9120    |    BRE #01216849</p>
-              <p><span><a href="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/privacypolicy.pdf" className="footer-emphasize footer-underline">PRIVACY POLICY</a>
-            </span>    |    &copy; 2018 HUNTINGTON WEST PROPERTIES, INC. ALL RIGHTS RESERVED</p>
+              <p className="footer-wide">&copy; 2018 Huntington West Properties, Inc. All Rights Reserved.</p>
+              <br/>
+              <p className="footer-squish">Phone: (714) 891-1522    |    Fax: (714) 897-9120    |    BRE #01216849</p>
+              <p className="footer-squish"><span><a href="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/privacypolicy.pdf" className="footer-emphasize footer-underline">Privacy Policy</a>
+            </span>    |    13812 Goldenwest Street Ste #100, Westminster, CA 92683</p>
             </div>
-          <hr className="footer-hr" />
         </div>
       </div>
     );

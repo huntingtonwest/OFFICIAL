@@ -13,7 +13,7 @@ class Home extends Component {
     return (
       <div className="home-container">
         <HomeBanner
-          title="Located in the heart of Los Angeles, our office has over 40 years of property management and real estate experience."
+          title="Located in the heart of Orange County, our office has over 40 years of property management and real estate experience."
           img="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/home_banner2.jpg"
         />
       <Footer bg="grey" logo="hide"/>

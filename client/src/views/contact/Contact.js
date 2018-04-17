@@ -27,14 +27,10 @@ class Contact extends Component {
         />
       <br/>
         <br/>
+        <br/>
         <Grid>
           <Row>
             <Col xs={12} md={6} className="contact-address">
-              <Image
-                src="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/hwp+office+building+contact.jpg"
-                responsive
-                className="contact-pic"
-              />
               <p>
                 <Glyphicon glyph="map-marker" className="glyph-contact" /> 13812
                 Goldenwest St. Westminster, CA 92683
@@ -58,9 +54,9 @@ class Contact extends Component {
           </Row>
         </Grid>
         <div id="form" className="grey">
-          <ConsultationForm title="SCHEDULE CONSULTATION"/>
+          <ConsultationForm title="CONTACT / SCHEDULE CONSULTATION"/>
         </div>
-        <Footer bg="grey" />
+        <Footer bg="grey" logo="hide"/>
       </div>
     );
   }

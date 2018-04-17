@@ -213,31 +213,35 @@ def delete_about():
 	if request.method=='POST' and form.validate():
 		try:
 			about = AboutInfo.query.get(int(form.id.data))
+			print(about)
 			if not about:
 				abort(404)
 		except Exception as e:
 			print(e)
 			abort(404)
 
+		print('here')
 		new_history = History('del_about', current_user.id, tgt_about_id=about.aboutinfo_id)
 		db.session.add(new_history)
 		db.session.flush()
 
+		print('here2')
 		new_content = HistoryContent(new_history.history_id, 'Identifier', "{} {}".format(about.first,about.last))
 		db.session.add(new_content)
 
+		print('here3')
 		s = delete_file_from_s3('{}_{}'.format('about', about.aboutinfo_id), app.config['ABOUT_S3_BUCKET'], app.config["S3_BUCKET"])
 		if not s:
-			flash('Something went wrong deleting the file. Refresh the page and try again','danger')
-			return redirect(url_for('administration_files.file_settings'))
+			return jsonify({'status':'danger','msg':'Something went wrong. Please refresh the page and try again.'})
+		print('here4')
 
-		db.session.delete(about)
 
 		try:
+			db.session.delete(about)
 			db.session.commit()
 			return jsonify({'status':'success','msg':'The employee was successfully deleted','reload':'true'})
 		except Exception as e:
 			print(e)
 			db.session.rollback()
-
+	print('lala')
 	return jsonify({'status':'danger','msg':'Something went wrong. Please refresh the page and try again.'})

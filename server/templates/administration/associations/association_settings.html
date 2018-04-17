@@ -2,13 +2,13 @@
 
 {% block body %}
 <br><h1>Association Settings</h1><br><br>
-
+Please note that any changes made will be implemented immediately.<br><br>
 <a class="btn btn-info" href="{{url_for('administration_associations.add_association')}}">Add Association</a><br><br>
 <div class="container">
   <div class="row">
     <div class="col">
-      <button id="name_order" class='btn btn-info'>Order by Name</button>
-      <button id="loc_order" class='btn btn-info'>Order by Location</button>
+      <button id="name_order" class='btn btn-secondary'>Order by Name</button>
+      <button id="loc_order" class='btn btn-secondary'>Order by Location</button>
     </div>
     <div class="col">
       Search:  <input id="search" class="" type="text" placeholder="Search.."><br><br>
@@ -20,6 +20,7 @@
   <thead>
     <th scope="col">Association Name</th>
     <th scope="col">Association Location</th>
+    <th scope="col">Association Link</th>
     <th scope="col">Edit</th>
     <th scope="col">Delete</th>
   </thead>
@@ -28,13 +29,14 @@
     <tr class="acn-row">
       <td class="search name">{{ a.acn_name }}</td>
       <td class="search loc">{{ a.acn_loc }}</td>
+      <td><a href="{{ a.acn_url }}">link</a></td>
       <td><a href= "{{url_for('administration_associations.edit_association', acn_id=a.acn_id)}}" class='btn btn-info'>edit</a></td>
       <td>
         <form class="delete" action = "{{url_for('administration_associations.delete_association')}}" method='post'>
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
           <input type="hidden" name="acn_name"   value="{{a.acn_name}}">
           <input type="hidden" name="acn_id"   value="{{a.acn_id}}">
-          <input class="btn btn-info" type="submit" value="delete">
+          <input class="btn btn-danger" type="submit" value="delete">
         </form>
       </td>
     </tr>

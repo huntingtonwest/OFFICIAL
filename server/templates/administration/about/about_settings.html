@@ -2,6 +2,7 @@
 
 {% block body %}
 <br><h1>Employee Settings</h1><br><br>
+Please note that any changes made will be implemented immediately.<br><br>
 <a class="btn btn-info" href="{{ url_for('administration_about.add_about_get')}}">Add Employee</a><br><br>
 
 <form action="{{ url_for('administration_about.about_settings') }}" method='post'>
@@ -37,7 +38,7 @@
         <td>
           <form class="form" action="{{ url_for('administration_about.delete_about') }}">
             <input type="hidden" name="id" value="{{e.aboutinfo_id}}">
-            <input class="btn btn-info" type="submit" value="delete">
+            <input class="btn btn-danger" type="submit" value="delete">
           </form>
         </td>
       </tr>

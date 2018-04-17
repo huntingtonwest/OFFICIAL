@@ -1,4 +1,7 @@
 {% macro render_history(history) %}
+<button class="btn btn-secondary" id="maximize-all">maximize all</button>
+<button class="btn btn-secondary" id="minimize-all">minimize all</button>
+Search:  <input id="search" class="" type="text" placeholder="Search..">
 
 <table class="table table-sm">
   <thead>
@@ -20,41 +23,47 @@
         <td class="content">
           <div class="container">
             {% for c in h.content %}
-              <div class="row">
+
                 {% if c.col_name == 'Identifier' %}
-                  <div class="search bold col-md-3">{{c.col_name}}:</div>
-                  <div class="search bold col-md-9">{{ c.col_content }}</div>
+                <div class="row">
+                  <div class="search bold col-sm-3">{{c.col_name}}: </div>
+                  <div class="search bold col-sm-9">{{ c.col_content }}</div>
                 {% else %}
-                  <div class="search col-md-3">{{c.col_name}}:</div>
+<div class="hidden minimize">
+<div class="row">
+                  <div class="search col-sm-3">{{c.col_name}}: </div>
 
                                         {% if h.type in ['edit_file', 'add_file', 'del_file'] and c.col_name == 'File' %}
                                             {% if h.tgt_file_id %}
-                                              <div class="col-md-3"><a class = "col-md-9" href="{{ c.col_content }}">view file</a></div>
+                                              <div class="col-sm-9"><a href="{{ c.col_content }}">view file</a></div>
                                             {% else %}
-                                              <div class="col-md-3">deleted</div>
+                                              <div class="col-sm-9">deleted</div>
                                             {% endif %}
 
                                         {% elif h.type in ['edit_about', 'add_about', 'del_about'] and c.col_name == 'Image' %}
                                             {% if h.tgt_about_id %}
-                                              <div class="col-md-3"><a class = "col-md-9" href="{{ c.col_content }}">view img</a></div>
+                                              <div class="col-sm-9"><a href="{{ c.col_content }}">view img</a></div>
                                             {% else %}
-                                              <div class="col-md-3">deleted</div>
+                                              <div class="col-sm-9">deleted</div>
                                             {% endif %}
 
                                         {% elif h.type in ['edit_property', 'add_property', 'del_property'] and c.col_name in ['Image','Image added'] %}
                                             {% if h.tgt_prop_id %}
-                                              <div class="col-md-3"><a class = "col-md-9" href="{{ c.col_content }}">view img</a></div>
+                                              <div class="col-sm-9"><a href="{{ c.col_content }}">view img</a></div>
                                             {% else %}
-                                              <div class="col-md-3">deleted</div>
+                                              <div class="col-sm-9">deleted</div>
                                             {% endif %}
 
                                         {% else %}
 
-                            <div class="search col-md-9">{{ c.col_content }}</div>
+                            <div class="search col-sm-9">{{ c.col_content }}</div>
                                         {% endif %}
+                                      </div>
+
                 {% endif %}
               </div>
             {%endfor%}
+            <a class="hist-maximizer" href="">see more</a>
           </div>
         </td>
 
@@ -98,14 +107,15 @@
 
       {% elif h.type in ['add_email', 'del_email'] %}
             <td><a href="{{ url_for('administration_emails.email_settings') }}">link</a></td>
-
+      {% else %}
+        <td>N/A</td>
 
       {% endif %}
       <td>
         <form action="{{ url_for('administration_general.delete_history') }}" method='post'>
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
           <input type="hidden" name="id" value="{{ h.history_id }}">
-          <input type="submit" value="delete" class="btn btn-info">
+          <input type="submit" class="btn btn-danger" value="delete" class="btn btn-info">
         </form>
       </td>
     </tr>
@@ -113,5 +123,5 @@
   </tbody>
 </table>
 
-
+<script type='text/javascript' src="{{ url_for('static',filename='js/home.js') }}"></script>
 {% endmacro %}

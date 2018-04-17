@@ -42,7 +42,8 @@ def about_settings():
 			db.session.commit()
 			flash('Order was successfully saved!','success')
 			return redirect(url_for('administration_about.about_settings'))
-		except:
+		except Exception as e:
+			print(e)
 			flash('Something went wrong. Refresh the page and try again.','danger')
 			return redirect(url_for('administration_about.about_settings'))
 
@@ -192,7 +193,8 @@ def edit_about_post(id):
 		try:
 			db.session.commit()
 			return jsonify({'status':'success','msg':'The employee was successfully edited','reload':'true'})
-		except:
+		except Exception as e:
+			print(e)
 			db.session.rollback()
 			return jsonify({'status':'danger','msg':'Something went wrong. Please refresh the page and try again.'})
 
@@ -213,7 +215,8 @@ def delete_about():
 			about = AboutInfo.query.get(int(form.id.data))
 			if not about:
 				abort(404)
-		except:
+		except Exception as e:
+			print(e)
 			abort(404)
 
 		new_history = History('del_about', current_user.id, tgt_about_id=about.aboutinfo_id)
@@ -233,7 +236,8 @@ def delete_about():
 		try:
 			db.session.commit()
 			return jsonify({'status':'success','msg':'The employee was successfully deleted','reload':'true'})
-		except:
+		except Exception as e:
+			print(e)
 			db.session.rollback()
 
 	return jsonify({'status':'danger','msg':'Something went wrong. Please refresh the page and try again.'})

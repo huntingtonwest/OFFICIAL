@@ -5,14 +5,16 @@
 
 
 <br><h1>Add File</h1><br><br>
+Please note that any changes made will be implemented immediately.<br><br>
+
 <form action="{{ url_for('administration_files.add_file') }}" method='post' enctype="multipart/form-data">
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
   {{ render_field(form.file_name, class_="form-control")}}
 
   <br><br>
   <img id="img-preview" src="" class="hidden img-fluid" alt="Responsive image"></img>
-  <input id="file upload" type="file" name="user_file"><br></br>
-  <button type="submit">Upload</button>
+  <input id="file-upload" type="file" name="user_file"><br></br>
+  <button class="btn btn-info" type="submit">Upload</button>
 </form>
 <script type='text/javascript' src="{{ url_for('static',filename='js/img_render.js') }}"></script>
 

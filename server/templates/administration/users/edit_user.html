@@ -5,8 +5,8 @@
 {% from "includes/_formhelpers.html" import render_field %}
 {% from "includes/_history.html" import render_history %}
 <br><h1>Edit User</h1><br><br>
-<form action="{{ url_for('administration_users.edit_user', user_id=user.id)}}" method="post">
-	<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+Please not that there can only be one master admin. If you make this user a master admin, you relinquish your account's master admin title and privileges<br>
+All accounts have full access to add/edit/delete features. However, only the master admin is allowed to add/edit/delete users and delete history records.<br><br>
 <table class="table">
 
 	<tbody>
@@ -26,28 +26,32 @@
 			<th scope="col">Email: </th>
 			<td>{{user.email}}</td>
 		</tr>
-		<tr>
-			<th scope="col">Is Admin: </th>
-			<td>
-					{% if user.is_admin %}
-					<input type="checkbox" name="is_admin" checked><br>
-					{% else %}
-					<input type="checkbox" name="is_admin" ><br>
-					{% endif %}
-
-			</td>
-		</tr>
 	</tbody>
 </table>
 
-<input class="btn btn-info" type="submit">
-</form>
+
+
 <br>
-<form class="delete" action="{{ url_for('administration_users.delete_user')}}" method="post">
-	<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-	<input type="hidden" name="id" value="{{user.id}}">
-	<input class="btn btn-info" type="submit" value="delete">
-</form><br><br>
+	<div class="row">
+		<div class="col-xs-1">
+			<form class="big-warn-form" action="{{ url_for('administration_users.edit_user', user_id = user.id)}}" method="post">
+				<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+				<input type="hidden" name="id" value="{{user.id}}">
+				<input class="btn btn-info btn-space" type="submit" value="Make master admin">
+			</form>
+		</div>
+		<div class="col-xs-1">
+			<form class="delete" action="{{ url_for('administration_users.delete_user')}}" method="post">
+				<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+				<input type="hidden" name="id" value="{{user.id}}">
+				<input class="btn btn-danger btn-space" type="submit" value="delete user">
+			</form>
+		</div>
+		<div class="col-xs-10">
+		</div>
+	</div>
+
+<br><br>
 <h1>This user's history</h1><br>
 {{ render_history(user.history) }}
 <br><br>

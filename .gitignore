@@ -1,7 +1,7 @@
 __pycache__/
 venv/
 
-
+/dependencies.sh
 /test.py
 node_modules/
 /dev_config.py

@@ -2,6 +2,7 @@
 
 {% block body %}
 <h1>User Settings</h1><hr><br>
+All accounts have full access to add/edit/delete features. However, only the master admin is allowed to add/edit/delete users and delete history records.<br><br>
 <h2>Current Users</h2><br>
 
 <table class="table">
@@ -29,7 +30,7 @@
 			{% elif u.is_admin %}
 			<td>admin</td>
 			{% else %}
-			<td>user</td>
+			<td>manager</td>
 			{% endif %}
 
 			<td>{{u.join_date}}</td>
@@ -40,7 +41,7 @@
 				<form class="delete" action="{{ url_for('administration_users.delete_user')}}" method="post">
 					<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 					<input type="hidden" name="id" value="{{u.id}}">
-					<input class="btn btn-info" type="submit" value="delete">
+					<input class="btn btn-danger" type="submit" value="delete">
 				</form>
 			</td>
 			{% endfor %}
@@ -75,7 +76,7 @@
 			<form class="delete" action="{{ url_for('administration_users.delete_user')}}" method="post">
 				<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 				<input type="hidden" name="id" value = "{{p.id}}">
-				<input class="btn btn-info" type="submit" value="Revoke">
+				<input class="btn btn-danger" type="submit" value="Revoke">
 			</form>
 		</td>
 

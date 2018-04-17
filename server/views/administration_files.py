@@ -22,7 +22,7 @@ from server.forms.forms import LoginForm, RegisterForm, PersonalSettings, Passwo
 from server import app, db, s, mail
 
 mod = Blueprint('administration_files', __name__)
-ALLOWED_EXTENSIONS = ['png','jpg']
+ALLOWED_EXTENSIONS = ['png','jpg', 'jpeg', 'pdf']
 
 
 

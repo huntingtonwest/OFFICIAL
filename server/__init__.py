@@ -11,7 +11,8 @@ from flask_wtf.csrf import CSRFProtect
 import datetime
 
 
-app = Flask(__name__)
+application = Flask(__name__)
+app = application
 app.config.from_object('config')
 db = SQLAlchemy(app)
 
@@ -76,13 +77,9 @@ def load_user(id):
     return Users.query.get(int(id))
 
 #times out user
-# @app.before_request
-# def before_request():
-#     session.permanent = True
-#     app.permanent_session_lifetime = datetime.timedelta(minutes=60)
-#     session.modified = True
-#     g.user = current_user
-
-# from server.dbtest_init import properties, users, testdb_init
-
-# testdb_init(properties, users)
+@app.before_request
+def before_request():
+    session.permanent = True
+    app.permanent_session_lifetime = datetime.timedelta(minutes=15)
+    session.modified = True
+    g.user = current_user

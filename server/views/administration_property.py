@@ -4,7 +4,7 @@ from flask_login import login_required, current_user
 from server.models.properties import Properties, PropertyImgs
 from server.models.history import History, HistoryContent
 from server.utils.authority_verification import is_admin
-from server.forms.forms import PropertyForm
+from server.forms.forms import PropertyForm, DeleteForm
 from server.utils.query_utils import serialize, pst_time
 from server.utils.s3_helpers import *
 from server import db
@@ -55,7 +55,6 @@ def edit_property(property_id):
 	property = Properties.query.get(property_id)
 	if not property:
 		abort(404)
-
 	if request.method=='POST' and form.validate():
 		try:
 			filelist = request.form.getlist('file-order')
@@ -262,6 +261,11 @@ def add_property():
 @mod.route('/delete-property', methods=['POST'])
 @login_required
 def delete_property():
+
+	form = DeleteForm(request.form)
+	if not form.validate():
+		flash('Something went wrong. Please refresh the page and try again.','danger')
+		return redirect(url_for('administration_property.property_settings'))
 
 	try:
 		property_id = int(request.form['id'])

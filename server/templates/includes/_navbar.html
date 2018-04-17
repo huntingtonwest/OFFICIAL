@@ -4,7 +4,7 @@
 <div class="navbar-collapse">
 <ul class="navbar-nav mr-auto">
   <!-- <li><a id="forum-btn">F</a></li> -->
-  <li class="nav-item"><a class="nav-link" href="http://huntingtonwest.com.s3-website-us-west-1.amazonaws.com/">Website Home</a></li>
+  <li class="nav-item"><a class="nav-link" href="http://huntingtonwest.com.s3-website-us-west-1.amazonaws.com/">Go to website</a></li>
 </ul>
 <ul class="navbar-nav mx-auto">
   {% if current_user.is_authenticated %}
@@ -16,6 +16,7 @@
   <li class="nav-item"><a class="nav-link" href="{{ url_for('administration_associations.association_settings') }}">Associations</a></li>
   <li class="nav-item"><a class="nav-link" href="{{ url_for('administration_about.about_settings') }}">Employee Info</a></li>
   <li class="nav-item"><a class="nav-link" href="{{ url_for('administration_files.file_settings') }}">Files</a></li>
+  <li class="nav-item"><a class="nav-link" href="{{ url_for('administration_general.admin_faq') }}">FAQ</a></li>
 
 
   {% endif %}

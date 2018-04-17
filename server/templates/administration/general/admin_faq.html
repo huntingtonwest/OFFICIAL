@@ -1,0 +1,36 @@
+{% extends 'index.html' %}
+
+{% block body %}
+<br><h1> Frequently Asked Questions</h1>
+<table class="table">
+
+	<tbody>
+		<tr>
+			<th scope="col">The changes I make keep returning errors.</th>
+			<td>This can be due to multiple reasons:
+        <ul>
+          <li>This site depends on Amazon web services (AWS) to store files and images. The AWS server might be down. Please try again after ~5 minutes. If problems persist, contact a developer.</li>
+          <li>This site is hosted by Heroku app services. The Heroku server might be down. Please try again after ~5 minutes. If problems persist, contact a developer. </li>
+          <li>This site only accepts files of a maximum size of 16 MB. Larger files will be rejected without warning.</li>
+					<li>Certain website files (ie javascript or css) are often saved to your local computer preventing certain updates from taking place. Do a hard reset (reset cache) on your browser and try again.</li>
+        </ul>
+      </td>
+		</tr>
+
+    <tr>
+      <th scope="col">What is the difference between a master admin and a manager?</th>
+      <td>Only the master admin can edit/add/delete user information as well as delete any history records.</td>
+    </tr>
+
+    <tr>
+      <th scope="col">I'm not being forwarded any emails sent when forms are submitted on the website (e.g. Consultation Form, Work Order/Contact Form).</th>
+      <td>Please check your email spam.</td>
+    </tr>
+
+		<tr>
+			<th> Please report any bugs to a developer</th>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
+{% endblock %}

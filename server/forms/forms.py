@@ -22,6 +22,9 @@ class Fields():
                                                 validators.Length(min=6, max=100, message=len_error_msg(min=6, max=100)),
                                                 password_creation_validator])
 
+class EditMasterForm(Form):
+    id = IntegerField([validators.InputRequired(), id_validator])
+    
 class AboutInfoForm(Form):
     first    = Fields.name('First Name')
     last     = Fields.name('Last Name')
@@ -88,12 +91,15 @@ class AssociationEditForm(Form):
                     alphanumeric_validator])
     acn_loc = StringField('Association Location',[validators.DataRequired(), validators.Length(max=200, message=len_error_msg(max=200)),
                     alphanumeric_validator])
+    acn_url = StringField('Association Link', [validators.Length(max=1000, message=len_error_msg(max=1000))])
+
 
 class AssociationForm(Form):
     acn_name = StringField('Association Name',[validators.DataRequired(), validators.Length(max=200, message=len_error_msg(max=200)),
                     alphanumeric_validator, association_add_validator])
     acn_loc = StringField('Association Location',[validators.DataRequired(), validators.Length(max=200, message=len_error_msg(max=200)),
                     alphanumeric_validator])
+    acn_url = StringField('Association Link', [validators.Length(max=1000, message=len_error_msg(max=1000))])
 
 class ConsultationForm(Form):
 

@@ -1,5 +1,4 @@
 $(document).on('click','button.up', function() {
-  console.log('here')
   console.log($(this).closest('tr'))
   if ($(this).closest('tr').prev('tr').exists()){
     var current = $(this).closest('tr').clone();

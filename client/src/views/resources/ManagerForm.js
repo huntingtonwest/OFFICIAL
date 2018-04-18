@@ -166,7 +166,7 @@ class ManagerForm extends React.Component {
 
                 />
               </Col>
-              <Col xs={12} md={12}>
+              <Col xs={12} md={12} className="form-col">
                 <FieldGroup id="formControlsEmail" placeholder="Email*" type="email"  name="email"
 />
                 <FieldGroup
@@ -188,12 +188,16 @@ class ManagerForm extends React.Component {
                 <CitySearch style={this.state.showAssociations} selectAssociation={this.selectAssociation} name="association"/>
                 <TextArea className="form-message" placeholder="Message"       name="msg"
 rows={4} />
+<div className="captcha-cont">
 <ReCAPTCHA
 ref="recaptcha"
 sitekey="6LdnPVIUAAAAAPz5aMwGu0MffoRD-qQA4-R376RN"
 onChange={this.handleCaptcha}
 />
+</div>
+<div className="button-cont">
                 <button className="button-form" type="submit">SUBMIT</button>
+                </div>
               </Col>
             </form>
           </Row>

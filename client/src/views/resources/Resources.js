@@ -85,22 +85,21 @@ class Resources extends Component {
 <br/>
   <br/>
 
-        <Grid>
+        <Grid className="card-grid">
         <Row className="card-row">
-        <Col xs={12} sm={12} md={4} lg={4} className="card-col">
-          <a>
+        <Col xs={12} sm={12} md={12} lg={4} className="card-col">
+          <a onClick={() => this.cardClick('forms')}>
           <div className="text-center res-banner" style={{backgroundImage: 'url("https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/forms.png")'}}>
             <div className="ban-inner">
-              <h1 className="title-banner title-lower-banner">RENTAL
-                FORMS</h1>
+              <h1 className="title-banner title-lower-banner">{(window.innerWidth < 991)? 'RENTAL FORMS' : 'RENTAL\nFORMS'}</h1>
               <br />
             </div>
 
           </div>
   </a>
         </Col>
-        <Col xs={12} sm={12} md={4} lg={4} className="card-col">
-          <a>
+        <Col xs={12} sm={12} md={12} lg={4} className="card-col">
+          <a onClick={() => this.cardClick('payments')}>
           <div className="text-center res-banner" style={{backgroundImage: 'url("https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/payment.png")'}}>
             <div className="ban-inner">
               <h1 className="title-banner title-lower-banner">MAKE PAYMENT</h1>
@@ -110,8 +109,8 @@ class Resources extends Component {
           </div>
 </a>
         </Col>
-        <Col xs={12} sm={12} md={4} lg={4} className="card-col">
-          <a>
+        <Col xs={12} sm={12} md={12} lg={4} className="card-col">
+          <a onClick={() => this.cardClick('condocerts')}>
           <div className="text-center res-banner" style={{backgroundImage: 'url("https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/condo-04.png")'}}>
             <div className="ban-inner">
               <h1 className="title-banner title-lower-banner">CONDOCERTS</h1>

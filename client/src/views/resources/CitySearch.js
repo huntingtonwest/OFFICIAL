@@ -43,8 +43,8 @@ class CitySearch extends React.Component {
           label: city[0],
           children: city[1].map((assc) => {
                       return ({
-                        value: assc,
-                        label: assc
+                        value: assc.acn_loc,
+                        label: assc.acn_loc
                       });
                     })
         });

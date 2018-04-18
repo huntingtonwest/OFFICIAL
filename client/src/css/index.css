@@ -280,8 +280,8 @@ text-transform: uppercase;
   .main-row {
     width: 74%;
   }
-  .search-banner, .search-banner-2, .properties-grid, .about-desc {
-    width: 73%!important;
+  .search-banner, .search-banner-2, .properties-grid, .about-desc,  .card-grid {
+    width: 73%%!important;
   }
 }
 
@@ -290,8 +290,8 @@ text-transform: uppercase;
   .main-row {
     width: 75.5%;
   }
-  .search-banner , .search-banner-2, .properties-grid, .about-desc{
-    width: 74.5%;
+  .search-banner , .search-banner-2, .properties-grid, .about-desc,  .card-grid{
+    width: 74.5%%!important;
   }
 }
 
@@ -305,8 +305,8 @@ text-transform: uppercase;
   .main-row {
     width: 79%;
   }
-  .search-banner, .search-banner-2, .properties-grid, .about-desc {
-    width: 78%;
+  .search-banner, .search-banner-2, .properties-grid, .about-desc,  .card-grid {
+    width: 78%%!important;
   }
 }
 
@@ -316,8 +316,8 @@ text-transform: uppercase;
   .main-row {
     width: 85.5%;
   }
-  .search-banner, .search-banner-2, .properties-grid, .about-desc {
-    width: 84.5%!important;
+  .search-banner, .search-banner-2, .properties-grid, .about-desc,  .card-grid {
+    width: 84.5%%!important;
   }
 
 }
@@ -327,8 +327,8 @@ text-transform: uppercase;
   .main-row {
     width: 90%;
   }
-  .search-banner, .search-banner-2, .properties-grid, .about-desc {
-    width: 89%!important;
+  .search-banner, .search-banner-2, .properties-grid, .about-desc,  .card-grid {
+    width: 89%%!important;
   }
 }
 
@@ -337,7 +337,7 @@ text-transform: uppercase;
   .main-row {
     width: 93%;
   }
-  .search-banner, .search-banner-2, .properties-grid, .about-desc {
+  .search-banner, .search-banner-2, .properties-grid, .about-desc,  .card-grid {
     width: 92%!important;
   }
 }
@@ -347,7 +347,7 @@ text-transform: uppercase;
   .main-row {
     width: 95.5%;
   }
-  .search-banner, .search-banner-2, .properties-grid, .about-desc {
+  .search-banner, .search-banner-2, .properties-grid, .about-desc,  .card-grid {
     width: 94.5%!important;
   }
 }
@@ -777,7 +777,7 @@ h1 {
 }
 
 .ant-tabs-tabpane {
-  font-family: 'Questrial', sans-serif!important;
+  font-family: 'Raleway', sans-serif!important;
 }
 
 
@@ -800,8 +800,19 @@ h1 {
   padding: 0.3em;
   text-align: center;
   border: none!important;
+  margin :0 auto;
+  margin-top: 1em;
+
 }
 
+.form-col {
+  text-align: center!important;
+}
+
+.captcha-cont {
+  text-align: center!important;
+  display: inline-block;
+}
 .schedule-form {
   border-radius: 0;
 }
@@ -845,7 +856,7 @@ h1 {
   box-shadow: @box-shadow-base;
   white-space: nowrap; */
   /* font-family: 'Gill Sans', sans-serif !important; */
-  font-family: 'Questrial', sans-serif!important;
+  font-family: 'Raleway', sans-serif!important;
 
 }
 
@@ -859,7 +870,7 @@ h1 {
     /* line-height: 50px!important; */
     /* font-family: 'Gill Sans', sans-serif !important; */
     height: 100%!important;
-    font-family: 'Questrial', sans-serif!important;
+    font-family: 'Raleway', sans-serif!important;
 
   }
 
@@ -868,7 +879,7 @@ h1 {
     line-height: 30px!important;
     min-width: 150px;
     padding: 0.4em 2em 0.4em 0.8em!important;
-    font-family: 'Questrial', sans-serif!important;
+    font-family: 'Raleway', sans-serif!important;
 
   }
 
@@ -910,7 +921,7 @@ h1 {
   background-color: white!important;
   line-height: 50px!important;
   height: 50px!important;
-  font-family: 'Khula', sans-serif!important;
+  font-family: 'Raleway', sans-serif!important;
   font-size: 18px!important;
 
 }
@@ -1117,7 +1128,7 @@ input[type=text].input-right  {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  height: 600px;
+  height: 500px;
   display: table;
   width: 65%;
   max-width: 1250px;
@@ -1149,7 +1160,7 @@ input[type=text].input-right  {
   margin-bottom: 0.2em;
   filter: drop-shadow(0 0 1rem rgba(0, 0, 0, 0.9));
   white-space: pre-wrap!important;
-
+  font-weight: lighter;
 }
 
 .search-inner {
@@ -1602,18 +1613,18 @@ input[type=text].input-right  {
 /* ABOUT */
 
 .about-desc {
-  /* width: 65%; */
+  width: 65%;
   max-width: 1250px;
   margin: 0 auto;
   font-size: 22px;
   text-align: left;
 }
 
-@media only screen and (max-width: 1200px) {
+/* @media only screen and (max-width: 1200px) {
   .about-desc {
     width: 80%;
   }
-}
+} */
 @media only screen and (max-width: 950px) {
   .about-desc, .mission-row p, .mission-row li {
     font-size: 19px;
@@ -1662,7 +1673,7 @@ input[type=text].input-right  {
   padding-left: 1em!important;
 }
 .padding-right {
-  padding-right: 1em!important;
+  padding-right: 3em!important;
 }
 
 .mission-row p, .mission-row li {
@@ -1684,7 +1695,7 @@ input[type=text].input-right  {
 .mission-grid {
   padding: 1em 0!important;
   margin: 0 auto!important;
-  width: 100%;
+  /* width: 100%; */
 }
 
 .mission-row {
@@ -1856,8 +1867,11 @@ text-align: center!important;
 } */
 
 .card-row {
-    /* background-color: green!important; */
-    display: inline-flex;
+    display: inline-block;
+    /* margin: 0 10em; */
+    margin: 0 auto;
+    text-align: center;
+
 }
 
 
@@ -1912,11 +1926,6 @@ text-align: center!important;
     margin-bottom: 1em!important;
   }
 
-  .res-banner {
-    width: 100%!important;
-    height: 200px;
-    margin: 0 auto;
-  }
 }
 
 @media only screen and (min-width: 991px) {
@@ -1929,6 +1938,27 @@ text-align: center!important;
 @media only screen and (max-width: 991px) {
   .home-col {
     padding: 3em 0 0 0;
+  }
+
+  .res-banner {
+    width: 100%!important;
+    height: 170px;
+    margin: 0 auto;
+  }
+
+  .card-row {
+      display: block;
+      /* margin: 0 10em; */
+      margin: 0 auto;
+      text-align: center;
+  }
+  .card-grid {
+    padding: 0!important;
+  }
+
+
+  .card-col {
+    width: 100%!important;
   }
 }
 
@@ -1972,7 +2002,7 @@ text-align: center!important;
   vertical-align: middle;
   top: 0;
   text-align: left;
-  font-family: 'Questrial', sans-serif!important;
+  font-family: 'Raleway', sans-serif!important;
 
 }
 
@@ -1980,7 +2010,7 @@ text-align: center!important;
     font-size: 24px!important;
     line-height: 30px!important;
     /* font-family: 'Gill Sans', sans-serif !important; */
-    font-family: 'Questrial', sans-serif!important;
+    font-family: 'Raleway', sans-serif!important;
 
   }
 
@@ -1993,6 +2023,7 @@ text-align: center!important;
   .card-col {
     padding: 0!important;
     margin: 0!important;
+    width: 300px;
   }
 
 
@@ -2006,7 +2037,7 @@ text-align: center!important;
 }
 .about-desc {
   /* margin: 0!important; */
-  width: 100%;
+  /* width: 100%; */
   padding: 0!important;
 }
 .contact-pic {

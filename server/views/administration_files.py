@@ -84,14 +84,15 @@ def add_file():
 
                 file.file_url = output
                 db.session.commit()
+                flash('File was successfully added!', 'success')
+                return redirect(url_for('administration_files.add_file'))
             except Exception as e:
                 # print(e)
                 db.session.rollback()
                 flash('Something went wrong uploading the file. Please refresh the page and try again.','danger')
                 return render_template('administration/files/add_file.html',form=form)
 
-            flash('File was successfully added!', 'success')
-            return redirect(url_for('administration_files.add_file'))
+
         else:
             flash('Only pdf files are accepted.','danger')
             return render_template('administration/files/add_file.html', form=form)
@@ -163,14 +164,15 @@ def edit_file(id):
                 print('upload file')
 
             db.session.commit()
+            flash('File was successfully edited!', 'success')
+            return redirect(url_for('administration_files.edit_file', id=id))
         except Exception as e:
             print(e)
             db.session.rollback()
             flash('Something went wrong uploading the file. Please refresh the page and try again.','danger')
             return render_template('administration/files/edit_file.html',form=form,  file = file)
 
-        flash('File was successfully edited!', 'success')
-        return redirect(url_for('administration_files.edit_file', id=id))
+
 
     return render_template('administration/files/edit_file.html', form=form, file = file)
 
@@ -203,14 +205,15 @@ def delete_file():
 
             db.session.delete(file)
             db.session.commit()
+            flash('File was successfully deleted.','success')
+            return redirect(url_for('administration_files.file_settings'))
         except Exception as e:
             print(e)
             db.session.rollback()
             flash('Something went wrong deleting the file. Refresh the page and try again','danger')
             return redirect(url_for('administration_files.file_settings'))
 
-        flash('File was successfully deleted.','success')
-        return redirect(url_for('administration_files.file_settings'))
+
 
     flash('Something went wrong deleting the file. Refresh the page and try again','danger')
     return redirect(url_for('administration_files.file_settings'))

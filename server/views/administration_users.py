@@ -122,6 +122,7 @@ def resend_invitation():
 			return jsonify({'status':'danger','msg':'Invitation failed to resend. Refresh the page and try again.'})
 	else:
 		return jsonify({'status':'danger','msg':'Something went wrong. Refresh the page and try again.'})
+
 	return jsonify({'status':'success','msg':'Invitation was successfully re-sent!'})
 
 @mod.route('/delete-user', methods=['POST'])

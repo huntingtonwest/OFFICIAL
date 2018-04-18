@@ -39,6 +39,9 @@ $('.form').on('submit', function(event){
 				$('#dangerMsg').hide();
 				$('#successMsg').html(response.msg);
         $('#successMsg').show();
+        if (response.reload == true){
+          window.location.reload();
+        }
 
       } else if (response.status == 'danger'){
 				alert('There were errors.')

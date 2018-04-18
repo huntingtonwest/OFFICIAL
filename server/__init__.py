@@ -68,7 +68,7 @@ app.register_blueprint(administration_about.mod)
 app.register_blueprint(administration_files.mod)
 app.register_blueprint(forms.mod)
 csrf.exempt(forms.mod)
-# csrf.exempt(administration_property.mod)
+# csrf.exempt(administration_about.mod)
 from server import models
 from server.models.users import Users
 

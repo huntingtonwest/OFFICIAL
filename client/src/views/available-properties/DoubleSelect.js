@@ -65,6 +65,8 @@ class DoubleSelect extends React.Component {
           title += ': ' + this.state.min + '+';
         else if (this.state.min == 'No Min')
           title += ': < ' + this.state.max;
+        else if (this.state.min == this.state.max)
+          title += ': ' + this.state.min;
         else title += ': ' + this.state.min + ' - ' + this.state.max;
       }
       this.setState({

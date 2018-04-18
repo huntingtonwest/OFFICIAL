@@ -10,17 +10,21 @@ class HomeBanner extends React.Component {
       backgroundRepeat:'no-repeat',
       backgroundPosition: 'center center',
       backgroundSize:'cover',
-      height: 700,
-      marginTop: -100
+      margin: '0 auto'
     };
 
     return (
-      <div className="text-center" style={divStyle}>
-        <div className="home-inner">
-          <h1 className="title-home-banner">{this.props.title}</h1>
+
+      <div className="go-down home-down">
+      <br className="my-br"/><br />
+      <br />
+      <div className="text-center search-banner" style={divStyle}>
+        <div className="search-inner">
+          <h1 className="title-banner title-lower-banner">{this.props.title}</h1>
           <br />
         </div>
       </div>
+          </div>
     );
   }
 }

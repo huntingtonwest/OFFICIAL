@@ -27,28 +27,31 @@ class Contact extends Component {
         />
       <br/>
         <br/>
-        <Grid>
-          <Row>
+        <br/>
+        <Grid className="about-desc" id="where">
+          <Row className="mission-row ">
+            <br/>
+            <h1 className="title-container">
+              WHERE WE ARE
+            </h1>
+            <br/>
+            <br/>
+
             <Col xs={12} md={6} className="contact-address">
-              <Image
-                src="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/hwp+office+building+contact.jpg"
-                responsive
-                className="contact-pic"
-              />
-              <p>
-                <Glyphicon glyph="map-marker" className="glyph-contact" /> 13812
-                Goldenwest St. Westminster, CA 92683
+              <p className="wrap">
+                13812 Goldenwest St Ste #100
+                Westminster, CA 92683
               </p>
               <p>
-                <Glyphicon glyph="phone-alt" className="glyph-contact" /> (714)
+                Phone: (714)
                 891-1522
               </p>
               <p>
-                <Glyphicon glyph="earphone" className="glyph-contact" /> Toll
+               Toll
                 Free: (800) 655-1522
               </p>
               <p>
-                <Glyphicon glyph="phone-alt" className="glyph-contact" /> (714)
+                Fax: (714)
                 897-9120
               </p>
             </Col>
@@ -58,9 +61,9 @@ class Contact extends Component {
           </Row>
         </Grid>
         <div id="form" className="grey">
-          <ConsultationForm title="SCHEDULE CONSULTATION"/>
+          <ConsultationForm title="CONTACT / SCHEDULE CONSULTATION"/>
         </div>
-        <Footer bg="grey" />
+        <Footer bg="grey" logo="hide"/>
       </div>
     );
   }

@@ -31,15 +31,14 @@ class CitySearch extends React.Component {
       for(var i in data.associations)
           cities.push([i, data.associations [i]]);
       let options = cities.map((city) => {
-        // console.log(city);
         return ({
           key: city[0],
           value: city[0],
           label: city[0],
           children: city[1].map((assc) => {
                       return ({
-                        value: assc,
-                        label: assc
+                        value: assc.acn_loc,
+                        label: assc.acn_loc
                       });
                     })
         });

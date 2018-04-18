@@ -81,10 +81,13 @@ class ConsultationForm extends React.Component {
   render() {
     return (
       <div className="desc-container" id="consultation">
-      <h1 className="title-container">{this.props.title}</h1>
       <br/>
-      <Grid>
-        <Row className="form-row">
+      <h1 className="title-container">{this.props.title}</h1>
+      <br/><br/>
+      <br/>
+      <br/>
+      <Grid className="about-desc" >
+        <Row className="mission-row form-row">
           <form onSubmit={this.postForm}>
             <Col xs={12} md={6}>
               <FieldGroup
@@ -108,7 +111,7 @@ class ConsultationForm extends React.Component {
             <Col xs={12} md={6}>
               <FieldGroup id="formControlsNumber" placeholder="Phone Number*" type="number" name="phone_num" />
             </Col>
-            <Col xs={12} md={12}>
+            <Col xs={12} md={12} className="form-col">
               <h4 className="form-text">*We ensure your privacy. We do not share your information with anyone.</h4>
               <br />
               <Select  placeholder="Regarding*" className="form-select" name="regarding" onSelect={this.handleSelect}>
@@ -120,12 +123,17 @@ class ConsultationForm extends React.Component {
                 <Option value="Other">Other</Option>
               </Select>
               <TextArea className="form-message" placeholder="Message*" name="msg" rows={4} />
+<div className="captcha-cont">
               <ReCAPTCHA
     ref="recaptcha"
     sitekey="6LdnPVIUAAAAAPz5aMwGu0MffoRD-qQA4-R376RN"
     onChange={this.handleCaptcha}
   />
+  </div>
+  <div className="button-cont">
+
               <button className="button-form" type="submit">SUBMIT</button>
+              </div>
             </Col>
           </form>
         </Row>

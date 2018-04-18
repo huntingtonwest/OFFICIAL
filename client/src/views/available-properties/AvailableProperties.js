@@ -114,8 +114,7 @@ class AvailableProperties extends Component {
 
         return (
           <PropertyVertical
-            key={property.property_id}
-            id={property.property_id}
+            id={property.name}
             img={property.images}
             rent={price}
             rentComma={price_comma}
@@ -123,6 +122,7 @@ class AvailableProperties extends Component {
             bed={property.beds}
             bath={property.baths}
             desc={property.notes}
+            key={property.name}
             address={addr}
             availability="Available Now"
             type={this.state.type}
@@ -132,7 +132,6 @@ class AvailableProperties extends Component {
       });
 
       this.setState({properties: properties});
-      this.fetchMarkers(properties);
       console.log("state", this.state.properties);
     });
   }
@@ -180,16 +179,14 @@ class AvailableProperties extends Component {
   render() {
     return (
       <div className="AvailableProperties" id="search">
-        <BannerProperties reset={this.reset} onClick={this.fetchData} onSelect={this.handleFieldChange} title="AVAILABLE PROPERTIES"/>
+        <BannerProperties reset={this.reset} onClick={this.fetchData} onSelect={this.handleFieldChange} title={"AVAILABLE\nPROPERTIES"}/>
         <div className="under-banner">
           <Grid className="properties-grid">
-              {this.state.properties}
+            {this.state.properties}
           </Grid>
-          <div id="consultation">
-            <ConsultationForm title="SCHEDULE CONSULTATION"/>
-          </div>
         </div>
-        <Footer bg="white"/>
+      <br/>
+        <Footer bg="white" logo="hidden"/>
       </div>
 
     );

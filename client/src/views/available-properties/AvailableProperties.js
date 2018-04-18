@@ -186,7 +186,7 @@ class AvailableProperties extends Component {
           </Grid>
         </div>
       <br/>
-        <Footer bg="white"/>
+        <Footer bg="white" logo="hidden"/>
       </div>
 
     );

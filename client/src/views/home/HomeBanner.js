@@ -20,7 +20,7 @@ class HomeBanner extends React.Component {
       <br />
       <div className="text-center search-banner" style={divStyle}>
         <div className="search-inner">
-          <h1 className="title-home-banner">{this.props.title}</h1>
+          <h1 className="title-banner title-lower-banner">{this.props.title}</h1>
           <br />
         </div>
       </div>

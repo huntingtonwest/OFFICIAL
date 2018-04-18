@@ -28,23 +28,30 @@ class Contact extends Component {
       <br/>
         <br/>
         <br/>
-        <Grid>
-          <Row>
+        <Grid className="about-desc" id="where">
+          <Row className="mission-row ">
+            <br/>
+            <h1 className="title-container">
+              WHERE WE ARE
+            </h1>
+            <br/>
+            <br/>
+
             <Col xs={12} md={6} className="contact-address">
-              <p>
-                <Glyphicon glyph="map-marker" className="glyph-contact" /> 13812
-                Goldenwest St. Westminster, CA 92683
+              <p className="wrap">
+                13812 Goldenwest St Ste #100
+                Westminster, CA 92683
               </p>
               <p>
-                <Glyphicon glyph="phone-alt" className="glyph-contact" /> (714)
+                Phone: (714)
                 891-1522
               </p>
               <p>
-                <Glyphicon glyph="earphone" className="glyph-contact" /> Toll
+               Toll
                 Free: (800) 655-1522
               </p>
               <p>
-                <Glyphicon glyph="phone-alt" className="glyph-contact" /> (714)
+                Fax: (714)
                 897-9120
               </p>
             </Col>

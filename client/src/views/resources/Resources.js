@@ -76,23 +76,32 @@ class Resources extends Component {
           title="RESIDENT / OWNER RESOURCES"
           img="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/resources2.jpg"
         />
+
+          <br/>
+            <br/>
+
       <div className="desc-container" id="tenant-options">
+        <h1 className="title-container">RESOURCE LINKS</h1>
+<br/>
+  <br/>
+
         <Grid>
         <Row className="card-row">
-        <Col xs={12} sm={4} md={4} lg={4} className="card-col">
+        <Col xs={12} sm={12} md={4} lg={4} className="card-col">
           <a>
-          <div className="text-center res-banner">
+          <div className="text-center res-banner" style={{backgroundImage: 'url("https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/forms.png")'}}>
             <div className="ban-inner">
-              <h1 className="title-banner title-lower-banner">RENTAL FORMS</h1>
+              <h1 className="title-banner title-lower-banner">RENTAL
+                FORMS</h1>
               <br />
             </div>
 
           </div>
   </a>
         </Col>
-        <Col xs={12} sm={4} md={4} lg={4} className="card-col">
+        <Col xs={12} sm={12} md={4} lg={4} className="card-col">
           <a>
-          <div className="text-center res-banner">
+          <div className="text-center res-banner" style={{backgroundImage: 'url("https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/payment.png")'}}>
             <div className="ban-inner">
               <h1 className="title-banner title-lower-banner">MAKE PAYMENT</h1>
               <br />
@@ -101,9 +110,9 @@ class Resources extends Component {
           </div>
 </a>
         </Col>
-        <Col xs={12} sm={4} md={4} lg={4} className="card-col">
+        <Col xs={12} sm={12} md={4} lg={4} className="card-col">
           <a>
-          <div className="text-center res-banner">
+          <div className="text-center res-banner" style={{backgroundImage: 'url("https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/condo-04.png")'}}>
             <div className="ban-inner">
               <h1 className="title-banner title-lower-banner">CONDOCERTS</h1>
               <br />

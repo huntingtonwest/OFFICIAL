@@ -42,14 +42,14 @@ class MyNavbar extends React.Component {
 <Row className="menu-row">
       <a href="/" className="active-logo">
                    <Image
-                     style={{ width: 200 }}
+                     style={{ width: 180 }}
                      src="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/Hwp%2BLogo%2BApproved.png"
                      responsive
                      className="logo"
                    />
                  </a>
                  <div className='nav-float-2'>
-          <div className="my-dropdown">
+          <div className="my-dropdown first-dropdown">
           <button className="dropbtn">
           <a href="/propertyManagement" className="hover-1">Property Management</a>
           </button>
@@ -93,7 +93,8 @@ class MyNavbar extends React.Component {
         <a href="/contact" className="hover-1">Contact</a>
         </button>
           <div className="dropdown-content">
-            <a href="/contact#form">Contact Form</a>
+          <a href="/contact#where">Where We Are</a>
+            <a href="/contact#form">Contact Us</a>
             <a href="/contact#form">Schedule Consultation</a>
           </div>
         </div>

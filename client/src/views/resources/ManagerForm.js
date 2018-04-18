@@ -143,8 +143,11 @@ class ManagerForm extends React.Component {
       <div className="desc-container" id="consultation">
         <h1 className="title-container">{this.props.title}</h1>
         <br/>
-        <Grid>
-          <Row className="form-row">
+        <br/>
+        <br/>
+
+        <Grid className="about-desc" >
+          <Row className="mission-row">
             <form onSubmit={this.postForm}>
               <Col xs={12} md={6}>
                 <FieldGroup

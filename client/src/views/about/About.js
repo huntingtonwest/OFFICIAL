@@ -62,6 +62,11 @@ class About extends Component {
           img="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/ourstory1.jpg"
         />
         <div className="under-banner">
+          <br/>
+            <br/>
+              <br/>
+<br/>
+
           <div className="desc-container about-desc">
             <p>
               Huntington West Properties, Inc. was founded in 1979 and has
@@ -71,45 +76,47 @@ class About extends Component {
               residential and commercial rental properties.
             </p>
           </div>
-          <div className="about-container">
-            <Grid>
-              <Row className="about-row" id="mission">
-                <Col xs={12} md={6} className="dark-blue">
-                  <div className="about-row-info">
-                    <h1 className="about-row-title">MISSION</h1>
-                    <p>
-                      Huntington West Properties Inc. will be the real estate
-                      company of choice, making the needs of our clients and
-                      employees the highest priority, while achieving excellence
-                      of service and sustainable growth.
-                    </p>
+          <div className="desc-container services-container">
+            <Grid className="about-desc mission-grid">
+              <Row className="mission-row">
+                <Col xs={12} sm={6} lg={6} className="mission-col padding-right">
+                    <div className="about-row-info">
+                  <h1 className="about-row-title">OUR MISSION</h1>
+                  <p>
+                    Huntington West Properties Inc. will be the real estate
+                    company of choice, making the needs of our clients and
+                    employees the highest priority, while achieving excellence
+                    of service and sustainable growth.
+                  </p>
                   </div>
                 </Col>
-                <Col xs={12} md={6} className="light-blue">
-                  <div className="about-row-info">
-                    <h1 className="about-row-title">VALUES</h1>
-                    <ul>
-                      <li>
-                        Our actions area based on the highest standardof
-                        integrity and Chistian ethics.
-                      </li>
-                      <li>
-                        We perform our work with dilligence and professionalist.
-                      </li>
-                      <li>
-                        We will strive to improve our performance and service
-                        wherever possible.
-                      </li>
-                      <li>
-                        We are loyal to our customers, our vendors, our company
-                        and each other.
-                      </li>
-                    </ul>
-                  </div>
+                <Col xs={12} sm={6} lg={6} className="mission-col padding-left">
+                    <div className="about-row-info">
+                  <h1 className="about-row-title">OUR VALUES</h1>
+                    <p>
+                      Our actions area based on the highest standard of
+                      integrity and Chistian ethics.
+                    </p>
+                    <p>
+                      We perform our work with dilligence and professionalist.
+                    </p>
+                    <p>
+                      We will strive to improve our performance and service
+                      wherever possible.
+                    </p>
+                    <p>
+                      We are loyal to our customers, our vendors, our company
+                      and each other.
+                    </p>
+                </div>
                 </Col>
               </Row>
             </Grid>
           </div>
+
+          <br/>
+            <br/>
+
           <br/>
           <br/>
             <br/>
@@ -117,6 +124,8 @@ class About extends Component {
           <div id="team">
             <h1 className="title-container">OUR TEAM</h1>
             <br />
+              <br/>
+
             <Grid className="about-grid">
               <Row className="team-row">
                 <Col xs={12} className="team-col">

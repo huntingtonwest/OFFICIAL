@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Grid, Image, Row, Col } from "react-bootstrap";
 import ConsultationForm from "../../components/ScheduleForm";
-import CitySearch from "./CitySearch";
+import CitySearchLinked from "./CitySearchLinked";
 import Banner from '../../components/Banner';
 import { Tabs } from "antd";
 import Footer from '../../components/Footer';
@@ -20,16 +20,27 @@ class PropertyManagement extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      services: 0
+      services: 0,
+      open: []
     };
     this.toggleServices = this.toggleServices.bind(this);
   }
 
   toggleServices(e) {
-    var x = document.getElementsByClassName("grey-text")[0];
-    x.className = "white-text";
-    e.target.className = "grey-text"
-    this.setState({services: e.target.id})
+    // if (window.innerWidth < 775) {
+    //   if (this.state.open[e.target.id]) {
+    //     this.setState({open[e.target.id]: false});
+    //   }
+    //   else {
+    //     this.setState({open[e.target.id]: true});
+    //   }
+    //   var y = document.getElementById("responsive-" + e.target.id);
+    // }
+    // var x = document.getElementsByClassName("grey-text")[0];
+    // x.className = "white-text";
+    // e.target.className = "grey-text"
+    // this.setState({services: e.target.id})
+
   }
 
   render() {
@@ -37,7 +48,7 @@ class PropertyManagement extends Component {
       <div className="App">
         <Banner
           title={`PROPERTY\nMANAGEMENT`}
-          img="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/propertymanagement2.jpg"
+          img="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/propertymanagementimg.jpg"
         />
         <div className="under-banner">
           <div className="desc-container services-container">
@@ -47,14 +58,19 @@ class PropertyManagement extends Component {
             <br />
             <Grid>
               <Row className="services-row">
-                <Col xs={5} lg={5} className="roles">
+                <Col xs={12} sm={5} lg={5} className="roles">
                   <a onClick={this.toggleServices}><h2 className="grey-text" id="0">ACCOUNT MANAGER</h2></a>
+                  <p className="responsive-services" id="responsive-0" style={{display: this.state.open[0] ? 'block' : 'none'}}>{services[0]}</p>
                   <a onClick={this.toggleServices}><h2 id="1">PROPERTY MANAGER</h2></a>
+                  <p className="responsive-services" style={{display: this.state.open[1] ? 'block' : 'none'}}>{services[1]}</p>
                   <a onClick={this.toggleServices}><h2 id="2">CREDIT/COLLECTION ASSOCIATE</h2></a>
+                  <p className="responsive-services" style={{display: this.state.open[2] ? 'block' : 'none'}}>{services[2]}</p>
                   <a onClick={this.toggleServices}><h2 id="3">ACOUNTING SUPERVISOR</h2></a>
+                  <p className="responsive-services" style={{display: this.state.open[3] ? 'block' : 'none'}}>{services[3]}</p>
                   <a onClick={this.toggleServices}><h2 id="4">RECEPTIONIST</h2></a>
+                  <p className="responsive-services" style={{display: this.state.open[4] ? 'block' : 'none'}}>{services[4]}</p>
                 </Col>
-                <Col xs={7} lg={7} className="service-col">
+                <Col xs={12} sm={7} lg={7} className="service-col">
                   <p>
                     {services[this.state.services]}
                   </p>
@@ -67,8 +83,9 @@ class PropertyManagement extends Component {
             <h1 className="title-container" id="areas">
               AREAS WE SERVE
             </h1>
+            <br/>
             <Grid>
-              <CitySearch />
+              <CitySearchLinked />
             </Grid>
             <br />
           </div>

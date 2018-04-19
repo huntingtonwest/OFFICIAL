@@ -161,7 +161,7 @@ Please note that any changes made while "For Sale" or "For Rent" are marked will
         <a class="btn btn-info" href="{{ url_for('administration_property.edit_property_get',property_id=p.property_id) }}">edit</a>
       </td>
       <td>
-          <form class="delete" action="{{ url_for('administration_property.delete_property') }}" method='post'>
+          <form class="delete simple-submit" action="{{ url_for('administration_property.delete_property') }}" method='post'>
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
             <input type="hidden" name="id" value="{{p.property_id}}">
             <input class="btn btn-danger" type="submit" value="delete">

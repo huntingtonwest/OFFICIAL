@@ -100,3 +100,14 @@ $('.big-warn-form').on('submit', function(event){
     	event.preventDefault();
 		}
 });
+
+$body = $("body");
+
+$(document).on({
+    ajaxStart: function() { $body.addClass("loading");    },
+     ajaxStop: function() { $body.removeClass("loading"); }
+});
+
+$('form.simple-submit').on('submit', function(){
+   $body.addClass("loading"); 
+})

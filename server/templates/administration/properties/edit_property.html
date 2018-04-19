@@ -102,7 +102,7 @@ Please note that any changes made while "For Sale" or "For Rent" are marked will
 </div>
 
 <br><br><br><br><br><br><br><br>
-<form class="delete" action="{{ url_for('administration_property.delete_property') }}" method='post'>
+<form class="delete simple-submit" action="{{ url_for('administration_property.delete_property') }}" method='post'>
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
   <input type="hidden" name="id" value="{{property.property_id}}">
   <input class="btn btn-danger" type="submit" value="Delete">

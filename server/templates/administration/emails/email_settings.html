@@ -26,7 +26,7 @@ Please note that any changes made will be implemented immediately.<br><br>
               {{e.email}}
             </div>
             <div class="col-md-6">
-              <form class="" action="{{ url_for('administration_emails.delete_email') }}" method='post'>
+              <form class="simple-submit"  action="{{ url_for('administration_emails.delete_email') }}" method='post'>
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                 <input type="hidden" name="role" value="{{f.name}}">
                 <input type="hidden" name="email" value="{{e.email}}">
@@ -38,7 +38,7 @@ Please note that any changes made will be implemented immediately.<br><br>
         </div>
       </td>
       <td>
-        <form class="" action="{{ url_for('administration_emails.add_email') }}" method='post'>
+        <form class="simple-submit"  action="{{ url_for('administration_emails.add_email') }}" method='post'>
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
           <input type="hidden" name="role" value="{{f.name}}">
           <input name="email" >

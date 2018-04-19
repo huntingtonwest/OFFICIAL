@@ -32,7 +32,7 @@ Please note that any changes made will be implemented immediately.<br><br>
       <td><a href="{{ a.acn_url }}">link</a></td>
       <td><a href= "{{url_for('administration_associations.edit_association', acn_id=a.acn_id)}}" class='btn btn-info'>edit</a></td>
       <td>
-        <form class="delete" action = "{{url_for('administration_associations.delete_association')}}" method='post'>
+        <form class="delete simple-submit" action = "{{url_for('administration_associations.delete_association')}}" method='post'>
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
           <input type="hidden" name="acn_name"   value="{{a.acn_name}}">
           <input type="hidden" name="acn_id"   value="{{a.acn_id}}">

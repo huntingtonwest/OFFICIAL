@@ -13,7 +13,7 @@ import datetime
 
 application = Flask(__name__)
 app = application
-app.config.from_object('config')
+app.config.from_object('dev_config')
 db = SQLAlchemy(app)
 
 migrate = Migrate(app,db)

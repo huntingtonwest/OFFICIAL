@@ -24,13 +24,13 @@ class Fields():
 
 class EditMasterForm(Form):
     id = IntegerField([validators.InputRequired(), id_validator])
-    
+
 class AboutInfoForm(Form):
     first    = Fields.name('First Name')
     last     = Fields.name('Last Name')
     position = Fields.name('Position')
     email    = Fields.email
-    phone    = StringField('Phone Number', [phone_number_validator])
+    phone    = StringField('Phone Number', [alphanumeric_validator, validators.Length(max=30, message=len_error_msg(max=30))])
 
 class PasswordResetForm(Form):
     password = Fields.new_password('New Password')

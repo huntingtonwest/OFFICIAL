@@ -34,14 +34,14 @@ All accounts have full access to add/edit/delete features. However, only the mas
 <br>
 	<div class="row">
 		<div class="col-xs-1">
-			<form class="big-warn-form" action="{{ url_for('administration_users.edit_user', user_id = user.id)}}" method="post">
+			<form class="big-warn-form simple-submit" action="{{ url_for('administration_users.edit_user', user_id = user.id)}}" method="post">
 				<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 				<input type="hidden" name="id" value="{{user.id}}">
 				<input class="btn btn-info btn-space" type="submit" value="Make master admin">
 			</form>
 		</div>
 		<div class="col-xs-1">
-			<form class="delete" action="{{ url_for('administration_users.delete_user')}}" method="post">
+			<form class="delete simple-submit" action="{{ url_for('administration_users.delete_user')}}" method="post">
 				<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 				<input type="hidden" name="id" value="{{user.id}}">
 				<input class="btn btn-danger btn-space" type="submit" value="delete user">

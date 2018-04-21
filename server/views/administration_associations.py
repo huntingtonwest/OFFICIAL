@@ -37,14 +37,13 @@ def add_association():
 			db.session.add(new_content)
 
 			db.session.commit()
+			flash('Association was successfully added.','success')
+			return redirect(url_for('administration_associations.add_association'))
 		except Exception as e:
 			print(e)
 			db.session.rollback()
 			flash('Something went wrong. Refresh the page and try again.','danger')
 			return render_template('administration/associations/add_association.html',form=form)
-
-		flash('Association was successfully added.','success')
-		return redirect(url_for('administration_associations.add_association'))
 
 	return render_template('administration/associations/add_association.html',form=form)
 
@@ -135,13 +134,14 @@ def edit_association(acn_id):
 			# acn.acn_loc = new_loc
 			# acn.acn_url = new_url
 			db.session.commit()
+			flash('Association changes were saved!','success')
+			return redirect(url_for('administration_associations.edit_association', acn_id=acn_id))
 		except Exception as e:
 			print(e)
 			db.session.rollback()
 			flash('Something went wrong. Please refresh the page and try again.','danger')
 			return render_template('administration/associations/edit_association.html',form=form, acn=acn)
 
-		flash('Association changes were saved!','success')
-		return redirect(url_for('administration_associations.edit_association', acn_id=acn_id))
+
 
 	return render_template('administration/associations/edit_association.html',form=form, acn=acn)

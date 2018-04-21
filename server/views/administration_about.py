@@ -29,16 +29,12 @@ ALLOWED_EXTENSIONS=['png','jpeg','jpg']
 def about_settings():
 
 	about = AboutInfo.query.order_by(AboutInfo.date.asc()).all()
-
 	if request.method=='POST':
-
 		try:
 			ids = request.form.getlist('sort-id')
-			print(ids)
 			for id in ids:
 				tabout = AboutInfo.query.get(int(id))
 				tabout.date = datetime.utcnow()
-				print('updated')
 			db.session.commit()
 			flash('Order was successfully saved!','success')
 			return redirect(url_for('administration_about.about_settings'))
@@ -81,6 +77,7 @@ def add_about_post():
 				if not output:
 					raise
 				new.img_url = output
+				# new_history = History('add_about', 1, tgt_about_id=new.aboutinfo_id)
 
 				new_history = History('add_about', current_user.id, tgt_about_id=new.aboutinfo_id)
 				db.session.add(new_history)
@@ -99,7 +96,8 @@ def add_about_post():
 				db.session.add(new_content)
 
 				db.session.commit()
-				return jsonify({'status':'success','msg':'The employee was successfully added','reload':'true'})
+				flash('The employee was successfully added', 'success')
+				return jsonify({'status':'success','msg':'The employee was successfully added','reload':True})
 			except Exception as e:
 				print(e)
 				db.session.rollback()
@@ -143,7 +141,6 @@ def edit_about_post(id):
 		upload = None
 		if "user_file" in request.files:
 			upload = request.files['user_file']
-			print(upload)
 			if upload.filename == "":
 				return jsonify({'status':'danger','msg':'Please upload an image.'})
 			if not upload or not allowed_file(upload.filename, ALLOWED_EXTENSIONS):
@@ -163,6 +160,8 @@ def edit_about_post(id):
 		if len(content) <= 0 and not upload:
 			return jsonify({'status':'danger','msg':'No changes were made.'})
 
+		# new_history = History('edit_about', 1, tgt_about_id=about.aboutinfo_id)
+
 		new_history = History('edit_about', current_user.id, tgt_about_id=about.aboutinfo_id)
 		db.session.add(new_history)
 		db.session.flush()
@@ -181,7 +180,6 @@ def edit_about_post(id):
 			# if not s:
 			# 	raise
 			output = upload_file_to_s3(upload, app.config['ABOUT_S3_BUCKET'], app.config["S3_BUCKET"])
-			# output = False
 			if output:
 				print(output)
 				new_content = HistoryContent(new_history.history_id, 'Image', output)
@@ -192,7 +190,8 @@ def edit_about_post(id):
 
 		try:
 			db.session.commit()
-			return jsonify({'status':'success','msg':'The employee was successfully edited','reload':'true'})
+			flash('The employee was successfully edited', 'success')
+			return jsonify({'status':'success','msg':'The employee was successfully edited','reload':True})
 		except Exception as e:
 			print(e)
 			db.session.rollback()
@@ -209,16 +208,17 @@ def edit_about_post(id):
 def delete_about():
 
 	form = DeleteForm(request.form)
-
 	if request.method=='POST' and form.validate():
 		try:
 			about = AboutInfo.query.get(int(form.id.data))
+			print(about)
 			if not about:
 				abort(404)
 		except Exception as e:
 			print(e)
 			abort(404)
 
+		# new_history = History('del_about', 1, tgt_about_id=about.aboutinfo_id)
 		new_history = History('del_about', current_user.id, tgt_about_id=about.aboutinfo_id)
 		db.session.add(new_history)
 		db.session.flush()
@@ -228,16 +228,14 @@ def delete_about():
 
 		s = delete_file_from_s3('{}_{}'.format('about', about.aboutinfo_id), app.config['ABOUT_S3_BUCKET'], app.config["S3_BUCKET"])
 		if not s:
-			flash('Something went wrong deleting the file. Refresh the page and try again','danger')
-			return redirect(url_for('administration_files.file_settings'))
-
-		db.session.delete(about)
+			return jsonify({'status':'danger','msg':'Something went wrong. Please refresh the page and try again.'})
 
 		try:
+			db.session.delete(about)
 			db.session.commit()
-			return jsonify({'status':'success','msg':'The employee was successfully deleted','reload':'true'})
+			flash('The employee "{} {}" was successfully deleted'.format(about.first,about.last), 'success')
+			return jsonify({'status':'success','msg':'The employee was successfully deleted','reload':True})
 		except Exception as e:
 			print(e)
 			db.session.rollback()
-
 	return jsonify({'status':'danger','msg':'Something went wrong. Please refresh the page and try again.'})

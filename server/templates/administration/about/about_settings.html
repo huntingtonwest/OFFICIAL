@@ -5,8 +5,9 @@
 Please note that any changes made will be implemented immediately.<br><br>
 <a class="btn btn-info" href="{{ url_for('administration_about.add_about_get')}}">Add Employee</a><br><br>
 
-<form action="{{ url_for('administration_about.about_settings') }}" method='post'>
+<form method='post' action="{{ url_for('administration_about.about_settings') }}">
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
 <table class="table">
   <thead>
     <th scope="col">Name</th>
@@ -36,10 +37,10 @@ Please note that any changes made will be implemented immediately.<br><br>
 
         <td><a class="btn btn-info" href="{{ url_for('administration_about.edit_about_get', id=e.aboutinfo_id)}}">edit</a></td>
         <td>
-          <form class="form" action="{{ url_for('administration_about.delete_about') }}">
+          <div class="about-delete" action="{{ url_for('administration_about.delete_about') }}" method='post'>
             <input type="hidden" name="id" value="{{e.aboutinfo_id}}">
-            <input class="btn btn-danger" type="submit" value="delete">
-          </form>
+            <input class="btn btn-danger" type="button" value="delete">
+          </div>
         </td>
       </tr>
 

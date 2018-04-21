@@ -12,9 +12,8 @@ from server.utils.hwp_email_template import html_consultation_form, html_contact
 from server.forms.forms import ConsultationForm, ContactForm
 from sqlalchemy import or_
 from server.utils.query_utils import serialize, get_associations
-from config import MAIL_USERNAME
 
-from server import db, mail
+from server import app, db, mail
 
 mod = Blueprint('forms', __name__)
 
@@ -44,16 +43,15 @@ def consultation_form_post():
 	recipients = [r.email for r in receivers.emails]
 
 
-	msg = Message('"{}" Consultation Form Submission'.format(name), sender=MAIL_USERNAME, recipients=recipients)
-	msg2 = Message('Consultation Form Submission Receipt', sender=MAIL_USERNAME, recipients=form.email.data)
+	msg = Message('"{}" Consultation Form Submission'.format(name), sender=app.config['MAIL_USERNAME'], recipients=recipients)
+	msg2 = Message('Consultation Form Submission Receipt', sender=app.config['MAIL_USERNAME'], recipients=[form.email.data])
 	msg.html = email_content
-	# msg2.html = "Thank you for your interest in Huntington West Properties. Someone will be in contact with you shortly.<br><br>{}".format(email_content)
-	# print(msg2.html)
+	msg2.html = "Thank you for contacting Huntington West Properties. Someone will be in contact with you shortly.<br><br>{}".format(email_content)
+
 	try:
 		new_history = History('consultation_form', None)
 		db.session.add(new_history)
 		db.session.flush()
-
 		id_content = HistoryContent(new_history.history_id, 'Identifier', 'Consultation Form Submission')
 		name_content = HistoryContent(new_history.history_id, 'Name', name)
 		email_content = HistoryContent(new_history.history_id, 'Email', form.email.data)
@@ -67,9 +65,11 @@ def consultation_form_post():
 		db.session.add(regarding_content)
 		db.session.add(msg_content)
 		db.session.commit()
+
 		mail.send(msg)
-		# mail.send(msg2)
-	except:
+		mail.send(msg2)
+	except Exception as e:
+		print(e)
 		db.session.rollback()
 		return jsonify({'status':'error', 'msg': 'Form failed to send. Please try again.'})
 
@@ -103,10 +103,10 @@ def contact_form_post():
 	# recipients = receivers.emails
 	recipients = [r.email for r in receivers.emails]
 
-	msg = Message('"{}" Contact Form Submission'.format(name), sender=MAIL_USERNAME, recipients=recipients)
-	msg2 = Message('Contact Form Submission Receipt', sender=MAIL_USERNAME, recipients=form.email.data)
+	msg = Message('"{}" Contact Form Submission'.format(name), sender=app.config['MAIL_USERNAME'], recipients=recipients)
+	msg2 = Message('Contact Form Submission Receipt', sender=app.config['MAIL_USERNAME'], recipients=[form.email.data])
 	msg.html = email_content
-	# msg2.html = "Thank you for contacting Huntington West Properties. Someone will be in contact with you shortly.<br><br>{}".format(email_content)
+	msg2.html = "Thank you for contacting Huntington West Properties. Someone will be in contact with you shortly.<br><br>{}".format(email_content)
 	# print(msg2.html)
 	try:
 		new_history = History('contact_form', None)
@@ -132,7 +132,7 @@ def contact_form_post():
 		db.session.commit()
 
 		mail.send(msg)
-		# mail.send(msg2)
+		mail.send(msg2)
 	except:
 		db.session.rollback()
 		return jsonify({'status':'error', 'msg': 'Form failed to send. Please try again.'})

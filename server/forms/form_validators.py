@@ -82,27 +82,12 @@ def phone_number_validator(form, field):
 
 
     if re.match(r"^[0-9]*$", filtered_num):
-        if not len(filtered_num) in [10,11]:
-            msg = 'Please enter a valid phone number'
-            raise ValidationError(msg)
+        return
     else:
-        msg = 'Please use only numbers and -()'
+        msg = 'Please use only numbers and -(). Denote extensions with an additional "-"'
         raise ValidationError(msg)
 
-    if len(filtered_num) == 10:
-        country = 1
-        area = filtered_num[:3]
-        mid = filtered_num[3:6]
-        end = filtered_num[6:]
-    elif len(filtered_num) == 11:
-        country = filtered_num[:1]
-        area = filtered_num[1:4]
-        mid = filtered_num[4:7]
-        end = filtered_num[7:]
 
-        new_num = '{}-{}-{}-{}'.format(country, area,mid,end)
-        # field.data=new_num
-        return
 
 #make sure that state abbreviation input is valid
 def state_validator(form, field):

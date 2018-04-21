@@ -38,7 +38,7 @@ All accounts have full access to add/edit/delete features. However, only the mas
 				<a class="btn btn-info" href="{{ url_for('administration_users.edit_user', user_id=u.id) }}">edit</a>
 			</td>
 			<td>
-				<form class="delete" action="{{ url_for('administration_users.delete_user')}}" method="post">
+				<form class="delete simple-submit" action="{{ url_for('administration_users.delete_user')}}" method="post">
 					<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 					<input type="hidden" name="id" value="{{u.id}}">
 					<input class="btn btn-danger" type="submit" value="delete">
@@ -65,7 +65,7 @@ All accounts have full access to add/edit/delete features. However, only the mas
 		<td>{{p.email}}</td>
 		<td>{{p.join_date}}</td>
 		<td>
-			<form class="form" action="{{ url_for('administration_users.resend_invitation')}}" method="post">
+			<form class="form simple-submit" action="{{ url_for('administration_users.resend_invitation')}}" method="post">
 				<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 				<input type="hidden" name="id" value="{{p.id}}">
 				<input type="hidden" name="email" value="{{p.email}}">
@@ -73,7 +73,7 @@ All accounts have full access to add/edit/delete features. However, only the mas
 			</form>
 		</td>
 		<td>
-			<form class="delete" action="{{ url_for('administration_users.delete_user')}}" method="post">
+			<form class="delete simple-submit" action="{{ url_for('administration_users.delete_user')}}" method="post">
 				<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 				<input type="hidden" name="id" value = "{{p.id}}">
 				<input class="btn btn-danger" type="submit" value="Revoke">

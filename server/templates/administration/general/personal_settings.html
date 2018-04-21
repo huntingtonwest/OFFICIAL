@@ -6,7 +6,7 @@
 <br><h1>Personal Settings</h1><br><br>
 
 
-<form action="/personal-settings" method="post">
+<form class="simple-submit"  action="/personal-settings" method="post">
   <input type="hidden" value="{{current_user.id}}" name='id'>
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
   {{ render_field(form.first_name, class_="form-control", value=current_user.first) }}

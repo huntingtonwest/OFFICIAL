@@ -160,7 +160,8 @@ def edit_property(property_id):
 						db.session.delete(del_img)
 
 			db.session.commit()
-			return jsonify({'status':'success','msg':'Property was successfully edited','reload':'true'})
+			flash('Property was successfully edited', 'success')
+			return jsonify({'status':'success','msg':'Property was successfully edited','reload':True})
 		except Exception as e:
 			print(e)
 			db.session.rollback()
@@ -245,7 +246,8 @@ def add_property():
 					db.session.add(new_content)
 
 			db.session.commit()
-			return jsonify({'status':'success','msg':'Property was successfully added!','reload':'true'})
+			flash('Property was successfully added!','success')
+			return jsonify({'status':'success','msg':'Property was successfully added!','reload':True})
 
 		except Exception as e:
 			print(e)

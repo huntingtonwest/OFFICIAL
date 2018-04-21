@@ -44,6 +44,7 @@ class Footer extends Component {
             </div>
           </Row>
         </Grid>
+        <div className="footer-bg">
         <div className="footer-grid">
             <div className="footer-emphasize">
               <p className="footer-wide">&copy; 2018 Huntington West Properties, Inc. All Rights Reserved.</p>
@@ -52,6 +53,7 @@ class Footer extends Component {
               <p className="footer-squish"><span><a href="https://s3-us-west-1.amazonaws.com/huntingtonwest.com/static/media/privacypolicy.pdf" className="footer-emphasize footer-underline">Privacy Policy</a>
             </span> | 13812 Goldenwest Street Ste #100, Westminster, CA 92683</p>
             </div>
+        </div>
         </div>
       </div>
     );

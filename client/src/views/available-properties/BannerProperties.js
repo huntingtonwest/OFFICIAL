@@ -3,15 +3,15 @@ import { Tabs, Tab, Row, Col, Grid } from 'react-bootstrap';
 import { AutoComplete, Select, Button } from 'antd';
 import DoubleSelect from './DoubleSelect'
 const { Option, OptGroup } = Select;
-const rentMinOptions = ['No Min','$500','$750','$1,000','$1,250'];
-const rentMaxOptions = ['No Max', '$500','$750','$1,000','$1,250'];
-const priceMinOptions = ['No Min','$100,000','$200,000','$300,000','$400,000'];
-const priceMaxOptions = ['No Max', '$100,000','$200,000','$300,000','$400,000'];
+const rentMinOptions = ['No Min','$500','$1,000','$1,500','$2,000','$2,500','$3,000','$3,500','$4,000','$4,500','$5,000'];
+const rentMaxOptions = ['No Max', '$500','$1,000','$1,500','$2,000','$2,500','$3,000','$3,500','$4,000','$4,500','$5,000'];
+const priceMinOptions = ['No Min','$100,000','$200,000','$300,000','$400,000','$500,000','$600,000','$700,000','$800,000', '$900,000', '$1,000,000'];
+const priceMaxOptions = ['No Max', '$100,000','$200,000','$300,000','$400,000','$500,000','$600,000','$700,000','$800,000', '$900,000', '$1,000,000'];
 
 const bedMinOptions = ['No Min', 'Studio','1','2','3', '4', '5', '6', '7', '8', '9', '10'];
 const bedMaxOptions = ['No Max', 'Studio','1','2','3', '4', '5', '6', '7', '8', '9', '10'];
-const bathMinOptions = ['No Min', '1','1.5','2','3', '4', '5', '6', '7', '8', '9', '10'];
-const bathMaxOptions = ['No Max', '1','1.5','2','3', '4', '5', '6', '7', '8', '9', '10'];
+const bathMinOptions = ['No Min', '1','2','3', '4', '5', '6', '7', '8', '9', '10'];
+const bathMaxOptions = ['No Max', '1','2','3', '4', '5', '6', '7', '8', '9', '10'];
 
 
 const dataSource = ['Los Angeles, CA', 'Orange County, CA', 'San Diego, CA'];
@@ -189,10 +189,10 @@ class SearchForm extends React.Component {
             </Col>
             <Col xs={12} sm={3} lg={3} className="search-col">
             <Row>
-              <Button onClick={this.props.onClick} className="button-form search-button " icon="search">Search</Button>
+              <Button id="search" onClick={this.props.onClick} className="button-form search-button " icon="search">Search</Button>
 </Row>
 <Row className="reset-col">
-              <Button onClick={this.handleReset} className="button-form reset-button " >Reset</Button>
+              <Button id="search" onClick={this.handleReset} className="button-form reset-button " >Reset</Button>
 </Row>
             </Col>
         </Row>

@@ -35,7 +35,7 @@ class Resources extends Component {
         this.setModalVisible(true);
         break;
       case 'payments':
-        window.location.assign('http://www.paylease.com');
+        window.location.assign('https://www.paylease.com/registration/pay_portal/2386660/ACC?vpw=800');
         break;
       case 'condocerts':
         window.location.assign('https://secure.condocerts.com/resale/');

@@ -94,11 +94,11 @@ class About extends Component {
                     <div className="about-row-info">
                   <h1 className="about-row-title">OUR VALUES</h1>
                     <p>
-                      Our actions area based on the highest standard of
-                      integrity and Chistian ethics.
+                      Our actions are based on the highest standard of
+                      integrity and Christian ethics.
                     </p>
                     <p>
-                      We perform our work with dilligence and professionalist.
+                      We perform our work with dilligence and professionalism.
                     </p>
                     <p>
                       We will strive to improve our performance and service

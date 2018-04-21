@@ -1,10 +1,22 @@
 import * as React from "react";
-import { Row, Grid, Col } from 'react-bootstrap';
+import { Row, Grid, Col} from 'react-bootstrap';
+import { Menu, Dropdown, Button, Icon, message } from 'antd';
 
 import {
   Image
   // Navbar, Nav, NavDropdown, MenuItem
 } from "react-bootstrap";
+
+const menu = (
+  <Menu>
+    <Menu.Item>
+      <a target="_blank" rel="noopener noreferrer" href="https://realhwptest.herokuapp.com/login">Admin</a>
+    </Menu.Item>
+    <Menu.Item>
+      <a target="_blank" rel="noopener noreferrer" href="https://www.appfolio.com/login">Resident</a>
+    </Menu.Item>
+  </Menu>
+);
 
 // Collapsible sticky navbar shown on scroll
 class MyNavbar extends React.Component {
@@ -34,9 +46,12 @@ class MyNavbar extends React.Component {
 <Row className="login-row">
 <div className="nav-float">
 
-<button className="rightBtn">
-<a href="#" className="right-button">Login</a>
-</button>
+<Dropdown id="menu-dropdown" overlay={menu}>
+      <Button id="search" className="button-form login-button " style={{ marginLeft: 8 }}>
+        Login
+      </Button>
+    </Dropdown>
+
 </div>
 </Row>
 <Row className="menu-row">
@@ -81,11 +96,11 @@ class MyNavbar extends React.Component {
         <a href="/resources" className="align-text-bottom hover-1">Resident/Owner Resources</a>
         </button>
           <div className="dropdown-content">
-            <a href="/resources#resource-form">Work Order</a>
-            <a href="/resources#resource-form">Contact Your Manager</a>
             <a href="/resources#tenant-options">Payment</a>
             <a href="/resources#tenant-options">Rental Forms</a>
             <a href="/resources#tenant-options">Condocerts</a>
+            <a href="/resources#resource-form">Work Order</a>
+            <a href="/resources#resource-form">Contact Your Manager</a>
           </div>
         </div>
         <div className="my-dropdown">

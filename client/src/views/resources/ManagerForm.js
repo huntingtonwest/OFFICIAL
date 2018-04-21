@@ -35,7 +35,8 @@ class ManagerForm extends React.Component {
       captcha: false,
       modalVisible: false,
       errors: [],
-      status: 'Error'
+      status: 'Error',
+      formSent: false
     };
 
     this.handleSelect = this.handleSelect.bind(this);
@@ -53,8 +54,11 @@ class ManagerForm extends React.Component {
 
   postForm = (e) => {
     e.preventDefault();
+    if (this.state.formSent) {
+      return;
+    }
     if (!this.state.captcha) {
-      this.setState({errors: ['Captcha is required'], status: 'Error', modalVisible: true});
+      this.setState({errors: ['Captcha is required Captcha is required Captcha is required Captcha is required Captcha is required'], status: 'Error', modalVisible: true});
       return;
     }
     const data = new FormData(e.target);
@@ -62,27 +66,27 @@ class ManagerForm extends React.Component {
     if (this.state.subject == 'Association')
       data.set('association', this.state.association);
 
-    fetch('https://realhwptest.herokuapp.com/contact-form', {
-      method: 'POST',
-      body: data
-    }).then(response => response.json())
-    .then(response => {
-
-      if (response.status == 'error') {
-        var arr = [];
-        for(var i in response.errors)
-            arr.push([i, response.errors [i]]);
-        let errors = arr.map((error) => {
-          return (
-            <li>{error[0] + ': ' + error[1]}</li>
-          );
-        });
-        this.setState({errors: errors, status: 'Error', modalVisible: true});
-      }
-      else {
-        this.setState({errors: ['Form was sent!'], status: 'Success!', modalVisible: true});
-      }
-    });
+    // fetch('https://realhwptest.herokuapp.com/contact-form', {
+    //   method: 'POST',
+    //   body: data
+    // }).then(response => response.json())
+    // .then(response => {
+    //
+    //   if (response.status == 'error') {
+    //     var arr = [];
+    //     for(var i in response.errors)
+    //         arr.push([i, response.errors [i]]);
+    //     let errors = arr.map((error) => {
+    //       return (
+    //         <li>{error[0] + ': ' + error[1]}</li>
+    //       );
+    //     });
+    //     this.setState({errors: errors, status: 'Error', modalVisible: true});
+    //   }
+    //   else {
+    //     this.setState({errors: ['Form was sent!'], status: 'Success!', modalVisible: true, formSent: true});
+    //   }
+    // });
   }
 
   setModalVisible(modalVisible) {

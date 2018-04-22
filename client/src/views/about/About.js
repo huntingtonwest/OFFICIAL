@@ -81,7 +81,7 @@ class About extends Component {
               <Row className="mission-row">
                 <Col xs={12} sm={6} lg={6} className="mission-col padding-right">
                     <div className="about-row-info">
-                  <h1 className="about-row-title">OUR MISSION</h1>
+                  <h1 className="about-row-title title-container">OUR MISSION</h1>
                   <p>
                     Huntington West Properties Inc. will be the real estate
                     company of choice, making the needs of our clients and
@@ -92,13 +92,13 @@ class About extends Component {
                 </Col>
                 <Col xs={12} sm={6} lg={6} className="mission-col padding-left">
                     <div className="about-row-info">
-                  <h1 className="about-row-title">OUR VALUES</h1>
+                  <h1 className="about-row-title title-container">OUR VALUES</h1>
                     <p>
-                      Our actions area based on the highest standard of
-                      integrity and Chistian ethics.
+                      Our actions are based on the highest standard of
+                      integrity and Christian ethics.
                     </p>
                     <p>
-                      We perform our work with dilligence and professionalist.
+                      We perform our work with dilligence and professionalism.
                     </p>
                     <p>
                       We will strive to improve our performance and service

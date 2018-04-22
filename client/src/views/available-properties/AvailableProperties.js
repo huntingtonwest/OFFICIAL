@@ -115,6 +115,7 @@ class AvailableProperties extends Component {
         return (
           <PropertyVertical
             id={property.name}
+            name={property.name}
             img={property.images}
             rent={price}
             rentComma={price_comma}

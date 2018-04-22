@@ -38,7 +38,7 @@ class PropertyVertical extends React.Component {
     this.state = {
       button: 'View More',
       style: {
-        maxHeight: '100px'
+        maxHeight: '105px'
       },
       buttonVisible: true,
       applyButton: '1em'
@@ -58,6 +58,14 @@ class PropertyVertical extends React.Component {
     }
   }
 
+  inquire() {
+    window.location.assign('/contact#form');
+  }
+
+  apply() {
+    window.location.assign('https://huntingtonwest.ready2apply.com/d/apply/1914/new');
+  }
+
   toggleDesc() {
     if (this.state.button == 'View More') {
       this.setState({
@@ -71,7 +79,7 @@ class PropertyVertical extends React.Component {
       this.setState({
         button: 'View More',
         style: {
-          height: '100px'
+          height: '105px'
         }
       });
     }
@@ -112,6 +120,7 @@ class PropertyVertical extends React.Component {
               </div>
             </Row>
             <Row>
+            <p className="property-name">{this.props.name}</p>
             <p className="property-address">{this.props.address}</p>
             <p className="property-availability">{this.props.availability}</p>
             <p className="property-date">Date posted: {this.props.date}</p>
@@ -121,7 +130,10 @@ class PropertyVertical extends React.Component {
             <br style={{height: this.state.applyButton}} />
           <Row className="property-buttons-row">
             <div className="property-buttons">
-              <Button bsStyle="default" className="property-apply-button">
+            <Button onClick={this.inquire} bsStyle="default" className="property-apply-button">
+              Inquire
+            </Button>
+              <Button onClick={this.apply} bsStyle="default" className="property-apply-button">
                 Apply Now
               </Button>
             </div>

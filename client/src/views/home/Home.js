@@ -9,6 +9,10 @@ const { Meta } = Card;
 
 class Home extends Component {
 
+  handleClick() {
+    window.location.assign('/contact#form');
+  }
+
   render() {
     return (
       <div className="home-container">
@@ -26,6 +30,13 @@ class Home extends Component {
 
         <p>Huntington West Properties, Inc. is licensed by the California Department of Real Estate as a California Real Estate Broker and maintains membership in CACM, CAR and NAR.</p>
     </div>
+    <br/>
+      <br/>
+    <div className="desc-container">
+      <button className="button-form schedule-button" onClick={this.handleClick}>Schedule Consultation</button>
+    </div>
+    <br/>
+
       </div>
       <Footer bg="grey" logo="hide"/>
       </div>

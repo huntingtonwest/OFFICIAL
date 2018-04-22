@@ -40,6 +40,9 @@ class Properties(db.Model):
     for_sale = db.Column(db.Boolean())
     for_rent = db.Column(db.Boolean())
 
+    is_public = db.Column(db.Boolean(), default=False)
+    status = db.Column(db.String(100))
+
     area = db.Column(db.Integer)
 
     notes = db.Column(db.String(2000))

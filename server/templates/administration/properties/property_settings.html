@@ -137,6 +137,16 @@ Please note that any changes made while "For Sale" or "For Rent" are marked will
           </div>
 
           <div class="row">
+            <div class="col-md-2">Is public: </div>
+            <div class="col-md-9">{{ p.is_public }}</div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2">Property Status: </div>
+            <div class="col-md-9">{{ p.status }}</div>
+          </div>
+
+          <div class="row">
             <div class="col-md-2">Date updated: </div>
             <div class="col-md-9">{{p.date_posted}}</div>
           </div>

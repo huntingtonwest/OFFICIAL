@@ -57,7 +57,20 @@ Please note that any changes made while "For Sale" or "For Rent" are marked will
     </div>
 
   {{ render_field3(form.rent_price, class="form-control", value=property.rent_price) }}
+  <div class="form-group row">
+    <legend class="col-form-label col-sm-2 font-weight-bold" for="is_public">Is Public</legend>
+    <div class="col-sm-10">
+      <div class="form-check">
+        <input id="is_public" class="form-check-input"  name="is_public" type="checkbox">
+        <label class="form-check-label" for="is_public">
+          Checking this box will put this property up on the public property listings.
+        </label>
+        <div class="field-errors is_public-errors"></div>
+      </div>
+    </div>
+  </div>
 
+  {{ render_field3(form.status, class="form-control") }}
   {{ render_field3(form.notes, class="form-control", value=property.notes) }}
 
   <div class="image-list">

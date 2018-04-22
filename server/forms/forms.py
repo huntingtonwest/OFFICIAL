@@ -171,4 +171,6 @@ class PropertyForm(Form):
 
     area       = IntegerField('Area (sq ft)', [validators.NumberRange(min=0, message=int_error_msg(min=0)),
                                                 validators.InputRequired(message=required())])
+    is_public  = BooleanField('Is Public')
+    status     = StringField('Property Status', [validators.Length(max=100, message=len_error_msg(max=100))])
     notes      = StringField('Notes/Comments', [validators.Length(max=2000, message=len_error_msg(max=2000))], widget=TextArea())

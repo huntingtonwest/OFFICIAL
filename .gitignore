@@ -5,3 +5,5 @@ venv/
 /test.py
 node_modules/
 /dev_config.py
+/dev_db_create.py
+migrations/

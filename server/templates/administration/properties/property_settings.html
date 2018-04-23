@@ -28,8 +28,10 @@ Please note that any changes made while "For Sale" or "For Rent" are marked will
           Filter by: All
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a id="public" class="filter dropdown-item">Is Public</a>
           <a id="rent" class="filter dropdown-item">For Rent</a>
           <a id="sale" class="filter dropdown-item">For Sale</a>
+          <a id="rent-or-sale" class="filter dropdown-item">For Rent or Sale</a>
           <a id="rs" class="filter dropdown-item">For Rent & Sale</a>
           <a id="neither" class="filter dropdown-item">Not For Rent or Sale</a>
           <a id="reset" class="btn dropdown-item">All</a>
@@ -138,12 +140,16 @@ Please note that any changes made while "For Sale" or "For Rent" are marked will
 
           <div class="row">
             <div class="col-md-2">Is public: </div>
+            {% if p.is_public %}
+            <div class="public col-md-9">{{ p.is_public }}</div>
+            {% else %}
             <div class="col-md-9">{{ p.is_public }}</div>
+            {% endif %}
           </div>
 
           <div class="row">
             <div class="col-md-2">Property Status: </div>
-            <div class="col-md-9">{{ p.status }}</div>
+            <div class="search col-md-9">{{ p.status }}</div>
           </div>
 
           <div class="row">

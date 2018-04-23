@@ -43,6 +43,7 @@ class Properties(db.Model):
     is_public = db.Column(db.Boolean(), default=False)
     status = db.Column(db.String(100))
 
+
     area = db.Column(db.Integer)
 
     notes = db.Column(db.String(2000))

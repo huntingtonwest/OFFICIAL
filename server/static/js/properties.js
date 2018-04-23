@@ -23,12 +23,21 @@ $('.sort').on('click', function () {
 $('.filter').on('click', function () {
   var type = $(this).attr('id');
 
-  if (type.match('rent|sale')){
+  if (type =='rent-or-sale') {
+    $rows.hide();
+    $rows.find('.rent').closest('.prop-row').show();
+    $rows.find('.sale').closest('.prop-row').show();
+    $('#filter-by-display').text('Filter by: For Rent or Sale');
+  } else if (type.match('rent|sale')){
     $rows.hide();
     var cls = '.' + type;
     $rows.find(cls).closest('.prop-row').show();
     $('#filter-by-display').text('Filter by: For ' + type);
-  } else if (type == 'rs'){
+  } else if (type =='public') {
+    $rows.hide();
+    $rows.find('.public').closest('.prop-row').show();
+    $('#filter-by-display').text('Filter by: Is Public');
+  }  else if (type == 'rs'){
     $rows.hide();
     $rows.find(".rent").closest('.prop-row').find('.sale').closest('.prop-row').show();
     $('#filter-by-display').text('Filter by: For rent and sale');

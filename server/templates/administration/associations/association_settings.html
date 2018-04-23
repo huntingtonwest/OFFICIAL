@@ -29,7 +29,13 @@ Please note that any changes made will be implemented immediately.<br><br>
     <tr class="acn-row">
       <td class="search name">{{ a.acn_name }}</td>
       <td class="search loc">{{ a.acn_loc }}</td>
+
+      {% if a.acn_url %}
       <td><a href="{{ a.acn_url }}">link</a></td>
+      {% else %}
+      <td>N/A</td>
+      {% endif %}
+
       <td><a href= "{{url_for('administration_associations.edit_association', acn_id=a.acn_id)}}" class='btn btn-info'>edit</a></td>
       <td>
         <form class="delete simple-submit" action = "{{url_for('administration_associations.delete_association')}}" method='post'>

@@ -32,8 +32,8 @@ def init():
 @mod.route('/get-properties', methods=['GET'])
 def get_properties_get():
 
-	p = Properties.query.filter(or_(Properties.for_sale == True, Properties.for_rent == True)).all()
-
+	# p = Properties.query.filter(or_(Properties.for_sale == True, Properties.for_rent == True)).all()
+	p = Properties.query.filter_by(is_public = True).all()
 	properties = []
 	for x in p:
 		prop = serialize(x, Properties)

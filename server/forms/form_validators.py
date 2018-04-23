@@ -1,6 +1,17 @@
 import re
 from wtforms import ValidationError
 from server.models.associations import Associations
+
+def is_public_validator(form, field):
+    if field.data:
+        for_rent = form._fields.get('for_rent')
+        for_sale = form._fields.get('for_sale')
+
+        if for_rent.data or for_sale.data:
+            return
+        else:
+            raise ValidationError('If the property is to be put on a public listing, it must be marked as for sale or for rent.')
+
 #used when user is creating a password
 def password_creation_validator(form, field):
     password = str(field.data)
